@@ -1,27 +1,32 @@
+<script setup lang="ts">
+import BlurReveal from '~/components/ui/blur-reveal/BlurReveal.vue'
+import SparklesText from '~/components/ui/sparkles-text/SparklesText.vue'
+import Requestcallback from '~/components/Requestcallback.vue'
+
+</script>
+
 <template>
 <div>
-    <h1 class="text-red-700">Home</h1>
-    <Button>hello</Button>
-    <Accordion type="single" class="w-full" collapsible :default-value="defaultValue">
-    <AccordionItem v-for="item in accordionItems" :key="item.value" :value="item.value">
-      <AccordionTrigger>{{ item.title }}</AccordionTrigger>
-      <AccordionContent>
-        {{ item.content }}
-      </AccordionContent>
-    </AccordionItem>
-  </Accordion>
+  <div class="mx-5 my-5 lg:mx-20 lg:my-10">
+    <BlurReveal
+    :delay="0.2"
+    :duration="0.75"
+    class="mb-10"
+    >
+    <h1 class="font-Berlin-sans-fb text-black text-6xl lg:text-8xl">
+      We Create 
+      <span>
+        <SparklesText
+        text="Custom"
+        :colors="{ first: '#9E7AFF', second: '#FE8BBB' }"
+        :sparkles-count="10"
+        class="text-primary"
+        />
+      </span> Websites, Apps & Brands
+    </h1>
+    </BlurReveal>
+    <Requestcallback />
+  </div>
+  
 </div>
 </template>
-
-<script setup lang="ts">
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
-import Button from '~/components/ui/button/Button.vue'
-
-const defaultValue = 'item-1'
-
-const accordionItems = [
-  { value: 'item-1', title: 'Is it accessible?', content: 'Yes. It adheres to the WAI-ARIA design pattern.' },
-  { value: 'item-2', title: 'Is it unstyled?', content: 'Yes. It\'s unstyled by default, giving you freedom over the look and feel.' },
-  { value: 'item-3', title: 'Can it be animated?', content: 'Yes! You can use the transition prop to configure the animation.' },
-]
-</script>
