@@ -11,5 +11,18 @@ export default defineNuxtConfig({
     ],
   },
 
-  modules: ['shadcn-nuxt', '@vueuse/nuxt','motion-v/nuxt'],
+  modules: [
+    'shadcn-nuxt',
+    '@vueuse/nuxt',
+    'motion-v/nuxt',
+    'nuxt-directus',
+  ],
+
+  runtimeConfig:{
+    public:{
+      directus:{
+        url: 'http://localhost:8055'
+      }
+    }
+  }
 })
