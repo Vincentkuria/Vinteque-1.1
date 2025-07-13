@@ -17,7 +17,8 @@ export default defineNuxtConfig({
     'motion-v/nuxt',
     'nuxt-directus',
     '@nuxt/image',
-    '@nuxt/icon'
+    '@nuxt/icon',
+    'nuxt-marquee'
   ],
 
   runtimeConfig:{

@@ -5,6 +5,7 @@ import DialogContent from './ui/dialog/DialogContent.vue'
 import DialogHeader from './ui/dialog/DialogHeader.vue'
 import DialogTitle from './ui/dialog/DialogTitle.vue'
 import DialogDescription from './ui/dialog/DialogDescription.vue'
+import ShimmerButton from './ui/shimmer-button/ShimmerButton.vue'
 
 
 </script>
@@ -13,7 +14,16 @@ import DialogDescription from './ui/dialog/DialogDescription.vue'
     <div>
         <Dialog>
             <DialogTrigger>
-                <button class="bg-primary px-5 py-3 text-white rounded-full text-nowrap">Request Callback</button>
+                <ShimmerButton
+                class="shadow-2xl"
+                shimmer-size="2px"
+                >
+                    <span
+                      class="text-nowrap text-center text-sm font-medium leading-none tracking-tight text-white lg:text-lg"
+                    >
+                      Request Callback
+                    </span>
+                </ShimmerButton>
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>

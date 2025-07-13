@@ -14,6 +14,7 @@ import SheetTitle from './ui/sheet/SheetTitle.vue'
 import SheetDescription from './ui/sheet/SheetDescription.vue'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { Home } from 'lucide-vue-next'
+import { motion } from "motion-v"
 
 
 const services=[
@@ -66,15 +67,32 @@ const cases=[
     }
 ]
 
+const isFixed = ref(false)
+
+const handleScroll = () => {
+    isFixed.value = window.scrollY > 50
+}
+
+onMounted(()=>{
+    window.addEventListener("scroll", handleScroll)
+})
+
+onBeforeUnmount(()=>{
+    window.removeEventListener("scroll", handleScroll)
+})  
+
 </script>
 
 <template>
-<div>
-    <div class=" flex justify-between md:justify-around m-3 items-center">
+<motion.div
+:class="isFixed ? 'fixed top-0  bg-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.2)]' : 'relative'"
+class="z-10 bg-white w-full "
+>
+    <div class="flex justify-between md:justify-around p-2 items-center">
         <NuxtLink to="/">  
             <div class="w-fit flex flex-col">
-                <NuxtImg src="/vinteque.png" class="w-20 h-20 object-contain self-center"/>
-                <div class="flex justify-center"><h1 class="font-Berlin-sans-fb text-2xl self-center">Vinteque</h1></div>
+                <NuxtImg src="/vinteque.png" :class="isFixed ? 'w-12 h-12 ease-in-out':'w-20 h-20'" class="object-contain self-center"/>
+                <div class="flex justify-center"><h1 :class="isFixed ? 'text-base':'text-2xl'" class="font-Berlin-sans-fb self-center">Vinteque</h1></div>
             </div>
         </NuxtLink>
 
@@ -132,11 +150,28 @@ const cases=[
         </NavigationMenu>
         
         <div class="flex flex-row items-center">
-            <a href="tel:+254712051540" class="me-3 font-bold hover:text-primary text-nowrap hidden lg:block">+2547-1205-1540</a>
+            <Motion
+            :while-hover="{scale: 1.01}"
+            :while-press="{scale: 0.95}"
+            as-child
+            >
+            <div>
+                 <a href="tel:+254712051540" class="me-3 font-bold hover:text-primary text-nowrap hidden lg:block">+2547-1205-1540</a>
+            </div>
+            
+            </Motion>
+            
             
             <Sheet>
                 <SheetTrigger>
-                    <div class="bg-primary text-white rounded-full md:px-5 md:py-2 px-2 py-1 text-nowrap font-semibold hover:cursor-pointer">Get In Touch</div>
+                    <Motion
+                    :while-hover="{scale: 1.1}"
+                    :while-press="{scale: 0.95}"
+                    as-child
+                    >
+                        <div class="bg-primary text-white rounded-full md:px-5 md:py-2 px-2 py-1 text-nowrap font-semibold hover:cursor-pointer">Get In Touch</div>
+                    </Motion>
+                    
                 </SheetTrigger>
                 <SheetContent>
                     <SheetHeader>
@@ -174,29 +209,33 @@ const cases=[
                     <div class="block">
                         <Accordion type="single" class="w-full" collapsible>
                           <AccordionItem :value="'Home'">
-                            <NuxtLink to="/"><div class="my-4">Home</div></NuxtLink>
+                            <NuxtLink to="/"><div class="my-4">Home <Icon name="nrk:arrow-right-long" class="text-primary align-middle ps-1"/></div></NuxtLink>
                           </AccordionItem>
                           
                           <AccordionItem :value="'services'">
                             <AccordionTrigger>Services</AccordionTrigger>
                             <AccordionContent>
-                              wololo
+                              <ul>
+                                <li v-for="service in services" class="p-2"><NuxtLink :to="service.href">{{ service.title }}<Icon name="nrk:arrow-right-long" class="text-primary align-middle ps-1"/></NuxtLink></li>
+                              </ul>
                             </AccordionContent>
                           </AccordionItem>
 
                           <AccordionItem :value="'Case'">
                             <AccordionTrigger>Case Study</AccordionTrigger>
                             <AccordionContent>
-                              wololo
+                              <ul>
+                                <li v-for="cas in cases" class="p-2"><NuxtLink :to="cas.href">{{ cas.title }}<Icon name="nrk:arrow-right-long" class="text-primary align-middle ps-1"/></NuxtLink></li>
+                              </ul>
                             </AccordionContent>
                           </AccordionItem>
 
                           <AccordionItem :value="'Careers'">
-                            <NuxtLink to="/"><div class="my-4">Careers</div></NuxtLink>
+                            <NuxtLink to="/"><div class="my-4">Careers <Icon name="nrk:arrow-right-long" class="text-primary align-middle ps-1"/></div></NuxtLink>
                           </AccordionItem>
 
                           <AccordionItem :value="'Blogs'">
-                            <NuxtLink to="/"><div class="my-4">Blogs</div></NuxtLink>
+                            <NuxtLink to="/"><div class="my-4">Blogs <Icon name="nrk:arrow-right-long" class="text-primary align-middle ps-1"/></div></NuxtLink>
                           </AccordionItem>
 
                         </Accordion>
@@ -208,5 +247,5 @@ const cases=[
             
         </div>
     </div>
-</div>
+</motion.div>
 </template>

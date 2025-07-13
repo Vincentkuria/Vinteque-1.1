@@ -21,6 +21,7 @@
     "motion-v": "^1.5.0",
     "nuxt": "^3.17.6",
     "nuxt-directus": "^5.7.0",
+    "nuxt-marquee": "^1.0.4",
     "reka-ui": "^2.3.2",
     "shadcn-nuxt": "^2.2.0",
     "tailwind-merge": "^3.3.1",
