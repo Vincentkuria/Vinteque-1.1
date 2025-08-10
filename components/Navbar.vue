@@ -32,11 +32,11 @@ const services=[
     },
     {
         title:"Ecommerce Website",
-        href:"/ecommerce-website"
+        href:"/ecommerce-websites"
     },
     {
-        title:"Prodict & Marketing Website",
-        href:"/marketing-website"
+        title:"Product & Marketing Website",
+        href:"/marketing-websites"
     },
     {
         title:"Search Engine Optimization (SEO)",
@@ -53,21 +53,27 @@ const services=[
     {
         title:"Branding",
         href:"/branding"
+    },
+    {
+        title:"Bulk SMS",
+        href:"/bulk-sms"
     }
 ]
 
 const cases=[
     {
         title:"Software Development",
-        href:"/case/software"
+        href:"/case-study/software"
     },
     {
         title:"Brand Design",
-        href:"/case/branding"
+        href:"/case-study/branding"
     }
 ]
 
 const isFixed = ref(false)
+
+const trigger = ref<HTMLElement | null>(null)
 
 const handleScroll = () => {
     isFixed.value = window.scrollY > 50
@@ -80,6 +86,10 @@ onMounted(()=>{
 onBeforeUnmount(()=>{
     window.removeEventListener("scroll", handleScroll)
 })  
+
+const close = () => {
+    trigger.value?.click()
+}
 
 </script>
 
@@ -183,19 +193,19 @@ class="z-10 bg-white w-full "
                         </SheetDescription>
                     </SheetHeader>
 
-                    <from class="p-5 flex flex-col gap-4">
+                    <form class="p-5 flex flex-col gap-4">
                       <input type="text" placeholder="Name" class="bg-gray-300 rounded-full p-2 w-full" required/>
                       <input type="email" placeholder="Email" class="bg-gray-300 rounded-full p-2 w-full" required/>
                       <input type="text" placeholder="Phone" class="bg-gray-300 rounded-full p-2 w-full" required/>
                       <textarea placeholder="Message" class="bg-gray-300 rounded-sm p-2 w-full" required/>
                       <button type="submit" class="text-white bg-primary rounded-full p-2 w-full cursor-pointer">Submit</button>
-                    </from>
+                    </form>
                 </SheetContent>
             </Sheet>
 
             <Sheet>
                 <SheetTrigger>
-                    <span class="ms-2 md:hidden w-fit h-fit"><Icon name="solar:hamburger-menu-broken" class="text-4xl text-primary" /></span>
+                    <span ref="trigger" class="ms-2 md:hidden w-fit h-fit"><Icon name="solar:hamburger-menu-broken" class="text-4xl text-primary" /></span>
                 </SheetTrigger>
                 <SheetContent class="p-2">
                     <SheetHeader>
@@ -209,14 +219,14 @@ class="z-10 bg-white w-full "
                     <div class="block">
                         <Accordion type="single" class="w-full" collapsible>
                           <AccordionItem :value="'Home'">
-                            <NuxtLink to="/"><div class="my-4">Home <Icon name="nrk:arrow-right-long" class="text-primary align-middle ps-1"/></div></NuxtLink>
+                            <NuxtLink @click="close" to="/"><div class="my-4">Home <Icon name="nrk:arrow-right-long" class="text-primary align-middle ps-1"/></div></NuxtLink>
                           </AccordionItem>
                           
                           <AccordionItem :value="'services'">
                             <AccordionTrigger>Services</AccordionTrigger>
                             <AccordionContent>
                               <ul>
-                                <li v-for="service in services" class="p-2"><NuxtLink :to="service.href">{{ service.title }}<Icon name="nrk:arrow-right-long" class="text-primary align-middle ps-1"/></NuxtLink></li>
+                                <li v-for="service in services" class="p-2"><NuxtLink @click="close" :to="service.href">{{ service.title }}<Icon name="nrk:arrow-right-long" class="text-primary align-middle ps-1"/></NuxtLink></li>
                               </ul>
                             </AccordionContent>
                           </AccordionItem>
@@ -225,17 +235,17 @@ class="z-10 bg-white w-full "
                             <AccordionTrigger>Case Study</AccordionTrigger>
                             <AccordionContent>
                               <ul>
-                                <li v-for="cas in cases" class="p-2"><NuxtLink :to="cas.href">{{ cas.title }}<Icon name="nrk:arrow-right-long" class="text-primary align-middle ps-1"/></NuxtLink></li>
+                                <li v-for="cas in cases" class="p-2"><NuxtLink @click="close" :to="cas.href">{{ cas.title }}<Icon name="nrk:arrow-right-long" class="text-primary align-middle ps-1"/></NuxtLink></li>
                               </ul>
                             </AccordionContent>
                           </AccordionItem>
 
                           <AccordionItem :value="'Careers'">
-                            <NuxtLink to="/"><div class="my-4">Careers <Icon name="nrk:arrow-right-long" class="text-primary align-middle ps-1"/></div></NuxtLink>
+                            <NuxtLink @click="close" to="/careers"><div class="my-4">Careers <Icon name="nrk:arrow-right-long" class="text-primary align-middle ps-1"/></div></NuxtLink>
                           </AccordionItem>
 
                           <AccordionItem :value="'Blogs'">
-                            <NuxtLink to="/"><div class="my-4">Blogs <Icon name="nrk:arrow-right-long" class="text-primary align-middle ps-1"/></div></NuxtLink>
+                            <NuxtLink @click="close" to="/blogs"><div class="my-4">Blogs <Icon name="nrk:arrow-right-long" class="text-primary align-middle ps-1"/></div></NuxtLink>
                           </AccordionItem>
 
                         </Accordion>

@@ -33,7 +33,7 @@ import ShimmerButton from './ui/shimmer-button/ShimmerButton.vue'
                     <DialogDescription>
                         Share your contact details and we’ll follow up, locally via phone or internationally via Google Meet. It’s a simple, no-pressure way to explore your ideas with our expert team.
                     </DialogDescription>
-                    <from class="p-5 flex flex-col gap-4">
+                    <form class="p-5 flex flex-col gap-4">
                       <input type="text" placeholder="Name" class="bg-gray-300 rounded-full p-2 w-full" required/>
                       <input type="email" placeholder="Email" class="bg-gray-300 rounded-full p-2 w-full" required/>
                       <input type="text" placeholder="Phone" class="bg-gray-300 rounded-full p-2 w-full" required/>
@@ -44,12 +44,12 @@ import ShimmerButton from './ui/shimmer-button/ShimmerButton.vue'
                         <option value="either">Either is fine</option>
                       </select>
                       <div>
-                        <labe for="time">Preferred Time</labe>
+                        <label for="time">Preferred Time</label>
                         <input type="datetime-local" id="time" placeholder="Preferred Time" class="bg-gray-300 rounded-full p-2 w-full" required/>
                       </div>
                       
                       <button type="submit" class="text-white bg-primary rounded-full p-2 w-full cursor-pointer">Submit</button>
-                    </from>
+                    </form>
                 </DialogHeader>
             </DialogContent>
         </Dialog>
