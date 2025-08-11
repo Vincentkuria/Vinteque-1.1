@@ -1,5 +1,67 @@
 <script lang="ts" setup>
+const valueCards = [
+    {
+      icon: "ri:seo-line",
+      title: 'Higher Rankings',
+      description: 'Proven strategies to improve your search engine rankings and increase organic visibility'
+    },
+    {
+      icon: "fluent:arrow-trending-checkmark-20-regular",
+      title: 'Increased Traffic',
+      description: 'Drive more qualified traffic to your website with targeted SEO optimization'
+    },
+    {
+      icon: "mingcute:target-line",
+      title: 'Better Conversions',
+      description: 'Attract the right audience with intent-based keywords and optimized user experience'
+    }
+  ];
 
+  const seoServices = [
+    {
+      title: 'Technical SEO',
+      description: 'Foundation optimization for search engine crawling and indexing',
+      features: ['Site Speed Optimization', 'Mobile Responsiveness', 'Schema Markup', 'XML Sitemaps', 'Robots.txt', 'Core Web Vitals']
+    },
+    {
+      title: 'On-Page SEO',
+      description: 'Content and page-level optimization for target keywords',
+      features: ['Keyword Research', 'Title Optimization', 'Meta Descriptions', 'Header Tags', 'Internal Linking', 'Content Optimization']
+    },
+    {
+      title: 'Off-Page SEO',
+      description: 'Building authority and trust through external signals',
+      features: ['Link Building', 'Citation Building', 'Directory Submissions', 'Social Signals', 'Brand Mentions', 'Review Management']
+    },
+    {
+      title: 'Local SEO',
+      description: 'Optimization for local search and geographic targeting',
+      features: ['Google My Business', 'Local Citations', 'Location Pages', 'Review Management', 'Local Schema', 'NAP Consistency']
+    }
+  ];
+
+  const seoMetrics = [
+    {
+      title: 'Organic Traffic Growth',
+      value: '175%',
+      timeframe: 'within 6 months'
+    },
+    {
+      title: 'Keyword Rankings',
+      value: '85%',
+      timeframe: 'of target keywords'
+    },
+    {
+      title: 'Conversion Rate',
+      value: '45%',
+      timeframe: 'average increase'
+    },
+    {
+      title: 'ROI Performance',
+      value: '400%',
+      timeframe: 'average ROI'
+    }
+  ];
 </script>
 
 <template>
@@ -30,13 +92,13 @@
   <div class="my-10 mx-5 md:mx-20 flex flex-col md:justify-around md:flex-row gap-5">
     <div class="w-full md:w-1/3 flex flex-col gap-5 justify-around">
 
-      <div v-for="n in 3" class="w-full flex flex-row bg-white rounded-lg p-5 shadow-blue-100 drop-shadow-2xl">
+      <div v-for="card in valueCards" class="w-full flex flex-row bg-white rounded-lg p-5 shadow-blue-100 drop-shadow-2xl">
         <div class="mr-2">
-          <Icon name="streamline-emojis:rocket" class="text-2xl align-text-bottom"/>
+          <Icon :name="card.icon" class="text-2xl align-text-bottom"/>
         </div>
         <div>
-          <h2 class="font-Berlin-sans-fb text-2xl">Lightning Fast Performance</h2>
-          <p>Optimized web applications that load in under 2 seconds with progressive web app capabilities</p>
+          <h2 class="font-Berlin-sans-fb text-2xl">{{ card.title }}</h2>
+          <p>{{ card.description }}</p>
         </div>
         
 
@@ -52,10 +114,10 @@
 
       <div class="flex justify-center my-10">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-5 ">
-        <div v-for="n in 4" class="w-fit p-5  rounded-2xl shadow bg-white shadow-black/20 flex flex-col gap-2 items-center">
-          <span class="font-bold text-2xl text-primary"> 172%</span>
-          <span>Organic Traffic Growth</span>
-          <span class="text-xs text-gray-600">within 3 months</span>
+        <div v-for="metric in seoMetrics" class="w-fit p-5  rounded-2xl shadow bg-white shadow-black/20 flex flex-col gap-2 items-center">
+          <span class="font-bold text-2xl text-primary"> {{ metric.value }}</span>
+          <span class="font-semibold">{{ metric.title }}</span>
+          <span class="text-xs text-gray-600">{{ metric.timeframe }}</span>
         </div>
       </div>
       </div>
@@ -71,11 +133,11 @@
     </p>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mx-5 my-10">
-      <div v-for="n in 4" class="bg-white p-5 rounded-lg shadow-black drop-shadow-2xl md:w-sm">
-        <h3 class="font-bold text-primary text-lg">Business Apps</h3>
-        <p class="max-w-sm my-2">Streamline operations, boost productivity, and drive growth for your business</p>
+      <div v-for="service in seoServices" class="bg-white p-5 rounded-lg shadow-black drop-shadow-2xl md:w-sm">
+        <h3 class="font-bold text-primary text-lg">{{ service.title }}</h3>
+        <p class="max-w-sm my-2">{{ service.description }}</p>
         <ul>
-          <li v-for="n in 3"><Icon name="material-symbols:check" class="text-green-500"/> CRM Mobile Apps</li>
+          <li v-for="feature in service.features"><Icon name="material-symbols:check" class="text-green-500"/> {{ feature }}</li>
         </ul>
       </div>
     </div>

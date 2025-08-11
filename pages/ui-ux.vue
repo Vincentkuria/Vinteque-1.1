@@ -1,5 +1,67 @@
 <script lang="ts" setup>
+const valueCards = [
+    {
+      icon: "tdesign:usergroup",
+      title: 'User-Centered Design',
+      description: 'Research-driven design process that puts your users at the center of every decision'
+    },
+    {
+      icon: "material-symbols:eye-tracking-outline",
+      title: 'Visual Excellence',
+      description: 'Beautiful, modern interfaces that capture attention and communicate your brand effectively'
+    },
+    {
+      icon: "ei:pointer",
+      title: 'Optimized Experience',
+      description: 'Intuitive user journeys that guide users toward desired actions and improve conversions'
+    }
+  ];
 
+  const designPrinciples = [
+    {
+      title: 'User-First Approach',
+      description: 'Every design decision is validated through user research and testing',
+      icon: "material-symbols:person-2-outline"
+    },
+    {
+      title: 'Accessibility by Design',
+      description: 'Inclusive design ensuring usability for all users regardless of abilities',
+      icon: "material-symbols:favorite-outline"
+    },
+    {
+      title: 'Performance Optimization',
+      description: 'Designs optimized for fast loading and smooth interactions',
+      icon: "lucide:zap"
+    },
+    {
+      title: 'Scalable Design Systems',
+      description: 'Consistent, maintainable design systems that grow with your product',
+      icon: "lucide:paintbrush"
+    }
+  ];
+
+  const designServices = [
+    {
+      title: 'User Experience (UX) Design',
+      description: 'Research-based design strategy focused on user needs and business goals',
+      features: ['User Research', 'Persona Development', 'User Journey Mapping', 'Information Architecture', 'Wireframing', 'Prototyping']
+    },
+    {
+      title: 'User Interface (UI) Design',
+      description: 'Beautiful, functional interfaces that delight users and drive engagement',
+      features: ['Visual Design', 'Design Systems', 'Component Libraries', 'Responsive Design', 'Micro-interactions', 'Style Guides']
+    },
+    {
+      title: 'Mobile App Design',
+      description: 'Native and cross-platform mobile app designs for iOS and Android',
+      features: ['Mobile UX Research', 'Touch Interface Design', 'Platform Guidelines', 'App Store Assets', 'Onboarding Flows', 'Push Notifications']
+    },
+    {
+      title: 'Web Application Design',
+      description: 'Complex web application interfaces optimized for productivity and ease of use',
+      features: ['Dashboard Design', 'Data Visualization', 'Form Design', 'Navigation Systems', 'Accessibility', 'Performance Optimization']
+    }
+  ];
 </script>
 
 <template>
@@ -30,13 +92,13 @@
   <div class="my-10 mx-5 md:mx-20 flex flex-col md:justify-around md:flex-row gap-5">
     <div class="w-full md:w-1/3 flex flex-col gap-5 justify-around">
 
-      <div v-for="n in 3" class="w-full flex flex-row bg-white rounded-lg p-5 shadow-blue-100 drop-shadow-2xl">
+      <div v-for="card in valueCards" class="w-full flex flex-row bg-white rounded-lg p-5 shadow-blue-100 drop-shadow-2xl">
         <div class="mr-2">
-          <Icon name="streamline-emojis:rocket" class="text-2xl align-text-bottom"/>
+          <Icon :name="card.icon" class="text-2xl align-text-bottom"/>
         </div>
         <div>
-          <h2 class="font-Berlin-sans-fb text-2xl">Lightning Fast Performance</h2>
-          <p>Optimized web applications that load in under 2 seconds with progressive web app capabilities</p>
+          <h2 class="font-Berlin-sans-fb text-2xl">{{ card.title }}</h2>
+          <p>{{ card.description }}</p>
         </div>
         
 
@@ -51,11 +113,11 @@
       </p>
 
       <ul class="flex flex-wrap justify-around gap-2 my-5">
-        <li v-for="n in 10" class="w-full md:w-1/3 flex flex-row gap-2">
-          <div><Icon name="material-symbols:check" class="text-green-500"/></div>
+        <li v-for="principle in designPrinciples" class="w-full md:w-1/3 flex flex-row gap-2">
+          <div><Icon :name="principle.icon" class="text-green-500"/></div>
           <div>
-            <h4 class="font-bold text-sm">Lorem ipsum dolor sit</h4>
-            <p class="text-sm">amet consectetur adipisicing elit.</p>
+            <h4 class="font-bold text-sm">{{ principle.title }}</h4>
+            <p class="text-sm">{{ principle.description }}</p>
           </div>
         </li>
       </ul>
@@ -71,11 +133,11 @@
     </p>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mx-5 my-10">
-      <div v-for="n in 4" class="bg-white p-5 rounded-lg shadow-black drop-shadow-2xl md:w-sm">
-        <h3 class="font-bold text-primary text-lg">Business Apps</h3>
-        <p class="max-w-sm my-2">Streamline operations, boost productivity, and drive growth for your business</p>
+      <div v-for="service in designServices" class="bg-white p-5 rounded-lg shadow-black drop-shadow-2xl md:w-sm">
+        <h3 class="font-bold text-primary text-lg">{{ service.title }}</h3>
+        <p class="max-w-sm my-2">{{ service.description }}</p>
         <ul>
-          <li v-for="n in 3"><Icon name="material-symbols:check" class="text-green-500"/> CRM Mobile Apps</li>
+          <li v-for="feature in service.features"><Icon name="material-symbols:check" class="text-green-500"/> {{ feature }}</li>
         </ul>
       </div>
     </div>

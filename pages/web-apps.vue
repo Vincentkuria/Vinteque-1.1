@@ -1,6 +1,51 @@
 <script lang="ts" setup>
 import BlurReveal from '~/components/ui/blur-reveal/BlurReveal.vue'
 
+const valueCards = [
+    {
+      icon: "octicon:zap",
+      title: 'Lightning Fast Performance',
+      description: 'Optimized web applications that load in under 2 seconds with progressive web app capabilities'
+    },
+    {
+      icon: "ic:twotone-shield",
+      title: 'Enterprise Security',
+      description: 'Multi-layer security architecture with SSL encryption, secure authentication, and data protection'
+    },
+    {
+      icon: "material-symbols:install-mobile-outline",
+      title: 'Mobile Responsive',
+      description: 'Seamless experience across all devices with progressive web app features for offline functionality'
+    }
+  ];
+
+  const features = [
+    {
+      title: 'Custom User Interfaces',
+      description: 'Intuitive interfaces designed specifically for your business processes and user workflows'
+    },
+    {
+      title: 'Real-time Data Processing',
+      description: 'Live updates and real-time synchronization across all user sessions and devices'
+    },
+    {
+      title: 'Scalable Architecture',
+      description: 'Built to grow with your business from startup to enterprise scale'
+    },
+    {
+      title: 'Third-party Integrations',
+      description: 'Seamless integration with existing tools, APIs, and business systems'
+    },
+    {
+      title: 'Advanced Analytics',
+      description: 'Built-in analytics and reporting to track performance and user engagement'
+    },
+    {
+      title: 'Cloud Deployment',
+      description: 'Secure cloud hosting with automatic scaling and 99.9% uptime guarantee'
+    }
+  ];
+
 </script>
 
 <template>
@@ -31,13 +76,13 @@ import BlurReveal from '~/components/ui/blur-reveal/BlurReveal.vue'
   <div class="my-10 mx-5 md:mx-20 flex flex-col md:justify-around md:flex-row gap-5">
     <div class="w-full md:w-1/3 flex flex-col gap-5 justify-around">
 
-      <div v-for="n in 3" class="w-full flex flex-row bg-white rounded-lg p-5 shadow-blue-100 drop-shadow-2xl">
+      <div v-for="card in valueCards" class="w-full flex flex-row bg-white rounded-lg p-5 shadow-blue-100 drop-shadow-2xl">
         <div class="mr-2">
-          <Icon name="streamline-emojis:rocket" class="text-2xl align-text-bottom"/>
+          <Icon :name="card.icon" class="text-2xl align-text-bottom"/>
         </div>
         <div>
-          <h2 class="font-Berlin-sans-fb text-2xl">Lightning Fast Performance</h2>
-          <p>Optimized web applications that load in under 2 seconds with progressive web app capabilities</p>
+          <h2 class="font-Berlin-sans-fb text-2xl">{{ card.title }}</h2>
+          <p>{{ card.description }}</p>
         </div>
         
 
@@ -52,11 +97,11 @@ import BlurReveal from '~/components/ui/blur-reveal/BlurReveal.vue'
       </p>
 
       <ul class="flex flex-wrap justify-around gap-2 my-5">
-        <li v-for="n in 10" class="w-full md:w-1/3 flex flex-row gap-2">
+        <li v-for="feature in features" class="w-full md:w-1/3 flex flex-row gap-2">
           <div><Icon name="material-symbols:check" class="text-green-500"/></div>
           <div>
-            <h4 class="font-bold text-sm">Lorem ipsum dolor sit</h4>
-            <p class="text-sm">amet consectetur adipisicing elit.</p>
+            <h4 class="font-bold text-sm">{{ feature.title }}</h4>
+            <p class="text-sm">{{ feature.description }}</p>
           </div>
         </li>
       </ul>
@@ -73,13 +118,13 @@ import BlurReveal from '~/components/ui/blur-reveal/BlurReveal.vue'
       
       <div class="md:relative z-0">
         <!-- Timeline -->
-        <div class="hidden md:block absolute left-1/2 h-full w-1 bg-gradient-to-b from-blue-500 to-purple-500"></div>
+        <div class="hidden md:block absolute left-1/2 h-full w-1 bg-gradient-to-b from-secondary-2 to-primary"></div>
         
         <div class="space-y-12 md:space-y-0">
           <!-- Process Item 1 -->
           <div class="flex flex-col md:flex-row items-center md:items-start relative">
             <!-- Timeline dot -->
-            <div class="hidden md:flex absolute left-1/2 transform -translate-x-1/2 -translate-y-6 w-12 h-12 rounded-full bg-blue-500 border-4 border-white shadow-lg items-center justify-center z-10">
+            <div class="hidden md:flex absolute left-1/2 transform -translate-x-1/2 -translate-y-6 w-12 h-12 rounded-full bg-secondary-2 border-4 border-white shadow-lg items-center justify-center z-10">
               <span class="text-white font-bold text-lg">1</span>
             </div>
             
@@ -87,7 +132,7 @@ import BlurReveal from '~/components/ui/blur-reveal/BlurReveal.vue'
             <div class="md:w-1/2 md:pe-16 md:text-end mb-8 md:mb-0">
               <div class="bg-gray-50 p-4 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300">
                 <div class="flex md:hidden items-center mb-6">
-                  <div class="bg-blue-500 text-white w-10 h-10 rounded-full flex items-center justify-center mr-4 font-bold">
+                  <div class="bg-secondary-2 text-white w-10 h-10 rounded-full flex items-center justify-center mr-4 font-bold">
                     1
                   </div>
                   <h3 class="text-2xl font-semibold text-gray-900">Requirements & Planning</h3>
@@ -95,15 +140,15 @@ import BlurReveal from '~/components/ui/blur-reveal/BlurReveal.vue'
                 <h3 class="hidden md:block text-2xl font-semibold text-gray-900 mb-6">Requirements & Planning</h3>
                 <ul class="space-y-3 text-gray-700">
                   <li class="flex items-start">
-                    <span class="inline-block w-2 h-2 bg-blue-500 rounded-full mt-2 me-3"></span>
+                    <span class="inline-block w-2 h-2 bg-secondary-2 rounded-full mt-2 me-3"></span>
                     <span>Meet stakeholders to clarify needs</span>
                   </li>
                   <li class="flex items-start">
-                    <span class="inline-block w-2 h-2 bg-blue-500 rounded-full mt-2 me-3"></span>
+                    <span class="inline-block w-2 h-2 bg-secondary-2 rounded-full mt-2 me-3"></span>
                     <span>Define scope and success criteria</span>
                   </li>
                   <li class="flex items-start">
-                    <span class="inline-block w-2 h-2 bg-blue-500 rounded-full mt-2 me-3"></span>
+                    <span class="inline-block w-2 h-2 bg-secondary-2 rounded-full mt-2 me-3"></span>
                     <span>Create requirements document</span>
                   </li>
                 </ul>
@@ -117,13 +162,13 @@ import BlurReveal from '~/components/ui/blur-reveal/BlurReveal.vue'
           
           <!-- Process Item 2 -->
           <div class="flex flex-col md:flex-row items-center md:items-start relative">
-            <div class="hidden md:flex absolute left-1/2 transform -translate-x-1/2 -translate-y-6 w-12 h-12 rounded-full bg-indigo-500 border-4 border-white shadow-lg items-center justify-center z-10">
+            <div class="hidden md:flex absolute left-1/2 transform -translate-x-1/2 -translate-y-6 w-12 h-12 rounded-full bg-secondary-2 border-4 border-white shadow-lg items-center justify-center z-10">
               <span class="text-white font-bold text-lg">2</span>
             </div>
             <div class="md:w-1/2 md:ps-16 md:text-start md:ms-auto">
               <div class="bg-gray-50 p-4 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300">
                 <div class="flex md:hidden items-center mb-6">
-                  <div class="bg-indigo-500 text-white w-10 h-10 rounded-full flex items-center justify-center mr-4 font-bold">
+                  <div class="bg-secondary-2 text-white w-10 h-10 rounded-full flex items-center justify-center mr-4 font-bold">
                     2
                   </div>
                   <h3 class="text-2xl font-semibold text-gray-900">System Design & Architecture</h3>
@@ -131,15 +176,15 @@ import BlurReveal from '~/components/ui/blur-reveal/BlurReveal.vue'
                 <h3 class="hidden md:block text-2xl font-semibold text-gray-900 mb-6">System Design & Architecture</h3>
                 <ul class="space-y-3 text-gray-700">
                   <li class="flex items-start">
-                    <span class="inline-block w-2 h-2 bg-indigo-500 rounded-full mt-2 me-3"></span>
+                    <span class="inline-block w-2 h-2 bg-secondary-2 rounded-full mt-2 me-3"></span>
                     <span>Choose tech stack and tools</span>
                   </li>
                   <li class="flex items-start">
-                    <span class="inline-block w-2 h-2 bg-indigo-500 rounded-full mt-2 me-3"></span>
+                    <span class="inline-block w-2 h-2 bg-secondary-2 rounded-full mt-2 me-3"></span>
                     <span>Design database schema</span>
                   </li>
                   <li class="flex items-start">
-                    <span class="inline-block w-2 h-2 bg-indigo-500 rounded-full mt-2 me-3"></span>
+                    <span class="inline-block w-2 h-2 bg-secondary-2 rounded-full mt-2 me-3"></span>
                     <span>Create wireframes/mockups</span>
                   </li>
                 </ul>
@@ -153,13 +198,13 @@ import BlurReveal from '~/components/ui/blur-reveal/BlurReveal.vue'
           
           <!-- Process Item 3 -->
           <div class="flex flex-col md:flex-row items-center md:items-start relative">
-            <div class="hidden md:flex absolute left-1/2 transform -translate-x-1/2 -translate-y-6 w-12 h-12 rounded-full bg-teal-500 border-4 border-white shadow-lg items-center justify-center z-10">
+            <div class="hidden md:flex absolute left-1/2 transform -translate-x-1/2 -translate-y-6 w-12 h-12 rounded-full bg-secondary-2 border-4 border-white shadow-lg items-center justify-center z-10">
               <span class="text-white font-bold text-lg">3</span>
             </div>
             <div class="md:w-1/2 md:pe-16 md:text-end">
               <div class="bg-gray-50 p-4 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300">
                 <div class="flex md:hidden items-center mb-6">
-                  <div class="bg-teal-500 text-white w-10 h-10 rounded-full flex items-center justify-center mr-4 font-bold">
+                  <div class="bg-secondary-2 text-white w-10 h-10 rounded-full flex items-center justify-center mr-4 font-bold">
                     3
                   </div>
                   <h3 class="text-2xl font-semibold text-gray-900">Development</h3>
@@ -167,15 +212,15 @@ import BlurReveal from '~/components/ui/blur-reveal/BlurReveal.vue'
                 <h3 class="hidden md:block text-2xl font-semibold text-gray-900 mb-6">Development</h3>
                 <ul class="space-y-3 text-gray-700">
                   <li class="flex items-start">
-                    <span class="inline-block w-2 h-2 bg-teal-500 rounded-full mt-2 me-3"></span>
+                    <span class="inline-block w-2 h-2 bg-secondary-2 rounded-full mt-2 me-3"></span>
                     <span>Follow coding standards</span>
                   </li>
                   <li class="flex items-start">
-                    <span class="inline-block w-2 h-2 bg-teal-500 rounded-full mt-2 me-3"></span>
+                    <span class="inline-block w-2 h-2 bg-secondary-2 rounded-full mt-2 me-3"></span>
                     <span>Use Git with proper branching</span>
                   </li>
                   <li class="flex items-start">
-                    <span class="inline-block w-2 h-2 bg-teal-500 rounded-full mt-2 me-3"></span>
+                    <span class="inline-block w-2 h-2 bg-secondary-2 rounded-full mt-2 me-3"></span>
                     <span>Write unit tests</span>
                   </li>
                 </ul>
@@ -189,13 +234,13 @@ import BlurReveal from '~/components/ui/blur-reveal/BlurReveal.vue'
           
           <!-- Process Item 4 -->
           <div class="flex flex-col md:flex-row items-center md:items-start relative">
-            <div class="hidden md:flex absolute left-1/2 transform -translate-x-1/2 -translate-y-6 w-12 h-12 rounded-full bg-amber-500 border-4 border-white shadow-lg items-center justify-center z-10">
+            <div class="hidden md:flex absolute left-1/2 transform -translate-x-1/2 -translate-y-6 w-12 h-12 rounded-full bg-secondary-2 border-4 border-white shadow-lg items-center justify-center z-10">
               <span class="text-white font-bold text-lg">4</span>
             </div>
             <div class="md:w-1/2 md:ps-16 md:text-start md:ms-auto">
               <div class="bg-gray-50 p-4 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300">
                 <div class="flex md:hidden items-center mb-6">
-                  <div class="bg-amber-500 text-white w-10 h-10 rounded-full flex items-center justify-center mr-4 font-bold">
+                  <div class="bg-secondary-2 text-white w-10 h-10 rounded-full flex items-center justify-center mr-4 font-bold">
                     4
                   </div>
                   <h3 class="text-2xl font-semibold text-gray-900">Testing & QA</h3>
@@ -212,11 +257,11 @@ import BlurReveal from '~/components/ui/blur-reveal/BlurReveal.vue'
                 </div>
                 <ul class="space-y-3 text-gray-700">
                   <li class="flex items-start">
-                    <span class="inline-block w-2 h-2 bg-amber-500 rounded-full mt-2 me-3"></span>
+                    <span class="inline-block w-2 h-2 bg-secondary-2 rounded-full mt-2 me-3"></span>
                     <span>Ensure software works as intended</span>
                   </li>
                   <li class="flex items-start">
-                    <span class="inline-block w-2 h-2 bg-amber-500 rounded-full mt-2 me-3"></span>
+                    <span class="inline-block w-2 h-2 bg-secondary-2 rounded-full mt-2 me-3"></span>
                     <span>Identify and resolve bugs</span>
                   </li>
                 </ul>
@@ -230,13 +275,13 @@ import BlurReveal from '~/components/ui/blur-reveal/BlurReveal.vue'
           
           <!-- Process Item 5 -->
           <div class="flex flex-col md:flex-row items-center md:items-start relative">
-            <div class="hidden md:flex absolute left-1/2 transform -translate-x-1/2 -translate-y-6 w-12 h-12 rounded-full bg-purple-500 border-4 border-white shadow-lg items-center justify-center z-10">
+            <div class="hidden md:flex absolute left-1/2 transform -translate-x-1/2 -translate-y-6 w-12 h-12 rounded-full bg-secondary-2 border-4 border-white shadow-lg items-center justify-center z-10">
               <span class="text-white font-bold text-lg">5</span>
             </div>
             <div class="md:w-1/2 md:pe-16 md:text-end">
               <div class="bg-gray-50 p-4 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300">
                 <div class="flex md:hidden items-center mb-6">
-                  <div class="bg-purple-500 text-white w-10 h-10 rounded-full flex items-center justify-center mr-4 font-bold">
+                  <div class="bg-secondary-2 text-white w-10 h-10 rounded-full flex items-center justify-center mr-4 font-bold">
                     5
                   </div>
                   <h3 class="text-2xl font-semibold text-gray-900">Deployment</h3>
@@ -244,15 +289,15 @@ import BlurReveal from '~/components/ui/blur-reveal/BlurReveal.vue'
                 <h3 class="hidden md:block text-2xl font-semibold text-gray-900 mb-6">Deployment</h3>
                 <ul class="space-y-3 text-gray-700">
                   <li class="flex items-start">
-                    <span class="inline-block w-2 h-2 bg-purple-500 rounded-full mt-2 me-3"></span>
+                    <span class="inline-block w-2 h-2 bg-secondary-2 rounded-full mt-2 me-3"></span>
                     <span>Prepare production environment</span>
                   </li>
                   <li class="flex items-start">
-                    <span class="inline-block w-2 h-2 bg-purple-500 rounded-full mt-2 me-3"></span>
+                    <span class="inline-block w-2 h-2 bg-secondary-2 rounded-full mt-2 me-3"></span>
                     <span>Use CI/CD pipelines</span>
                   </li>
                   <li class="flex items-start">
-                    <span class="inline-block w-2 h-2 bg-purple-500 rounded-full mt-2 me-3"></span>
+                    <span class="inline-block w-2 h-2 bg-secondary-2 rounded-full mt-2 me-3"></span>
                     <span>Run smoke tests</span>
                   </li>
                 </ul>
@@ -266,13 +311,13 @@ import BlurReveal from '~/components/ui/blur-reveal/BlurReveal.vue'
           
           <!-- Process Item 6 -->
           <div class="flex flex-col md:flex-row items-center md:items-start relative">
-            <div class="hidden md:flex absolute left-1/2 transform -translate-x-1/2 -translate-y-6 w-12 h-12 rounded-full bg-pink-500 border-4 border-white shadow-lg items-center justify-center z-10">
+            <div class="hidden md:flex absolute left-1/2 transform -translate-x-1/2 -translate-y-6 w-12 h-12 rounded-full bg-secondary-2 border-4 border-white shadow-lg items-center justify-center z-10">
               <span class="text-white font-bold text-lg">6</span>
             </div>
             <div class="md:w-1/2 md:ps-16 md:text-start md:ms-auto">
               <div class="bg-gray-50 p-4 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300">
                 <div class="flex md:hidden items-center mb-6">
-                  <div class="bg-pink-500 text-white w-10 h-10 rounded-full flex items-center justify-center mr-4 font-bold">
+                  <div class="bg-secondary-2 text-white w-10 h-10 rounded-full flex items-center justify-center mr-4 font-bold">
                     6
                   </div>
                   <h3 class="text-2xl font-semibold text-gray-900">Maintenance</h3>
@@ -280,15 +325,15 @@ import BlurReveal from '~/components/ui/blur-reveal/BlurReveal.vue'
                 <h3 class="hidden md:block text-2xl font-semibold text-gray-900 mb-6">Maintenance</h3>
                 <ul class="space-y-3 text-gray-700">
                   <li class="flex items-start">
-                    <span class="inline-block w-2 h-2 bg-pink-500 rounded-full mt-2 me-3"></span>
+                    <span class="inline-block w-2 h-2 bg-secondary-2 rounded-full mt-2 me-3"></span>
                     <span>Monitor performance</span>
                   </li>
                   <li class="flex items-start">
-                    <span class="inline-block w-2 h-2 bg-pink-500 rounded-full mt-2 me-3"></span>
+                    <span class="inline-block w-2 h-2 bg-secondary-2 rounded-full mt-2 me-3"></span>
                     <span>Fix bugs and issues</span>
                   </li>
                   <li class="flex items-start">
-                    <span class="inline-block w-2 h-2 bg-pink-500 rounded-full mt-2 me-3"></span>
+                    <span class="inline-block w-2 h-2 bg-secondary-2 rounded-full mt-2 me-3"></span>
                     <span>Release updates</span>
                   </li>
                 </ul>
