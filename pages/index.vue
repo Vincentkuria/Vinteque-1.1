@@ -23,6 +23,125 @@ const plugin = Autoplay({
   stopOnMouseEnter:true
 })
 
+const servicesOffered=[
+  {
+    "title": "Web Apps",
+    "details": "Custom Development, API, Support",
+    "description": "We build powerful, scalable custom web applications tailored to your business processes. Whether it's a dashboard, internal tool, or SaaS platform, our web app development team ensures speed, security, and usability for businesses in Kenya and across Africa."
+  },
+  {
+    "title": "Mobile Apps",
+    "details": "iOS, Android, Cross-Platform",
+    "description": "Our mobile app development services deliver high-performance apps for Android and iOS. From e-commerce to enterprise solutions, we create mobile experiences that engage users and grow your business."
+  },
+  {
+    "title": "Business Website",
+    "details": "Corporate, CMS, Management",
+    "description": "We design and develop professional business websites that reflect your brand, communicate your value, and convert visitors into customers. Built for performance and optimized for search engines."
+  },
+  {
+    "title": "Ecommerce Website",
+    "details": "Store, Payments, Inventory",
+    "description": "We create secure, fast, and user-friendly e-commerce websites that help you sell more online. From product catalogs to secure checkouts, we ensure a smooth shopping experience."
+  },
+  {
+    "title": "Product & Marketing Website",
+    "details": "Landing, Campaigns, Conversion",
+    "description": "We design and develop marketing-focused websites that showcase your products or campaigns with style. Built to convert and optimized for visibility in search results."
+  },
+  {
+    "title": "Search Engine Optimization (SEO)",
+    "details": "On-Page, Off-Page, Local",
+    "description": "Our SEO services help your business rank higher on Google and attract more qualified leads. We focus on long-term growth with strategies tailored to your market."
+  },
+  {
+    "title": "AI & Automation",
+    "details": "Automation, Chatbots, Analytics",
+    "description": "We implement AI-driven solutions to automate tasks, improve decision-making, and boost efficiency. From chatbots to data insights, we help you work smarter."
+  },
+  {
+    "title": "UI/UX Design",
+    "details": "Research, Wireframes, Interface",
+    "description": "Our UI/UX design services focus on creating beautiful, intuitive, and user-friendly interfaces. We design experiences that keep users engaged and satisfied."
+  },
+  {
+    "title": "Branding",
+    "details": "Logo, Identity, Guidelines",
+    "description": "We help businesses define and express their brand identity through strategic design. From logos to full visual systems, we ensure your brand stands out."
+  },
+  {
+    "title": "Bulk SMS",
+    "details": "Marketing, API, Tracking",
+    "description": "Our bulk SMS solutions allow you to reach your audience instantly with promotional or transactional messages. Fast delivery and detailed analytics included."
+  }
+]
+
+
+const faqs=[
+  {
+    "question": "What is custom software development?",
+    "answer": "Custom software development is the process of designing, building, and maintaining software tailored to the unique needs of a business or organization. It ensures solutions meet specific workflows, goals, and customer requirements."
+  },
+  {
+    "question": "Why should I choose custom software over ready-made solutions?",
+    "answer": "Custom software offers flexibility, scalability, and full control over features. Unlike off-the-shelf options, it is built to fit your exact business processes, integrates with existing systems, and grows with you, which is vital for businesses operating in diverse markets like Africa."
+  },
+  {
+    "question": "How much does custom software development cost?",
+    "answer": "The cost depends on complexity, features, and technology. Small applications might cost a few thousand dollars or Kenyan shillings, while enterprise-level systems require a larger investment. We provide clear, tailored quotes for each project."
+  },
+  {
+    "question": "How long does it take to build custom software?",
+    "answer": "Timelines vary by scope and complexity. Simple applications can take 1–3 months, while complex enterprise systems may take 6–12 months or more. Using agile development, we deliver core features early and enhance them over time."
+  },
+  {
+    "question": "Do you provide mobile app development along with custom software?",
+    "answer": "Yes. We develop mobile apps for Android and iOS that integrate with your custom software, ensuring seamless access for both employees and customers."
+  },
+  {
+    "question": "What technologies do you use for software development?",
+    "answer": "We work with modern technologies such as Java, Kotlin, Spring Boot, .NET, Node.js, React, Vue, Angular, Flutter, and cloud platforms like AWS, Azure, and Google Cloud. The tech stack is chosen based on performance, scalability, and security needs."
+  },
+  {
+    "question": "Can you integrate custom software with my existing systems?",
+    "answer": "Absolutely. We specialize in integrating new software with existing CRM, ERP, accounting, and other systems to improve efficiency and reduce manual work."
+  },
+  {
+    "question": "Will my custom software be scalable as my business grows?",
+    "answer": "Yes. We build scalable architectures that can handle more users, data, and transactions without sacrificing performance, ideal for growing businesses in Kenya and beyond."
+  },
+  {
+    "question": "Do you offer ongoing support and maintenance?",
+    "answer": "Yes. We provide ongoing support including bug fixes, updates, security patches, and feature enhancements to keep your software reliable."
+  },
+  {
+    "question": "How do you ensure security in custom software development?",
+    "answer": "We follow best practices like data encryption, secure authentication, vulnerability testing, and compliance with standards such as GDPR and ISO."
+  },
+  {
+    "question": "Can you migrate my existing software or data to a new custom system?",
+    "answer": "Yes. We handle secure data migration with minimal downtime, ensuring accuracy and smooth transition to your new software."
+  },
+  {
+    "question": "Do you work with startups as well as large enterprises?",
+    "answer": "Yes. We work with startups, SMEs, and large enterprises across Africa, adapting our approach to fit each client’s budget and growth stage."
+  },
+  {
+    "question": "How do you handle communication during the development process?",
+    "answer": "We maintain transparency with regular updates, milestone reviews, and open communication through tools like Slack, Trello, or Jira."
+  },
+  {
+    "question": "Do you offer cloud-based custom software solutions?",
+    "answer": "Yes. We develop cloud-native applications hosted on AWS, Azure, or Google Cloud for reliability, scalability, and cost efficiency."
+  },
+  {
+    "question": "How do I get started with a custom software development project?",
+    "answer": "Simply contact us with your requirements. We’ll offer a free consultation, suggest the best technical approach, and provide a proposal with timelines and costs."
+  }
+]
+
+
+
 </script>
 
 <template>
@@ -72,11 +191,11 @@ const plugin = Autoplay({
 
   <div class="border-s-4 border-primary px-2 m-5 md:px-5 md:m-10 lg:px-10 lg:m-20">
     <h1 class="font-Berlin-sans-fb text-2xl pb-2">Vinteque Software Developers</h1>
-    <p>Looking for a custom software development company in Kenya? Based in Nairobi, we specialize in building powerful websites, mobile apps, and brand identities tailored to your unique business needs. As experienced Nairobi software developers, we help startups and enterprises scale with world-class digital solutions from modern website design to mobile app development and professional branding.<br>
-      <br>
-      Whether you're a local business or a global company, our team is committed to delivering custom-built platforms that elevate your digital presence, drive growth, and position your brand for success.<br>
-      <br>
-      Partner with us for reliable, scalable, and results-driven software development services in Kenya.Your full-stack partner for websites, apps, and branding.</p>
+    <p>
+      We’re a Nairobi-based software development company helping businesses, startups, and brands reach their next level. We design and build powerful websites, mobile apps, and brand identities that reflect professionalism, inspire trust, and give your business that billion-dollar edge.<br><br>
+      From modern website design to custom software and mobile app development, we deliver solutions tailored to your unique needs, whether you’re a local startup or a global enterprise. Our goal is simple: elevate your digital presence, drive real growth, and position your brand for long-term success.<br><br>
+      Think of us as your full-stack partner for websites, apps, and branding. we're reliable, scalable, and results-driven.
+    </p>
   </div>
 
   <div>
@@ -88,11 +207,11 @@ const plugin = Autoplay({
   <div class="my-10">
     <h1 class="border-s-4 border-primary px-2 m-5 md:px-5 md:mx-10 lg:px-10 lg:mx-20 font-Berlin-sans-fb text-2xl">What We Can Do For You</h1>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mx-5 md:mx-20">
-      <div v-for="n in 8" class="bg-accent p-5">
+      <div v-for="service in servicesOffered" class="bg-accent p-5">
         <div class="bg-white p-2 w-12 h-12 flex items-center rounded-sm shadow-black shadow-2xl"><Icon name="material-symbols-light:desktop-windows-outline-rounded" class="text-primary text-4xl"/></div>
-        <h1 class="font-Berlin-sans-fb pt-2 text-2xl">Web Apps</h1>
-        <h2 class="font-mono py-1">Dev & Support</h2>
-        <p>We build powerful, scalable custom web applications tailored to your business processes. Whether it's a dashboard, internal tool, or SaaS platform, our web app development team in Kenya ensures speed, security, and usability.</p>
+        <h1 class="font-Berlin-sans-fb pt-2 text-2xl">{{ service.title }}</h1>
+        <h2 class="font-mono py-1">{{ service.details }}</h2>
+        <p>{{ service.description }}</p>
       </div>
     </div>
   </div>
@@ -188,11 +307,11 @@ More time. More focus.  More results.</p>
   <div class="md:flex">
     <h1 class="border-s-4 max-w-96 h-fit border-primary px-2 m-5 md:px-5 md:mx-10 lg:px-10 lg:ms-20 font-Berlin-sans-fb text-2xl md:text-4xl">Frequently asked questions</h1>
     <div class="px-2 m-5 md:px-5 md:mx-10flex">
-      <Accordion class="w-fit min-w-[70dvw] lg:min-w-[40dvw] lg:max-w-[80dvw]" type="single" :default-value="'1'">
-        <AccordionItem v-for="n,index in 7" :value="index.toString()">
-          <AccordionTrigger class="text-base">Hello</AccordionTrigger>
+      <Accordion class="w-fit min-w-[70dvw] lg:min-w-[40dvw] lg:max-w-[80dvw]" type="single" :default-value="'0'">
+        <AccordionItem v-for="item,index in faqs" :value="index.toString()">
+          <AccordionTrigger class="text-base">{{ item.question }}</AccordionTrigger>
           <AccordionContent>
-            Wewe
+            <p>{{ item.answer }}</p>
           </AccordionContent>
         </AccordionItem>
       </Accordion>
