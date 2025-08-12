@@ -15,7 +15,6 @@ export default defineNuxtConfig({
     'shadcn-nuxt',
     '@vueuse/nuxt',
     'motion-v/nuxt',
-    'nuxt-directus',
     '@nuxt/image',
     '@nuxt/icon',
     'nuxt-marquee'

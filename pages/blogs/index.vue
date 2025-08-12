@@ -4,7 +4,6 @@ import PaginationContent from '~/components/ui/pagination/PaginationContent.vue'
 import PaginationNext from '~/components/ui/pagination/PaginationNext.vue'
 import PaginationPrevious from '~/components/ui/pagination/PaginationPrevious.vue'
 import PaginationEllipsis from '~/components/ui/pagination/PaginationEllipsis.vue'
-import Index from './index.vue'
 import PaginationItem from '~/components/ui/pagination/PaginationItem.vue'
 
 
