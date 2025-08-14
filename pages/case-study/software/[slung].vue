@@ -23,12 +23,14 @@ const items = ref([
     class="h-20 px-10 md:px-20 lg:px-30 border-y-1 border-blue-100">
       <NuxtImg src="/1.png" class="object-contain h-full" />
     </div>
+    
 
     <div class="flex flex-row mx-5 md:mx-20 my-10">
       <div class="max-w-[90dvw] md:max-w-[60dvw]">
         <h1 class="font-Berlin-sans-fb text-2xl md:text-4xl line-clamp-6">
           Fusion HR Solutions Fusion HR Solutions Fusion HR Solutions Fusion HR Solutions Fusion HR Solutions
         </h1>
+        <span>Location: <span class="font-bold">Nairobi, Kenya</span></span>
       </div>
       <div class="px-5 md:px-10 border-s-2 border-blue-100">
         <h3 class="md:text-lg">Deliverables</h3>
