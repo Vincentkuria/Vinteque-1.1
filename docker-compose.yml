@@ -16,7 +16,7 @@ services:
     environment:
       - PMA_HOST=mysql
       - PMA_PORT=3306
-      - PMA_ABSOLUTE_URI=http://new.vinteque.com/phpmyadmin
+      - PMA_ABSOLUTE_URI=http://new.vinteque.com/phpmyadmin/
     ports:
       - 8082:80
     depends_on:
@@ -55,7 +55,7 @@ services:
       ADMIN_EMAIL: ${ADMIN_EMAIL}
       ADMIN_PASSWORD: ${ADMIN_PASSWORD}
 
-      PUBLIC_URL: "http://new.vinteque.com/directus"
+      PUBLIC_URL: "http://new.vinteque.com/directus/"
 
   vinteque:
     build: .
