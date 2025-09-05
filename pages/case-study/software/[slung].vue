@@ -1,7 +1,18 @@
 <script lang="ts" setup>
 import Requestcallback from '~/components/Requestcallback.vue'
 
-const logoBarColor=ref("#ffffff")
+const logoUrl = ref()
+const barColor=ref("#ffffff")
+const title=ref()
+const deliverables=ref()
+const location=ref()
+const aboutClient=ref()
+const aboutImg=ref()
+const challenge=ref()
+const sollution=ref()
+const stack=ref()
+const showcaseImgs=ref<string[]>([])
+const achievements=ref<string[]>([])
 
 const items = ref([
     '/images/pic1.jpg',
@@ -13,15 +24,64 @@ const items = ref([
 
   const masonryBgColor = ref("#00ffff")
 
+
+  // get the slung from the url
+  const slung =useRoute().params.slung
+
+  // fetch the data from the api
+  const { error, pending, status } = await useFetch(useRuntimeConfig().public.directus.url + `/items/software/${slung}`, {
+    method: 'get',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    query:{
+      fields:'*,achievement.name,showcase_imgs.directus_files_id'
+    },
+    onResponseError({}){
+      console.debug(slung)
+    },
+    onResponse({response}){
+      if(response.status === 200){
+        var data = response._data.data
+
+        // variables
+        logoUrl.value =useRuntimeConfig().public.directus.url+`/assets/${data.logo}`
+        barColor.value = data.bar_color
+        title.value=data.title
+        deliverables.value=data.deliverables
+        location.value=data.location
+        aboutClient.value=data.about_client
+        aboutImg.value=data.about_img
+        challenge.value=data.challenge
+        sollution.value=data.sollution
+        stack.value=data.stack
+        data.showcase_imgs?.forEach((element:any) => {
+          showcaseImgs.value.push(element.directus_files_id as string)
+        });
+        data.achievement?.forEach((element:any) => {
+          achievements.value.push(element.name as string)
+        });
+      }
+    }
+  })
+
 </script>
 
 <template>
-<div>
+<div v-if="status!=='success'" class="min-h-[50vh]">
+  <div class="flex flex-col justify-self-center justify-items-center">
+    <p class="text-center text-3xl font-bold">Item Not Found</p>
+    <NuxtLink to="/" class="text-blue-500 underline">go back to home page</NuxtLink>
+  </div>
+</div>
+
+
+<div v-else>
   <div>
     <div
-    :style="{'background-color':logoBarColor}"
+    :style="{'background-color':barColor}"
     class="h-20 px-10 md:px-20 lg:px-30 border-y-1 border-blue-100">
-      <NuxtImg src="/1.png" class="object-contain h-full" />
+      <NuxtImg :src="logoUrl" class="object-contain h-full" />
     </div>
     
 

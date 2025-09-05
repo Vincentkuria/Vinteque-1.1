@@ -23,7 +23,7 @@ export default defineNuxtConfig({
   runtimeConfig:{
     public:{
       directus:{
-        url: 'http://localhost:8055'
+        url: 'http://new.vinteque.com/directus'
       }
     }
   }
