@@ -34,6 +34,23 @@ const scrollRight = (scroller:string) => {
     })
   }
 };
+
+const { data:softwareData, error, pending, status } = await useFetch(useRuntimeConfig().public.directus.url + `/items/software`, {
+    method: 'get',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    query:{
+      fields:'id,logo,title,mockup_img,mockup_back_img,software_desc'
+    }
+  })
+
+  const customStyling=(logoId:string)=>{
+    const img=useRuntimeConfig().public.directus.url+`/assets/${logoId}`
+    return `background-image: url(${img}); background-position: center; background-size: cover`
+    
+  }
+
 </script>
 
 <template>
@@ -50,35 +67,34 @@ const scrollRight = (scroller:string) => {
     <div 
     ref="softwarescrollcontainer"
     class="flex flex-row overflow-x-scroll scrollbar scrollbar-thumb-secondary-2 scrollbar-track-blue-100 ms-10 md:ms-20">
-      <ClientOnly v-for="item in 6" class="m-2">
+      <ClientOnly v-for="item in ((softwareData as any)['data'])" class="m-2">
+        <NuxtLink :to="`/case-study/software/${item['id']}`">
         <CardContainer  class="shadow-lg drop-shadow-zinc-100/50  shadow-zinc-800/50">
-          <CardBody class="flex flex-col justify-between p-5 lg:p-10 w-[90dvw] md:w-[60dvw] md:h-[50vh] lg:w-[40dvw] lg:h-[90vh] hover:cursor-pointer" style="background-image: url('/images/bg.jpg'); background-position: center; background-size: cover">
+          <CardBody class="flex flex-col justify-between p-5 lg:p-10 w-[90dvw] md:w-[60dvw] md:h-[50vh] lg:w-[40dvw] lg:h-[90vh] hover:cursor-pointer" :style="customStyling(item['mockup_back_img'])">
             <CardItem 
-            class="h-1/12 flex flex-row gap-3 items-center"
+            class="h-3/12 flex flex-row gap-3 items-center"
             :translate-z="50">
-              <NuxtImg src="/vinteque.png" class="object-contain h-full"/>
-              <h3 class="font-bold text-lg">Fusion HR - Web app</h3>
+              <NuxtImg :src="useRuntimeConfig().public.directus.url+`/assets/${item['logo']}`" class="object-contain h-full"/>
+              <h3 class="font-bold text-lg">{{ item['title'] }}</h3>
               
             </CardItem>
             <CardItem
             class="h-6/12 w-full"
             :translate-z="150"
             >
-              <NuxtImg src="/images/web.png" class="object-contain w-full h-full"/>
+              <NuxtImg :src="useRuntimeConfig().public.directus.url+`/assets/${item['mockup_img']}`" class="object-contain w-full h-full"/>
             </CardItem>
             <CardItem
             :translate-z="50"
             class="h-fit w-full"
             >
               <p class="line-clamp-3">
-                Fusion HR is a web app that automates HR processes and helps HR managers and HR staff manage employee data, payroll, and leave requests.
-                Fusion HR is a web app that automates HR processes and helps HR managers and HR staff manage employee data, payroll, and leave requests.
-                Fusion HR is a web app that automates HR processes and helps HR managers and HR staff manage employee data, payroll, and leave requests.
-                Fusion HR is a web app that automates HR processes and helps HR managers and HR staff manage employee data, payroll, and leave requests.
+                {{ item['software_desc'] }}
               </p>
             </CardItem>
           </CardBody>
         </CardContainer>
+        </NuxtLink>
       </ClientOnly>
     </div>
     <div>

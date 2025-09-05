@@ -7,63 +7,52 @@ const title=ref()
 const deliverables=ref()
 const location=ref()
 const aboutClient=ref()
-const aboutImg=ref()
+const aboutImgUrl=ref()
 const challenge=ref()
-const sollution=ref()
+const solution=ref()
 const stack=ref()
-const showcaseImgs=ref<string[]>([])
+const showcaseImgUrls=ref<string[]>([])
 const achievements=ref<string[]>([])
-
-const items = ref([
-    '/images/pic1.jpg',
-    '/images/brand2.png',
-    '/images/brand3.png',
-    '/images/brand4.png',
-    '/images/brand5.png',
-  ])
-
-  const masonryBgColor = ref("#00ffff")
-
+const showcaseBgColor=ref()
 
   // get the slung from the url
-  const slung =useRoute().params.slung
+  const slung =ref(useRoute().params.slung)
 
   // fetch the data from the api
-  const { error, pending, status } = await useFetch(useRuntimeConfig().public.directus.url + `/items/software/${slung}`, {
+  const { data, error, pending, status } = await useFetch(useRuntimeConfig().public.directus.url + `/items/software/${slung.value}`, {
     method: 'get',
     headers: {
       'Content-Type': 'application/json',
     },
     query:{
       fields:'*,achievement.name,showcase_imgs.directus_files_id'
-    },
-    onResponseError({}){
-      console.debug(slung)
-    },
-    onResponse({response}){
-      if(response.status === 200){
-        var data = response._data.data
-
-        // variables
-        logoUrl.value =useRuntimeConfig().public.directus.url+`/assets/${data.logo}`
-        barColor.value = data.bar_color
-        title.value=data.title
-        deliverables.value=data.deliverables
-        location.value=data.location
-        aboutClient.value=data.about_client
-        aboutImg.value=data.about_img
-        challenge.value=data.challenge
-        sollution.value=data.sollution
-        stack.value=data.stack
-        data.showcase_imgs?.forEach((element:any) => {
-          showcaseImgs.value.push(element.directus_files_id as string)
-        });
-        data.achievement?.forEach((element:any) => {
-          achievements.value.push(element.name as string)
-        });
-      }
     }
   })
+
+  if(status.value == 'success'){
+    const caseStudy=ref((data.value as any)['data'])
+    // variables
+    logoUrl.value =useRuntimeConfig().public.directus.url+`/assets/${caseStudy.value['logo']}`
+    barColor.value = caseStudy.value['bar_color']
+    title.value=caseStudy.value['title']
+    deliverables.value=caseStudy.value['deliverables']
+    location.value=caseStudy.value['location']
+    aboutClient.value=caseStudy.value['about_client']
+    aboutImgUrl.value=useRuntimeConfig().public.directus.url+`/assets/${caseStudy.value['about_img']}`
+    challenge.value=caseStudy.value['challenge']
+    solution.value=caseStudy.value['solution']
+    stack.value=caseStudy.value['stack']
+    showcaseBgColor.value=caseStudy.value['showcase_bg_color']
+
+
+    caseStudy.value['showcase_imgs'].forEach((element:any) => {
+      showcaseImgUrls.value.push(useRuntimeConfig().public.directus.url+`/assets/${element['directus_files_id']}` )
+    });
+
+    caseStudy.value['achievement'].forEach((element:any) => {
+      achievements.value.push(element['name'] as string)
+    });
+  }
 
 </script>
 
@@ -80,70 +69,64 @@ const items = ref([
   <div>
     <div
     :style="{'background-color':barColor}"
-    class="h-20 px-10 md:px-20 lg:px-30 border-y-1 border-blue-100">
-      <NuxtImg :src="logoUrl" class="object-contain h-full" />
+    class="h-20 md:h-24 px-10 md:px-20 lg:px-30 border-y-1 border-blue-100">
+      <NuxtImg :src="logoUrl" class="object-contain  h-full" />
     </div>
     
 
     <div class="flex flex-row mx-5 md:mx-20 my-10">
       <div class="max-w-[90dvw] md:max-w-[60dvw]">
-        <h1 class="font-Berlin-sans-fb text-2xl md:text-4xl line-clamp-6">
-          Fusion HR Solutions Fusion HR Solutions Fusion HR Solutions Fusion HR Solutions Fusion HR Solutions
+        <h1 class="font-Berlin-sans-fb text-2xl md:text-4xl pe-5 line-clamp-6">
+          {{ title }}
         </h1>
-        <span>Location: <span class="font-bold">Nairobi, Kenya</span></span>
+        <span>Location: <span class="font-bold">{{location}}</span></span>
       </div>
       <div class="px-5 md:px-10 border-s-2 border-blue-100">
         <h3 class="md:text-lg">Deliverables</h3>
-        <span class="font-mono font-bold md:text-lg">UI, UX, Web Redesign</span>
+        <span class="font-mono font-bold md:text-lg">{{ deliverables }}</span>
       </div>
     </div>
 
     <div>
       <h1 class="border-s-4 border-primary px-2 m-5 md:px-5 md:mx-10 lg:px-10 lg:mx-20 font-Berlin-sans-fb text-2xl">About The Client</h1>
-      <p class="mx-5 md:mx-20 max-w-5xl">
-        Fusion HR Solutions is a human resources management practice that provides a comprehensive range of human resources solutions with a business focus. Fusion HR Solutions is the nucleus of a multidisciplinary team of human resources specialists. Fusion HR Solutions is a dynamic organization that excels in consulting and training and we are accomplished in delivering results.
-      </p>
+      <div v-html="aboutClient" class="mx-5 md:mx-20"/>
     </div>
 
-    <div class="w-[90dvw] h-[60vh] md:h-[70vh] lg:h-[90vh]">
-      <NuxtImg src="/images/web.png" class="object-contain w-full h-full" />
+    <div class="w-full h-[60vh] md:h-[70vh] lg:h-[90vh] mt-5">
+      <NuxtImg :src="aboutImgUrl" class="object-cover bg-yellow-400 w-full h-full" />
     </div>
 
     <div>
       <h1 class="border-s-4 border-primary px-2 m-5 md:px-5 md:mx-10 lg:px-10 lg:mx-20 font-Berlin-sans-fb text-2xl">The Challenge</h1>
-      <p class="mx-5 md:mx-20 max-w-5xl">
-        Fusion HR Solutions is a human resources management practice that provides a comprehensive range of human resources solutions with a business focus. Fusion HR Solutions is the nucleus of a multidisciplinary team of human resources specialists. Fusion HR Solutions is a dynamic organization that excels in consulting and training and we are accomplished in delivering results.
-      </p>
+      <div v-html="challenge" class="mx-5 md:mx-20"/>
     </div>
     
 
     <div class="flex flex-row flex-wrap my-10">
       <div class="max-w-[90dvw] md:max-w-[60dvw]">
         <h1 class="border-s-4 border-primary px-2 m-5 md:px-5 md:mx-10 lg:px-10 lg:mx-20 font-Berlin-sans-fb text-2xl">The Solution</h1>
-        <p class="mx-5 md:mx-20 max-w-5xl">
-        Fusion HR Solutions is a human resources management practice that provides a comprehensive range of human resources solutions with a business focus. Fusion HR Solutions is the nucleus of a multidisciplinary team of human resources specialists. Fusion HR Solutions is a dynamic organization that excels in consulting and training and we are accomplished in delivering results.
-      </p>
+        <div v-html="solution" class="mx-5 md:ms-20"/>
       </div>
       <div class="mx-5 px-5 my-5 py-5 md:px-10 border-t-2 md:border-s-2 md:border-t-0 border-blue-100">
         <h3 class="md:text-lg">Tech Stack</h3>
-        <span class="font-mono font-bold md:text-lg">UI, UX, Web Redesign</span>
+        <span class="font-mono font-bold md:text-lg">{{ stack }}</span>
       </div>
     </div>
 
     <div
-    :style="{'background-color': masonryBgColor}"
+    :style="{'background-color': showcaseBgColor}"
     class="p-10 my-10">
-      <masonry-wall :items="items" :ssr-columns=2 :max-columns=3 :min-columns=1 :gap=5>
+      <masonry-wall :items="showcaseImgUrls" :ssr-columns=2 :max-columns=3 :min-columns=1 :gap=5>
           <template #default="{ item, index }">
-            <NuxtImg :src="item" class="w-full h-full bg-red-600 rounded-sm" />
+            <NuxtImg :src="item" class="w-full h-full bg-white rounded-sm" />
           </template>
       </masonry-wall>
     </div>
 
     <div class="my-10">
       <h1 class="border-s-4 border-primary px-2 m-5 md:px-5 md:mx-10 lg:px-10 lg:mx-20 font-Berlin-sans-fb text-2xl">Key Achievements</h1>
-      <ul class="mx-5 md:mx-20 flex flex-wrap justify-around gap-5">
-        <li v-for="n in 10"><Icon name="material-symbols:check" class="text-green-500"/> Lorem ipsum dolor sit amet consectetur adipisicing elit.</li>
+      <ul class="mx-5 md:mx-20 grid grid-cols-2 justify-around gap-5">
+        <li v-for="achievement in achievements"><Icon name="material-symbols:check" class="text-green-500"/>{{achievement}}</li>
       </ul>
     </div>
 
