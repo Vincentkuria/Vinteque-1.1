@@ -35,7 +35,7 @@ const scrollRight = (scroller:string) => {
   }
 };
 
-const { data:softwareData, error, pending, status } = await useFetch(useRuntimeConfig().public.directus.url + `/items/software`, {
+const { data:softwareData, error, pending, status:softwareStatus } = await useFetch(useRuntimeConfig().public.directus.url + `/items/software`, {
     method: 'get',
     headers: {
       'Content-Type': 'application/json',
@@ -44,6 +44,16 @@ const { data:softwareData, error, pending, status } = await useFetch(useRuntimeC
       fields:'id,logo,title,mockup_img,mockup_back_img,software_desc'
     }
   })
+
+const { data:brandData,status:brandStatus } = await useFetch(useRuntimeConfig().public.directus.url + '/items/brand', {
+  method: 'get',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  query:{
+    fields:'id,title,display_img'
+  }
+})
 
   const customStyling=(logoId:string)=>{
     const img=useRuntimeConfig().public.directus.url+`/assets/${logoId}`
@@ -118,9 +128,9 @@ const { data:softwareData, error, pending, status } = await useFetch(useRuntimeC
     <div 
     ref="brandingscrollcontainer"
     class="flex flex-row overflow-x-scroll scroll-smooth scrollbar scrollbar-thumb-secondary-2 scrollbar-track-blue-100 ms-10 md:ms-20">
-      <div v-for="i in 6">
-        <div class="m-2 p-5 w-[500px] h-[340px] shadow-lg drop-shadow-zinc-100/50  shadow-zinc-800/50 hover:cursor-pointer">
-          <NuxtImg src="/2.png" class="object-contain w-full h-full"/>
+      <div v-for="item in (brandData as any)['data']">
+        <div class="m-2 w-[500px] h-[340px] shadow-lg drop-shadow-zinc-100/50  shadow-zinc-800/50 hover:cursor-pointer">
+          <NuxtImg :src="useRuntimeConfig().public.directus.url+`/assets/${item['display_img']}`" class="object-contain w-full h-full"/>
         </div>
       </div>
       

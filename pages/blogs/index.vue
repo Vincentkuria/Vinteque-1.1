@@ -6,7 +6,11 @@ import PaginationPrevious from '~/components/ui/pagination/PaginationPrevious.vu
 import PaginationEllipsis from '~/components/ui/pagination/PaginationEllipsis.vue'
 import PaginationItem from '~/components/ui/pagination/PaginationItem.vue'
 
+/* TODO after creating more than 5 blogs
+access them from latest created date
 
+and also add limit the componentblog-section to only desplay 7 of them
+*/
 </script>
 
 <template>

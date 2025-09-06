@@ -21,6 +21,32 @@ const scrollRight = () => {
   }
 }
 
+
+const {data,status}=await useFetch(useRuntimeConfig().public.directus.url+`/items/blog`,{
+  method:'get',
+  headers:{
+    'Content-Type':'application/json',
+  },
+  query:{
+    fields:'id,title,hero_img,date_created'
+  }
+})
+
+
+function convertTime(utcString:string) {
+  // to local timezone and human readable
+    const date = new Date(utcString);
+    
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                   'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    
+    const month = months[date.getMonth()];
+    const day = String(date.getDate()).padStart(2, '0');
+    const year = date.getFullYear();
+    
+    return `${month} ${day}, ${year}`
+}
+
 </script>
 
 <template>
@@ -36,14 +62,14 @@ const scrollRight = () => {
     <div
     ref="blogsscrollcontainer"
     class="ms-10 md:ms-20 my-10 flex flex-row gap-10 overflow-x-scroll scrollbar scrollbar-thumb-secondary-2 scrollbar-track-blue-100">
-        <div v-for="n in 15">
+        <div v-for="item in (data as any)['data']">
             <div class="w-96 m-5 h-96 bg-white rounded-2xl  shadow-lg shadow-blue-300/50 hover:cursor-pointer">
                 <div class="h-[60%] w-full bg-green-400">
-                    <NuxtImg src="/images/pic1.jpg" class="h-full w-full object-cover object-center" />
+                    <NuxtImg :src="useRuntimeConfig().public.directus.url+`/assets/${item['hero_img']}`" class="h-full w-full object-cover object-center" />
                 </div>
                 <div class="p-3">
-                  <span class="font-mono">May 10, 2023</span>
-                  <h2 class="w-full font-Berlin-sans-fb text-2xl line-clamp-2">Whats New On Ai Designs in the big city of nairobi On Ai Designs in the big city of nairobi</h2>
+                  <span class="font-mono">{{ convertTime(item['date_created']) }}</span>
+                  <h2 class="w-full font-Berlin-sans-fb text-2xl line-clamp-2">{{ item['title'] }}</h2>
                 </div>
 
             </div>

@@ -14,3 +14,11 @@ import Footer from './components/Footer.vue'
     <Footer />
   </div>
 </template>
+
+<style>
+.v-html ul{
+  list-style: square;
+  list-style-position: inside;
+  padding-left: 3rem;
+}
+</style>

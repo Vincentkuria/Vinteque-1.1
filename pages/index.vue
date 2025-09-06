@@ -140,7 +140,15 @@ const faqs=[
   }
 ]
 
-
+const { data:testimonialData,status:testimonialStatus } = await useFetch(useRuntimeConfig().public.directus.url + '/items/testimonial', {
+  method: 'get',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  query:{
+    fields:'*'
+  }
+})
 
 </script>
 
@@ -289,11 +297,11 @@ More time. More focus.  More results.</p>
   dir="ltr"
   >
       <CarouselContent>
-          <CarouselItem v-for="n,index in 7" :key="index" class="md:basis-1/2 lg:basis-1/1">
+          <CarouselItem v-for="item,index in (testimonialData as any)['data']" :key="index" class="md:basis-1/2 lg:basis-1/1">
               <div class="w-full p-2 flex flex-col items-center gap-2">
-                  <p class="text-center lg:w-[50dvw]"><Icon name="icon-park:quote" class="text-2xl"/>We came to them with just an idea, and they turned it into a fully functioning web platform that’s now running our entire business. The team was incredibly responsive, professional, and genuinely cared about the outcome. They didn’t just build what we asked for, they made it better.<Icon name="icon-park:quote" class="text-2xl scale-y-[-1] scale-x-[-1]"/></p>
-                  <NuxtImg src="/images/pic1.jpg" class="rounded-full w-18 h-18" />
-                  <span class="italic text-center">Vincent Kuria - CEO, Vinteque Software Developers</span>
+                  <p class="text-center lg:w-[50dvw]"><Icon name="icon-park:quote" class="text-2xl"/>{{ item['testimony'] }}<Icon name="icon-park:quote" class="text-2xl scale-y-[-1] scale-x-[-1]"/></p>
+                  <NuxtImg :src="useRuntimeConfig().public.directus.url+`/assets/${item['profile_pic']}`" class="rounded-full w-18 h-18" />
+                  <span class="italic text-center">{{ item['name'] }}</span>
               </div>
           </CarouselItem>
       </CarouselContent>

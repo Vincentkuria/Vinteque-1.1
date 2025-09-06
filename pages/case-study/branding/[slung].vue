@@ -1,51 +1,78 @@
 <script lang="ts" setup>
-  
-  const items = ref([
-    '/images/pic1.jpg',
-    '/images/brand2.png',
-    '/images/brand3.png',
-    '/images/brand4.png',
-    '/images/brand5.png',
-  ])
+const slung=ref(useRoute().params.slung)
+const title=ref()
+const bgColor=ref()
+const location=ref()
+const heroImgUrl=ref()
+const aboutClient=ref()
+const goal=ref()
+const showcaseImgUrls=ref<string[]>([])
+const showcaseBgColor=ref()
 
-  const masonryBgColor = ref("#00ffff")
+const {data,status}=await useFetch(useRuntimeConfig().public.directus.url+`/items/brand/${slung.value}`,{
+  method:'get',
+  headers:{
+    'Content-Type':'application/json'
+  },
+  query:{
+    fields:'*,showcase_imgs.directus_files_id'
+  }
+})
+
+if (status.value=='success') {
+  const caseStudy=ref((data.value as any)['data'])
+  
+  title.value=caseStudy.value['title']
+  bgColor.value=caseStudy.value['bg_color']
+  location.value=caseStudy.value['location']
+  heroImgUrl.value=useRuntimeConfig().public.directus.url+`/assets/${caseStudy.value['hero_img']}`
+  aboutClient.value=caseStudy.value['about_client']
+  goal.value=caseStudy.value['goal']
+  caseStudy.value['showcase_imgs'].forEach((element:any) => {
+    showcaseImgUrls.value.push(useRuntimeConfig().public.directus.url+`/assets/${element['directus_files_id']}`)
+  });
+  showcaseBgColor.value=caseStudy.value['showcase_bg_color'] 
+}
 </script>
 
 <template>
-<div>
+<div v-if="status!=='success'" class="min-h-[50vh]">
+  <div class="flex flex-col justify-self-center justify-items-center">
+    <p class="text-center text-3xl font-bold">Item Not Found</p>
+    <NuxtLink to="/" class="text-blue-500 underline">go back to home page</NuxtLink>
+  </div>
+</div>
+
+<div v-else>
   <div class="my-10 mx-5 md:mx-20">
     <div
     class=" border-y-1 border-blue-100">
       <h1 class="font-Berlin-sans-fb text-5xl max-w-lg">
-        Brand Identity For A Startup
+        {{ title }}
       </h1>
     </div>
 
     <div class="py-5">
-      <span>Location: <span class="font-bold">Nairobi, Kenya</span></span>
-      <div class="bg-blue-600 w-full h-[340px]">
-        <NuxtImg src="/images/pic1.jpg" class="h-full w-full object-contain object-center" />
+      <span>Location: <span class="font-bold">{{ location }}</span></span>
+      <div class="w-full h-[340px]" :style="{'background-color': bgColor}">
+        <NuxtImg :src="heroImgUrl" class="h-full w-full object-contain object-center" />
       </div>
-      <p class="max-w-5xl py-2">
-        Reat! Creating a compelling case study for your branding services can be a powerful trust-builder and sales tool for your website — especially since you’re targeting corporate clients like law firms, HR companies,
-      </p>
+      <div v-html="aboutClient" class="v-html py-2"/>
     </div>
 
   </div>
 
   <div>
     <h1 class="border-s-4 border-primary px-2 m-5 md:px-5 md:mx-10 lg:px-10 lg:mx-20 font-Berlin-sans-fb text-2xl">Brand Identity Goal</h1>
-    <p class="mx-5 md:mx-20 max-w-5xl">
-      Fusion HR Solutions is a human resources management practice that provides a comprehensive range of human resources solutions with a business focus. Fusion HR Solutions is the nucleus of a multidisciplinary team of human resources specialists. Fusion HR Solutions is a dynamic organization that excels in consulting and training and we are accomplished in delivering results.
-    </p>
+    <div v-html="goal" class="v-html mx-5 md:mx-20"/>
   </div>
 
   <div
-  :style="{'background-color': masonryBgColor}"
+  :style="{'background-color': showcaseBgColor}"
   class="p-5 md:p-10 my-10">
-    <masonry-wall :items="items" :ssr-columns=2 :max-columns=3 :min-columns=2 :gap=5>
-        <template #default="{ item, index }">
-          <NuxtImg :src="item" class="w-full h-full bg-red-600 rounded-sm" />
+    <masonry-wall :items="showcaseImgUrls" :ssr-columns=2 :max-columns=3 :min-columns=2 :gap=5>
+        <template #default="{ item, index }" class="bg-white">
+          <NuxtImg :src="item" class="w-full h-full rounded-sm" />
         </template>
     </masonry-wall>
   </div>

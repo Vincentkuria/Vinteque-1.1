@@ -89,7 +89,7 @@ const showcaseBgColor=ref()
 
     <div>
       <h1 class="border-s-4 border-primary px-2 m-5 md:px-5 md:mx-10 lg:px-10 lg:mx-20 font-Berlin-sans-fb text-2xl">About The Client</h1>
-      <div v-html="aboutClient" class="mx-5 md:mx-20"/>
+      <div v-html="aboutClient" class="v-html mx-5 md:mx-20"/>
     </div>
 
     <div class="w-full h-[60vh] md:h-[70vh] lg:h-[90vh] mt-5">
@@ -98,14 +98,14 @@ const showcaseBgColor=ref()
 
     <div>
       <h1 class="border-s-4 border-primary px-2 m-5 md:px-5 md:mx-10 lg:px-10 lg:mx-20 font-Berlin-sans-fb text-2xl">The Challenge</h1>
-      <div v-html="challenge" class="mx-5 md:mx-20"/>
+      <div v-html="challenge" class="v-html mx-5 md:mx-20"/>
     </div>
     
 
     <div class="flex flex-row flex-wrap my-10">
       <div class="max-w-[90dvw] md:max-w-[60dvw]">
         <h1 class="border-s-4 border-primary px-2 m-5 md:px-5 md:mx-10 lg:px-10 lg:mx-20 font-Berlin-sans-fb text-2xl">The Solution</h1>
-        <div v-html="solution" class="mx-5 md:ms-20"/>
+        <div v-html="solution" class="v-html mx-5 md:ms-20"/>
       </div>
       <div class="mx-5 px-5 my-5 py-5 md:px-10 border-t-2 md:border-s-2 md:border-t-0 border-blue-100">
         <h3 class="md:text-lg">Tech Stack</h3>

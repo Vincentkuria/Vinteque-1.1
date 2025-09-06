@@ -1,4 +1,13 @@
 <script lang="ts" setup>
+const { data,status } = await useFetch(useRuntimeConfig().public.directus.url + '/items/brand', {
+  method: 'get',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  query:{
+    fields:'id,title,display_img'
+  }
+})
 
 </script>
 
@@ -14,12 +23,12 @@
 
   <div class="flex justify-center">
     <div class="grid md:grid-cols-2 gap-5 my-10 md:m-10">
-      <div v-for="n in 15" class="md:p-5 flex flex-col w-fit h-fit shadow-lg drop-shadow-zinc-100/50  shadow-zinc-800/50">
+      <div v-for="item in (data as any)['data']" class="md:p-5 flex flex-col w-fit h-fit shadow-lg drop-shadow-zinc-100/50  shadow-zinc-800/50">
         <div>
-          <h1 class="px-2 mx-5 font-bold">Fusion HR- Nairobi, Kenya</h1>
+          <h1 class="px-2 mx-5 font-bold">{{ item['title'] }}</h1>
         </div>
         <div class="w-full md:w-[500px] h-[340px]">
-          <NuxtImg src="/2.png" class="object-contain w-full h-full"/>
+          <NuxtImg :src="useRuntimeConfig().public.directus.url+`/assets/${item['display_img']}`" class="object-contain w-full h-full"/>
         </div>
       </div>
     </div>
