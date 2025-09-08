@@ -27,7 +27,7 @@ const year =new Date().getFullYear()
         <NuxtLink target="_blank" to="/" class="hover:text-primary"><Icon name="simple-icons:instagram"/></NuxtLink>
         <NuxtLink target="_blank" to="/" class="hover:text-primary"><Icon name="fa6-brands:facebook-f"/></NuxtLink>
       </div>
-      <span class="w-fit text-center"><NuxtLink to="/" class="hover:text-primary">Privacy Policy</NuxtLink> | <NuxtLink to="/" class="hover:text-primary">Terms & Conditions</NuxtLink></span>
+      <span class="w-fit text-center"><NuxtLink to="/privacy-policy" class="hover:text-primary">Privacy Policy</NuxtLink> | <NuxtLink to="/terms-of-service" class="hover:text-primary">Terms & Conditions</NuxtLink></span>
     </div>
   </div>
 </div>
