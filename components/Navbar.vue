@@ -13,8 +13,8 @@ import SheetHeader from './ui/sheet/SheetHeader.vue'
 import SheetTitle from './ui/sheet/SheetTitle.vue'
 import SheetDescription from './ui/sheet/SheetDescription.vue'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
-import { Home } from 'lucide-vue-next'
 import { motion } from "motion-v"
+import * as yup from 'yup';
 
 
 const services=[
@@ -91,6 +91,17 @@ onBeforeUnmount(()=>{
 const close = () => {
     trigger.value?.click()
 }
+
+const submit=(values:object)=>{ 
+ console.log(values)
+}
+
+const schema = yup.object({
+    name: yup.string().required(),
+    email: yup.string().required().email(),
+    phone: yup.string().required().min(7),
+    message: yup.string().required(),
+})
 
 </script>
 
@@ -184,7 +195,7 @@ class="z-10 bg-white w-full "
                     </Motion>
                     
                 </SheetTrigger>
-                <SheetContent>
+                <SheetContent class="overflow-y-scroll">
                     <SheetHeader>
                         <SheetTitle class="text-3xl font-Berlin-sans-fb font-medium">
                             Let's Build Something Great Together
@@ -194,13 +205,17 @@ class="z-10 bg-white w-full "
                         </SheetDescription>
                     </SheetHeader>
 
-                    <form class="p-5 flex flex-col gap-4">
-                      <input type="text" placeholder="Name" class="bg-gray-300 rounded-full p-2 w-full" required/>
-                      <input type="email" placeholder="Email" class="bg-gray-300 rounded-full p-2 w-full" required/>
-                      <input type="text" placeholder="Phone" class="bg-gray-300 rounded-full p-2 w-full" required/>
-                      <textarea placeholder="Message" class="bg-gray-300 rounded-sm p-2 w-full" required/>
+                    <VeeForm @submit="submit" :validation-schema="schema" class="p-5 flex flex-col gap-4">
+                      <VeeField name="name" type="text" placeholder="Name" class="bg-gray-300 rounded-full p-2 w-full" required/>
+                      <VeeErrorMessage class="text-red-400" name="name"/>
+                      <VeeField name="email" type="email" placeholder="Email" class="bg-gray-300 rounded-full p-2 w-full" required/>
+                      <VeeErrorMessage class="text-red-400" name="email"/>
+                      <VeeField name="phone" type="text" placeholder="Phone" class="bg-gray-300 rounded-full p-2 w-full" required/>
+                      <VeeErrorMessage class="text-red-400" name="phone"/>
+                      <VeeField name="message" as="textarea" placeholder="Message" class="bg-gray-300 rounded-sm p-2 w-full" required/>
+                      <VeeErrorMessage class="text-red-400" name="message"/>
                       <button type="submit" class="text-white bg-primary rounded-full p-2 w-full cursor-pointer">Submit</button>
-                    </form>
+                    </VeeForm>
                 </SheetContent>
             </Sheet>
 

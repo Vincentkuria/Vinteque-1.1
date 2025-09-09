@@ -17,8 +17,20 @@ export default defineNuxtConfig({
     'motion-v/nuxt',
     '@nuxt/image',
     '@nuxt/icon',
-    'nuxt-marquee'
+    'nuxt-marquee',
+    '@vee-validate/nuxt'
   ],
+
+  veeValidate:{
+    autoImports: true,
+    componentNames: {
+      Form: 'VeeForm',
+      Field: 'VeeField',
+      FieldArray: 'VeeFieldArray',
+      ErrorMessage: 'VeeErrorMessage',
+    },
+  }
+  ,
 
   runtimeConfig:{
     public:{
