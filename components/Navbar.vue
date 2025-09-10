@@ -80,6 +80,8 @@ const handleScroll = () => {
     isFixed.value = window.scrollY > 50
 }
 
+const isOpen=ref()
+
 onMounted(()=>{
     window.addEventListener("scroll", handleScroll)
 })
@@ -92,8 +94,20 @@ const close = () => {
     trigger.value?.click()
 }
 
-const submit=(values:object)=>{ 
- console.log(values)
+const submit=async(values:object)=>{ 
+ const response= await $fetch(useRuntimeConfig().public.directus.url +`/items/message`,{
+    method: 'POST',
+    headers:{
+        'Content-Type': 'application/json'
+    },
+    body: values,
+    onResponse({response}){
+        console.log(response.status)
+        if (response.status>=200 && response.status<300) {
+            isOpen.value=false
+        }
+    }
+ })
 }
 
 const schema = yup.object({
@@ -184,7 +198,7 @@ class="z-10 bg-white w-full "
             </Motion>
             
             
-            <Sheet>
+            <Sheet v-model:open="isOpen">
                 <SheetTrigger>
                     <Motion
                     :while-hover="{scale: 1.1}"

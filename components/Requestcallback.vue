@@ -8,8 +8,23 @@ import DialogDescription from './ui/dialog/DialogDescription.vue'
 import ShimmerButton from './ui/shimmer-button/ShimmerButton.vue'
 import * as yup from 'yup';
 
-const submit=(values:object)=>{ 
- console.log(values)
+const isOpen=ref()
+
+const submit=async(values:object)=>{ 
+ const response= await $fetch(useRuntimeConfig().public.directus.url +`/items/callback`,{
+    method: 'POST',
+    headers:{
+        'Content-Type': 'application/json'
+    },
+    body: values,
+    onResponse({response}){
+        console.log(response.status)
+        if (response.status>=200 && response.status<300) {
+            console.log(response.status)
+            isOpen.value=false
+        }
+    }
+ })
 }
 
 const schema = yup.object({
@@ -24,7 +39,7 @@ const schema = yup.object({
 
 <template>
     <div>
-        <Dialog>
+        <Dialog v-model:open="isOpen">
             <DialogTrigger>
                 <ShimmerButton
                 class="shadow-2xl"
@@ -45,20 +60,22 @@ const schema = yup.object({
                     <DialogDescription>
                         Share your contact details and we’ll follow up, locally via phone or internationally via Google Meet. It’s a simple, no-pressure way to explore your ideas with our expert team.
                     </DialogDescription>
-                    <VeeForm @submit="submit" :validation-schema="schema" class="p-5 flex flex-col gap-4">
-                      <VeeField name="first_name" type="text" placeholder="First Name" class="bg-gray-300 rounded-full p-2 w-full" required/>
-                      <VeeErrorMessage class="text-red-400" name="first_name"/>
-                      <VeeField name="last_name" type="text" placeholder="Last Name" class="bg-gray-300 rounded-full p-2 w-full" required/>
-                      <VeeErrorMessage class="text-red-400" name="last_name" />
-                      <VeeField name="email" type="email" placeholder="Email" class="bg-gray-300 rounded-full p-2 w-full" required/>
-                      <VeeErrorMessage class="text-red-400" name="email"/>
-                      <VeeField name="phone" type="text" placeholder="Phone" class="bg-gray-300 rounded-full p-2 w-full" required/>
-                      <VeeErrorMessage class="text-red-400" name="phone"/>
-
-                      <button type="submit" class="text-white bg-primary rounded-full p-2 w-full cursor-pointer">Submit</button>
-                    </VeeForm>
                 </DialogHeader>
+
+                <VeeForm @submit="submit" :validation-schema="schema" class="p-5 flex flex-col gap-4">
+                  <VeeField name="first_name" type="text" placeholder="First Name" class="bg-gray-300 rounded-full p-2 w-full" required/>
+                  <VeeErrorMessage class="text-red-400" name="first_name"/>
+                  <VeeField name="last_name" type="text" placeholder="Last Name" class="bg-gray-300 rounded-full p-2 w-full" required/>
+                  <VeeErrorMessage class="text-red-400" name="last_name" />
+                  <VeeField name="email" type="email" placeholder="Email" class="bg-gray-300 rounded-full p-2 w-full" required/>
+                  <VeeErrorMessage class="text-red-400" name="email"/>
+                  <VeeField name="phone" type="text" placeholder="Phone" class="bg-gray-300 rounded-full p-2 w-full" required/>
+                  <VeeErrorMessage class="text-red-400" name="phone"/>
+
+                  <button type="submit" class="text-white bg-primary rounded-full p-2 w-full cursor-pointer">Submit</button>
+                </VeeForm>
             </DialogContent>
+            
         </Dialog>
     </div>
     
