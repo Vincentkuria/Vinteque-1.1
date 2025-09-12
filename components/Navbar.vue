@@ -111,10 +111,10 @@ const submit=async(values:object)=>{
 }
 
 const schema = yup.object({
-    name: yup.string().required(),
-    email: yup.string().required().email(),
-    phone: yup.string().required().min(7),
-    message: yup.string().required(),
+    name: yup.string().required('Name is required'),
+    email: yup.string().required('Email is required').email(),
+    phone: yup.string().required('Phone number is required').min(7),
+    message: yup.string().required('Messsage is required'),
 })
 
 </script>
@@ -127,7 +127,7 @@ class="z-10 bg-white w-full "
     <div class="flex justify-between md:justify-around p-2 items-center">
         <NuxtLink to="/">  
             <div class="w-fit flex flex-col">
-                <NuxtImg src="/vinteque.png" :class="isFixed ? 'w-12 h-12 ease-in-out':'w-20 h-20'" class="object-contain self-center"/>
+                <NuxtImg format="webp" src="/vinteque.png" :class="isFixed ? 'w-12 h-12 ease-in-out':'w-20 h-20'" class="object-contain self-center"/>
                 <div class="flex justify-center"><h1 :class="isFixed ? 'text-base':'text-2xl'" class="font-Berlin-sans-fb self-center">Vinteque</h1></div>
             </div>
         </NuxtLink>

@@ -2,7 +2,8 @@
 import { NuxtPage } from '#components';
 import Navbar from './components/Navbar.vue'
 import Footer from './components/Footer.vue'
-
+import { Toaster } from '@/components/ui/sonner'
+import 'vue-sonner/style.css'
 </script>
 
 <template>
@@ -12,6 +13,7 @@ import Footer from './components/Footer.vue'
       <NuxtPage/>
     </div>
     <Footer />
+    <Toaster />
   </div>
 </template>
 

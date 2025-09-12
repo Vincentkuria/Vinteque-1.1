@@ -262,13 +262,13 @@ const { data:testimonialData,status:testimonialStatus } = await useFetch(useRunt
         <Requestcallback/>
       </div>
       <div class="order-1 md:order-2">
-        <NuxtImg src="/images/pic1.jpg" class="h-64 md:h-94 md:w-96 object-cover object-top" />
+        <NuxtImg format="webp" src="/images/pic1.jpg" class="h-64 md:h-94 md:w-96 object-cover object-top" />
       </div>
     </div>
 
     <div class="flex flex-wrap text-black items-center justify-around px-10 md:px-20">
       <div>
-        <NuxtImg src="/images/pic2.jpg" class="h-64 md:h-94 md:w-96 object-cover object-center" />
+        <NuxtImg format="webp" src="/images/pic2.jpg" class="h-64 md:h-94 md:w-96 object-cover object-center" />
       </div>
       <div class="md:max-w-[40dvw] flex flex-col gap-3 py-10">
         <h2 class="font-Berlin-sans-fb text-4xl">Tired of Switching Between 5 Different Tools?</h2>
@@ -285,7 +285,7 @@ More time. More focus.  More results.</p>
         <Requestcallback/>
       </div>
       <div class="order-1 md:order-2">
-        <NuxtImg src="/images/pic3.jpg" class="h-64 md:h-94 md:w-96 object-cover object-top" />
+        <NuxtImg format="webp" src="/images/pic3.jpg" class="h-64 md:h-94 md:w-96 object-cover object-top" />
       </div>
     </div>
   </div>
@@ -300,7 +300,7 @@ More time. More focus.  More results.</p>
           <CarouselItem v-for="item,index in (testimonialData as any)['data']" :key="index" class="md:basis-1/2 lg:basis-1/1">
               <div class="w-full p-2 flex flex-col items-center gap-2">
                   <p class="text-center lg:w-[50dvw]"><Icon name="icon-park:quote" class="text-2xl"/>{{ item['testimony'] }}<Icon name="icon-park:quote" class="text-2xl scale-y-[-1] scale-x-[-1]"/></p>
-                  <NuxtImg :src="useRuntimeConfig().public.directus.url+`/assets/${item['profile_pic']}`" class="rounded-full w-18 h-18" />
+                  <NuxtImg format="webp" :src="useRuntimeConfig().public.directus.url+`/assets/${item['profile_pic']}`" class="rounded-full w-18 h-18" />
                   <span class="italic text-center">{{ item['name'] }}</span>
               </div>
           </CarouselItem>

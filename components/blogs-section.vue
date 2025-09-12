@@ -51,7 +51,7 @@ const {data,status}=await useFetch(useRuntimeConfig().public.directus.url+`/item
           <NuxtLink :to="`/blogs/${item['id']}`">
             <div class="w-96 m-5 h-96 bg-white rounded-2xl  shadow-lg shadow-blue-300/50 hover:cursor-pointer">
                 <div class="h-[60%] w-full bg-green-400">
-                    <NuxtImg :src="useRuntimeConfig().public.directus.url+`/assets/${item['hero_img']}`" class="h-full w-full object-cover object-center" />
+                    <NuxtImg format="webp" :src="useRuntimeConfig().public.directus.url+`/assets/${item['hero_img']}`" class="h-full w-full object-cover object-center" />
                 </div>
                 <div class="p-3">
                   <span class="font-mono">{{ simplifyDate(item['date_created']) }}</span>

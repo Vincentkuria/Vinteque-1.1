@@ -28,10 +28,10 @@ const submit=async(values:object)=>{
 }
 
 const schema = yup.object({
-    first_name: yup.string().required(),
-    last_name: yup.string().required(),
-    email: yup.string().required().email(),
-    phone: yup.string().required().min(7)
+    first_name: yup.string().required('First name is required'),
+    last_name: yup.string().required('Last name is required'),
+    email: yup.string().required('Email is required').email('Must be a valid email'),
+    phone: yup.string().required('Phone number is required').min(7)
 })
 
 
@@ -69,7 +69,7 @@ const schema = yup.object({
                   <VeeErrorMessage class="text-red-400" name="last_name" />
                   <VeeField name="email" type="email" placeholder="Email" class="bg-gray-300 rounded-full p-2 w-full" required/>
                   <VeeErrorMessage class="text-red-400" name="email"/>
-                  <VeeField name="phone" type="text" placeholder="Phone" class="bg-gray-300 rounded-full p-2 w-full" required/>
+                  <VeeField name="phone" type="text" placeholder="Phone number" class="bg-gray-300 rounded-full p-2 w-full" required/>
                   <VeeErrorMessage class="text-red-400" name="phone"/>
 
                   <button type="submit" class="text-white bg-primary rounded-full p-2 w-full cursor-pointer">Submit</button>

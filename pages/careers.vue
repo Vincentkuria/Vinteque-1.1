@@ -16,8 +16,12 @@ import DrawerTrigger from '~/components/ui/drawer/DrawerTrigger.vue'
 import DrawerContent from '~/components/ui/drawer/DrawerContent.vue'
 import DrawerHeader from '~/components/ui/drawer/DrawerHeader.vue'
 import DrawerTitle from '~/components/ui/drawer/DrawerTitle.vue'
+import * as yup from 'yup';
+import { toast } from 'vue-sonner'
+
 
 const currentPage=ref<number>(1)
+const isOpen=ref()
 
 const {data:countData,status:countStatus}=await useFetch(useRuntimeConfig().public.directus.url+`/items/job`,{
   method:'get',
@@ -44,6 +48,68 @@ const {data,status}=await useFetch(useRuntimeConfig().public.directus.url+`/item
     sort:'sort,-date_created'
   }
 })
+
+const schema=yup.object({
+  name: yup.string().required('Name is required'),
+  email: yup.string().required('Email is required'),
+  phone: yup.string().required('Phone number is required').min(7),
+  resume: yup.mixed<File>().required('Your resume is required').test(
+    "fileSize","File too large max 1MB",(value)=>{
+      if (!value) return false
+      return value.size <= 1 * 1024 * 1024 // 1MB
+    }
+  ),
+
+})
+
+const submit=async(values:any)=>{
+  const uploadSuccess=ref()
+  const formData=new FormData()
+  formData.append('file',values.resume)
+
+  const fileUploadResponse=await $fetch(useRuntimeConfig().public.directus.url+'/files',{
+    method:'post',
+    body: formData,
+    onResponse({response}){
+      if (response.status>=200 && response.status<300) {
+        uploadSuccess.value=true
+      }else{
+        uploadSuccess.value=false
+      }
+    }
+  })
+
+  if (uploadSuccess.value) {
+    const resumeId=(fileUploadResponse as any).data.id
+    const applicationRes = await $fetch(useRuntimeConfig().public.directus.url+'/items/applicants', {
+    method:'post',
+    headers:{
+      'Content-Type':'application/json'
+    },
+    body:{
+      job_id:values.job_id,
+      name: values.name,
+      phone: values.phone,
+      email: values.email,
+      resume:resumeId,
+    },
+    onResponse({response}){
+      if(response.status>=200 && response.status<300){
+        isOpen.value=false
+        toast('Application submited successfuly')
+      }
+    }
+    })
+
+  }
+
+  
+
+  
+
+
+}
+
 </script>
 
 
@@ -86,7 +152,7 @@ const {data,status}=await useFetch(useRuntimeConfig().public.directus.url+`/item
         <CardContent>
           <div v-html="item['body']" class="v-html mb-4"/>
           
-          <Drawer>
+          <Drawer v-model:open="isOpen">
             <DrawerTrigger class="w-full">
               <Button class="w-full hover:bg-blue-950 bg-secondary-2 hover:cursor-pointer">Apply Now</Button>
             </DrawerTrigger>
@@ -99,27 +165,34 @@ const {data,status}=await useFetch(useRuntimeConfig().public.directus.url+`/item
               </DrawerHeader>
 
               <div>
-                <form class="mx-5 md:mx-10 mb-5 md:w-lg">
+                <VeeForm @submit="submit" :initial-values="{job_id:item.id}" :validation-schema="schema" class="mx-5 md:mx-10 mb-5 md:w-lg">
+
+                  <VeeField name="job_id" class="hidden"/>
+
                   <div class="flex flex-col">
                     <label>Name</label>
-                    <input class="bg-gray-300 rounded-full p-2" type="text"/>
+                    <VeeField name="name" class="bg-gray-300 rounded-full p-2" type="text"/>
+                    <VeeErrorMessage class="text-red-400" name="name"/>
                   </div>
 
                   <div class="flex flex-col">
                     <label>Email</label>
-                    <input class="bg-gray-300 rounded-full p-2" type="email">
+                    <VeeField name="email" class="bg-gray-300 rounded-full p-2" type="email"/>
+                    <VeeErrorMessage class="text-red-400" name="email"/>
                   </div>
 
                   <div class="flex flex-col">
                     <label>Phone Number</label>
-                    <input class="bg-gray-300 rounded-full p-2" type="text"/>
+                    <VeeField name="phone" class="bg-gray-300 rounded-full p-2" type="text"/>
+                    <VeeErrorMessage class="text-red-400" name="phone"/>
                   </div>
                   <div class="flex flex-col">
                     <label class="font-semibold">Resume</label>
-                    <input class="bg-gray-300 text-xs w-fit text-gray-500 rounded-2xl p-2 mb-3 border-1 transition-all duration-200 cursor-pointer file:bg-blue-950 file:text-white file:border-0 file:rounded-lg file:px-4 file:py-1 file:mr-4 file:cursor-pointer file:transition-colors" accept=".pdf,.doc,.docx" type="file"/>
+                    <VeeField name="resume" class="bg-gray-300 text-xs w-fit text-gray-500 rounded-2xl p-2 mb-3 border-1 transition-all duration-200 cursor-pointer file:bg-blue-950 file:text-white file:border-0 file:rounded-lg file:px-4 file:py-1 file:mr-4 file:cursor-pointer file:transition-colors" accept=".pdf,.doc,.docx" type="file"/>
+                    <VeeErrorMessage class="text-red-400" name="resume"/>
                   </div>
                   <Button class="w-full hover:bg-blue-950 bg-secondary-2 hover:cursor-pointer">Submit Application</Button>
-                </form>
+                </VeeForm>
               </div>
             </DrawerContent>
           </Drawer>

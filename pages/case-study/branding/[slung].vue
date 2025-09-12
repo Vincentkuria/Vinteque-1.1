@@ -55,7 +55,7 @@ if (status.value=='success') {
     <div class="py-5">
       <span>Location: <span class="font-bold">{{ location }}</span></span>
       <div class="w-full h-[340px]" :style="{'background-color': bgColor}">
-        <NuxtImg :src="heroImgUrl" class="h-full w-full object-contain object-center" />
+        <NuxtImg format="webp" :src="heroImgUrl" class="h-full w-full object-contain object-center" />
       </div>
       <div v-html="aboutClient" class="v-html py-2"/>
     </div>
@@ -72,7 +72,7 @@ if (status.value=='success') {
   class="p-5 md:p-10 my-10">
     <masonry-wall :items="showcaseImgUrls" :ssr-columns=2 :max-columns=3 :min-columns=2 :gap=5>
         <template #default="{ item, index }" class="bg-white">
-          <NuxtImg :src="item" class="w-full h-full rounded-sm" />
+          <NuxtImg format="webp" :src="item" class="w-full h-full rounded-sm" />
         </template>
     </masonry-wall>
   </div>

@@ -41,7 +41,7 @@ const { data, error, pending, status } = await useFetch(useRuntimeConfig().publi
             <CardItem 
             class="h-3/12 flex flex-row gap-3 items-center"
             :translate-z="50">
-              <NuxtImg :src="useRuntimeConfig().public.directus.url+`/assets/${item['logo']}`" class="object-contain h-full"/>
+              <NuxtImg format="webp" :src="useRuntimeConfig().public.directus.url+`/assets/${item['logo']}`" class="object-contain h-full"/>
               <h3 class="font-bold text-lg">{{ item['title'] }}</h3>
               
             </CardItem>
@@ -49,7 +49,7 @@ const { data, error, pending, status } = await useFetch(useRuntimeConfig().publi
             class="h-6/12 w-full"
             :translate-z="100"
             >
-              <NuxtImg :src="useRuntimeConfig().public.directus.url+`/assets/${item['mockup_img']}`" class="object-contain w-full h-full"/>
+              <NuxtImg format="webp" :src="useRuntimeConfig().public.directus.url+`/assets/${item['mockup_img']}`" class="object-contain w-full h-full"/>
             </CardItem>
             <CardItem
             :translate-z="50"

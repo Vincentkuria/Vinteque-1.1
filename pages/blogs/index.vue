@@ -85,7 +85,7 @@ if (status.value=='success' && currentPage.value==1) {
           <NuxtLink :to="`/blogs/${mainArticle['id']}`">
           <div class="w-full md:w-[40vw] my-5 h-fit  hover:cursor-pointer">
               <div class="h-[60%] w-full bg-gray-400">
-                  <NuxtImg :src="useRuntimeConfig().public.directus.url+`/assets/${mainArticle['hero_img']}`" class="h-full max-h-[80vh] w-full object-cover object-center" />
+                  <NuxtImg format="webp" :src="useRuntimeConfig().public.directus.url+`/assets/${mainArticle['hero_img']}`" class="h-full max-h-[80vh] w-full object-cover object-center" />
               </div>
               <div class="py-3">
                   <span class="font-mono">{{ simplifyDate(mainArticle['date_created']) }}</span>
@@ -102,7 +102,7 @@ if (status.value=='success' && currentPage.value==1) {
           <div v-for="item in subMainArticle">
             <NuxtLink :to="`/blogs/${item['id']}`" class="py-10 flex flex-row justify-around hover:cursor-pointer border-b-1 border-blue-950">
               <div class="h-30 w-92 bg-gray-400">
-                  <NuxtImg :src="useRuntimeConfig().public.directus.url+`/assets/${item['hero_img']}`" class="h-full w-full object-cover object-center" />
+                  <NuxtImg format="webp" :src="useRuntimeConfig().public.directus.url+`/assets/${item['hero_img']}`" class="h-full w-full object-cover object-center" />
               </div>
               <div class="px-3">
                   <span class="font-mono text-sm">{{ simplifyDate(item['date_created']) }}</span>
@@ -120,7 +120,7 @@ if (status.value=='success' && currentPage.value==1) {
         <NuxtLink :to="`/blogs/${item['id']}`">
             <div class="w-full h-96 bg-white rounded-2xl  shadow-lg shadow-gray-300 hover:cursor-pointer hover:shadow-xl transition-all duration-300 hover:-translate-1">
                 <div class="h-[60%] w-full bg-green-400">
-                    <NuxtImg :src="useRuntimeConfig().public.directus.url+`/assets/${item['hero_img']}`" class="h-full w-full object-cover object-center" />
+                    <NuxtImg format="webp" :src="useRuntimeConfig().public.directus.url+`/assets/${item['hero_img']}`" class="h-full w-full object-cover object-center" />
                 </div>
                 <div class="p-3">
                   <span class="font-mono text-sm">{{ simplifyDate(item['date_created']) }}</span>
