@@ -28,10 +28,11 @@ const submit=async(values:object)=>{
 }
 
 const schema = yup.object({
-    first_name: yup.string().required('First name is required'),
-    last_name: yup.string().required('Last name is required'),
+    name: yup.string().required('First name is required'),
     email: yup.string().required('Email is required').email('Must be a valid email'),
-    phone: yup.string().required('Phone number is required').min(7)
+    phone: yup.string().required('Phone number is required').min(7),
+    description: yup.string().required('Project description required')
+    
 })
 
 
@@ -63,14 +64,15 @@ const schema = yup.object({
                 </DialogHeader>
 
                 <VeeForm @submit="submit" :validation-schema="schema" class="p-5 flex flex-col gap-4">
-                  <VeeField name="first_name" type="text" placeholder="First Name" class="bg-gray-300 rounded-full p-2 w-full" required/>
-                  <VeeErrorMessage class="text-red-400" name="first_name"/>
-                  <VeeField name="last_name" type="text" placeholder="Last Name" class="bg-gray-300 rounded-full p-2 w-full" required/>
-                  <VeeErrorMessage class="text-red-400" name="last_name" />
+                  <VeeField name="name" type="text" placeholder="Name" class="bg-gray-300 rounded-full p-2 w-full" required/>
+                  <VeeErrorMessage class="text-red-400" name="name"/>
                   <VeeField name="email" type="email" placeholder="Email" class="bg-gray-300 rounded-full p-2 w-full" required/>
                   <VeeErrorMessage class="text-red-400" name="email"/>
                   <VeeField name="phone" type="text" placeholder="Phone number" class="bg-gray-300 rounded-full p-2 w-full" required/>
                   <VeeErrorMessage class="text-red-400" name="phone"/>
+
+                  <VeeField name="description" as="textarea" type="text" placeholder="Describe your project or needs" class="bg-gray-300 rounded-sm p-2 w-full" required/>
+                  <VeeErrorMessage class="text-red-400" name="description"/>
 
                   <button type="submit" class="text-white bg-primary rounded-full p-2 w-full cursor-pointer">Submit</button>
                 </VeeForm>

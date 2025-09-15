@@ -22,10 +22,10 @@ const year =new Date().getFullYear()
 
     <div class="flex flex-col order-2 items-end lg:order-3">
       <div class="flex justify-around w-10/12">
-        <NuxtLink target="_blank" to="/" class="hover:text-primary"><Icon name="bx:bxl-linkedin"/></NuxtLink>
-        <NuxtLink target="_blank" to="/" class="hover:text-primary"><Icon name="garden:twitter-stroke-12"/></NuxtLink>
-        <NuxtLink target="_blank" to="/" class="hover:text-primary"><Icon name="simple-icons:instagram"/></NuxtLink>
-        <NuxtLink target="_blank" to="/" class="hover:text-primary"><Icon name="fa6-brands:facebook-f"/></NuxtLink>
+        <NuxtLink target="_blank" to="https://www.linkedin.com/company/101524155" class="hover:text-primary"><Icon name="bx:bxl-linkedin"/></NuxtLink>
+        <NuxtLink target="_blank" to="https://x.com/Vinteque_dev" class="hover:text-primary"><Icon name="garden:twitter-stroke-12"/></NuxtLink>
+        <NuxtLink target="_blank" to="https://www.instagram.com/vinteque_software_developers/" class="hover:text-primary"><Icon name="simple-icons:instagram"/></NuxtLink>
+        <NuxtLink target="_blank" to="https://www.facebook.com/profile.php?id=100066813943645" class="hover:text-primary"><Icon name="fa6-brands:facebook-f"/></NuxtLink>
       </div>
       <span class="w-fit text-center"><NuxtLink to="/privacy-policy" class="hover:text-primary">Privacy Policy</NuxtLink> | <NuxtLink to="/terms-of-service" class="hover:text-primary">Terms & Conditions</NuxtLink></span>
     </div>
