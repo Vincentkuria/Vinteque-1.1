@@ -31,13 +31,15 @@ const { data,status } = await useFetch(useRuntimeConfig().public.directus.url + 
 
   <div class="flex justify-center">
     <div class="grid md:grid-cols-2 gap-5 my-10 md:m-10">
-      <div v-for="item in (data as any)['data']" class="md:p-5 flex flex-col w-fit h-fit shadow-lg drop-shadow-zinc-100/50  shadow-zinc-800/50">
+      <div v-for="item in (data as any)['data']">
+        <NuxtLink :to="`/case-study/branding/${item.id}`" class="md:p-5 flex flex-col w-fit h-fit shadow-lg drop-shadow-zinc-100/50  shadow-zinc-800/50">
         <div>
           <h1 class="px-2 mx-5 font-bold">{{ item['title'] }}</h1>
         </div>
         <div class="w-full md:w-[500px] h-[340px]">
           <NuxtImg format="webp" :src="useRuntimeConfig().public.directus.url+`/assets/${item['display_img']}`" class="object-contain w-full h-full"/>
         </div>
+        </NuxtLink>
       </div>
     </div>
   </div>
