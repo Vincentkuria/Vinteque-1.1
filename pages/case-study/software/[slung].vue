@@ -101,7 +101,7 @@ const showcaseBgColor=ref()
     </div>
 
     <div class="w-full h-[60vh] md:h-[70vh] lg:h-[90vh] mt-5">
-      <NuxtImg format="webp" :src="aboutImgUrl" class="object-cover bg-yellow-400 w-full h-full" />
+      <NuxtImg format="webp" :src="aboutImgUrl" class="object-contain bg-white w-full h-full" />
     </div>
 
     <div>
