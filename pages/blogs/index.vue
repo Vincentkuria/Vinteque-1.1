@@ -6,6 +6,14 @@ import PaginationPrevious from '~/components/ui/pagination/PaginationPrevious.vu
 import PaginationEllipsis from '~/components/ui/pagination/PaginationEllipsis.vue'
 import PaginationItem from '~/components/ui/pagination/PaginationItem.vue'
 
+useHead({
+    title:'The Blog',
+    meta:[
+        {name:'description', content:"Read expert insights, guides, and tips on software development, websites, mobile apps, and branding from Vinteque Software Developers."}
+    ]
+})
+
+
 const currentPage=ref<number>(1)
 const mainArticle=ref()
 

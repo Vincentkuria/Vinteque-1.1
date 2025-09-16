@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import Requestcallback from '~/components/Requestcallback.vue'
 
+const company=ref()
 const logoUrl = ref()
 const barColor=ref("#ffffff")
 const title=ref()
@@ -52,6 +53,13 @@ const showcaseBgColor=ref()
     caseStudy.value['achievement'].forEach((element:any) => {
       achievements.value.push(element['name'] as string)
     });
+
+    useHead({
+    title: title.value,
+    meta:[
+        {name:'description', content:`view software development case study for ${company.value} `}
+    ]
+  })
   }
 
 </script>

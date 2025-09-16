@@ -7,6 +7,7 @@ import DialogTitle from './ui/dialog/DialogTitle.vue'
 import DialogDescription from './ui/dialog/DialogDescription.vue'
 import ShimmerButton from './ui/shimmer-button/ShimmerButton.vue'
 import * as yup from 'yup';
+import { toast } from 'vue-sonner'
 
 const isOpen=ref()
 
@@ -18,9 +19,8 @@ const submit=async(values:object)=>{
     },
     body: values,
     onResponse({response}){
-        console.log(response.status)
         if (response.status>=200 && response.status<300) {
-            console.log(response.status)
+            toast('Request submitted successfully')
             isOpen.value=false
         }
     }

@@ -1,5 +1,6 @@
 
 <script lang="ts" setup>
+
 const slung=ref(useRoute().params.slung)
 const title=ref()
 const heroImg=ref()
@@ -25,6 +26,13 @@ if(status.value=='success'){
   dateCreated.value=trimedData.value['date_created']
   body.value=trimedData.value['body']
 }
+
+useHead({
+    title: title.value,
+    meta:[
+        {name:'description', content: htmlToText(body.value)}
+    ]
+})
 
 </script>
 

@@ -15,7 +15,13 @@ import AccordionContent from '~/components/ui/accordion/AccordionContent.vue'
 import SuccessStories from '~/components/success-stories.vue'
 import BlogsSection from '~/components/blogs-section.vue'
 
-const pa="dhdhdhdhddhh \n dhdhddjd \n dhdhdj dhdhdhdhddhh <br> dhdhddjd \n dhdhdj dhdhdhdhddhh \N dhdhddjd \n dhdhdj dhdhdhdhddhh \N dhdhddjd \n dhdhdj"
+useHead({
+    title:'Custom Software development & Branding services',
+    meta:[
+        {name:'description', content:"Vinteque Software Developers is a software development agency specialized in creating customized websites, apps, and brands for businesses and startups."}
+    ]
+})
+
 
 const plugin = Autoplay({
   delay: 4000,

@@ -1,4 +1,12 @@
 <script lang="ts" setup>
+
+useHead({
+    title:'AI & Automation',
+    meta:[
+        {name:'description', content:"Transform your business with intelligent automation and AI-powered solutions that scale your operations."}
+    ]
+})
+
 const valueCards = [
     {
       icon: "carbon:workflow-automation",

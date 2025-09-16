@@ -1,4 +1,12 @@
 <script lang="ts" setup>
+
+useHead({
+    title:'Bulk SMS Services',
+    meta:[
+        {name:'description', content:"Reach your customers instantly with powerful SMS marketing that delivers high engagement and measurable results."}
+    ]
+})
+
 const valueCards = [
   {
     icon: "ri:send-plane-line",

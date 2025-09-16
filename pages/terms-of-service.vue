@@ -1,3 +1,11 @@
+<script setup lang="ts">
+useHead({
+    title:'Terms of Service',
+    meta:[
+        {name:'description', content:"Review the Terms of Service for using Vinteque Software Developers' websites, apps, and branding services. Learn about user responsibilities, limitations, and policies."}
+    ]
+})
+</script>
 <template>
   <section class="max-w-4xl mx-auto px-6 py-12 text-gray-800">
     <h1 class="text-3xl font-bold mb-6">Terms of Service</h1>

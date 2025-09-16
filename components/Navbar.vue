@@ -102,8 +102,8 @@ const submit=async(values:object)=>{
     },
     body: values,
     onResponse({response}){
-        console.log(response.status)
         if (response.status>=200 && response.status<300) {
+            toast('Message submitted successfully')
             isOpen.value=false
         }
     }

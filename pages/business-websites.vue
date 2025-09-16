@@ -1,4 +1,12 @@
 <script lang="ts" setup>
+
+useHead({
+    title:'Business Websites',
+    meta:[
+        {name:'description', content:"Establish your professional online presence with custom websites that attract customers, build trust, and grow your business."}
+    ]
+})
+
 const valueCards = [
     {
       icon: "ri:seo-line",

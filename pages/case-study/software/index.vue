@@ -3,6 +3,13 @@ import CardContainer from '~/components/ui/card-3d/CardContainer.vue'
 import CardBody from '~/components/ui/card-3d/CardBody.vue'
 import CardItem from '~/components/ui/card-3d/CardItem.vue'
 
+useHead({
+    title:'Software development - Case study ',
+    meta:[
+        {name:'description', content:"Explore Vinteque’s Software development case studies showcasing how we’ve transformed businesses with impactful identities, websites, and digital strategies."}
+    ]
+})
+
 const { data, error, pending, status } = await useFetch(useRuntimeConfig().public.directus.url + `/items/software`, {
     method: 'get',
     headers: {
@@ -12,8 +19,6 @@ const { data, error, pending, status } = await useFetch(useRuntimeConfig().publi
       fields:'id,logo,title,mockup_img,mockup_back_img,software_desc'
     }
   })
-
-  console.log((data.value as any)['data'])
 
   const customStyling=(logoId:string)=>{
     const img=useRuntimeConfig().public.directus.url+`/assets/${logoId}`

@@ -1,4 +1,12 @@
 <script lang="ts" setup>
+
+useHead({
+    title:'Branding - Case study ',
+    meta:[
+        {name:'description', content:"Explore Vinteque’s branding case studies showcasing how we’ve transformed businesses with impactful identities, websites, and digital strategies."}
+    ]
+})
+
 const { data,status } = await useFetch(useRuntimeConfig().public.directus.url + '/items/brand', {
   method: 'get',
   headers: {

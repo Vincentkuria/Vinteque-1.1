@@ -1,5 +1,12 @@
 <script lang="ts" setup>
 
+useHead({
+    title:'Mobile App Development',
+    meta:[
+        {name:'description', content:"Create engaging mobile experiences that connect with your users anywhere, anytime with native performance and cutting-edge features."}
+    ]
+})
+
 const valueCards = [
     {
       icon: "pepicons-print:smartphone-home-button",

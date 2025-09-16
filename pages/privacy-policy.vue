@@ -1,3 +1,11 @@
+<script setup lang="ts">
+useHead({
+    title:'Privacy Policy',
+    meta:[
+        {name:'description', content:"view policies that guide how we as a company handle your data"}
+    ]
+})
+</script>
 <template>
   <section class="max-w-4xl mx-auto px-6 py-12 text-gray-800">
     <h1 class="text-3xl font-bold mb-6">Privacy Policy</h1>

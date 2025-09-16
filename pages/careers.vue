@@ -19,6 +19,13 @@ import DrawerTitle from '~/components/ui/drawer/DrawerTitle.vue'
 import * as yup from 'yup';
 import { toast } from 'vue-sonner'
 
+useHead({
+    title:'Careers',
+    meta:[
+        {name:'description', content:"Join our passionate team of developers, designers, and innovators who are committed to excellence and growth."}
+    ]
+})
+
 
 const currentPage=ref<number>(1)
 const isOpen=ref()

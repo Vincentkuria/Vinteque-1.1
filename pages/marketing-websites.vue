@@ -1,4 +1,12 @@
 <script lang="ts" setup>
+
+useHead({
+    title:'Marketing Websites',
+    meta:[
+        {name:'description', content:"Create high-converting landing pages and marketing websites that drive results, capture leads, and maximize your ROI."}
+    ]
+})
+
 const valueCards = [
     {
       icon: "mingcute:target-line",

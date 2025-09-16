@@ -1,4 +1,12 @@
 <script lang="ts" setup>
+
+useHead({
+    title:'UI/UX Design',
+    meta:[
+        {name:'description', content:"Create exceptional user experiences that delight customers, drive engagement, and accelerate business growth."}
+    ]
+})
+
 const valueCards = [
     {
       icon: "tdesign:usergroup",

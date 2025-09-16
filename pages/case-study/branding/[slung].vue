@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 const slung=ref(useRoute().params.slung)
+const company=ref()
 const title=ref()
 const bgColor=ref()
 const location=ref()
@@ -22,6 +23,7 @@ const {data,status}=await useFetch(useRuntimeConfig().public.directus.url+`/item
 if (status.value=='success') {
   const caseStudy=ref((data.value as any)['data'])
   
+  company.value=caseStudy.value['company_name']
   title.value=caseStudy.value['title']
   bgColor.value=caseStudy.value['bg_color']
   location.value=caseStudy.value['location']
@@ -31,8 +33,22 @@ if (status.value=='success') {
   caseStudy.value['showcase_imgs'].forEach((element:any) => {
     showcaseImgUrls.value.push(useRuntimeConfig().public.directus.url+`/assets/${element['directus_files_id']}`)
   });
-  showcaseBgColor.value=caseStudy.value['showcase_bg_color'] 
+  showcaseBgColor.value=caseStudy.value['showcase_bg_color']
+  
+  useHead({
+    title: title.value,
+    meta:[
+        {name:'description', content:`view branding case study for ${company.value} `}
+    ]
+  })
 }
+
+useHead({
+    title: title.value,
+    meta:[
+        {name:'description', content:`view branding case study for ${company.value} `}
+    ]
+})
 </script>
 
 <template>

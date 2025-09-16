@@ -1,4 +1,12 @@
 <script lang="ts" setup>
+
+useHead({
+    title:'SEO Services',
+    meta:[
+        {name:'description', content:"Dominate search results and drive organic growth with data-driven SEO strategies that deliver measurable results."}
+    ]
+})
+
 const valueCards = [
     {
       icon: "ri:seo-line",

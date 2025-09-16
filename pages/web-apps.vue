@@ -1,6 +1,13 @@
 <script lang="ts" setup>
 import BlurReveal from '~/components/ui/blur-reveal/BlurReveal.vue'
 
+useHead({
+    title:'Custom Web Applications',
+    meta:[
+        {name:'description', content:"Transform your business with powerful web applications that automate workflows, streamline operations, and deliver exceptional user experiences."}
+    ]
+})
+
 const valueCards = [
     {
       icon: "octicon:zap",

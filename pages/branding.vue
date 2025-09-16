@@ -1,4 +1,11 @@
 <script lang="ts" setup>
+useHead({
+    title:'Brand Design',
+    meta:[
+        {name:'description', content:"Build a memorable brand identity that connects with your audience, differentiates your business, and drives lasting success."}
+    ]
+})
+
 const valueCards = [
     {
       icon: "carbon:strategy-play",

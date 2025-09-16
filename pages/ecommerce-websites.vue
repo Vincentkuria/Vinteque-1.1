@@ -1,4 +1,12 @@
 <script lang="ts" setup>
+
+useHead({
+    title:'E-commerce Websites',
+    meta:[
+        {name:'description', content:"Launch your online store and start selling worldwide with powerful e-commerce solutions that drive sales and growth."}
+    ]
+})
+
 const valueCards = [
     {
       icon: "material-symbols:shopping-cart-outline-rounded",
