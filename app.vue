@@ -16,7 +16,8 @@ useHead({
   script:[
      {
       type: 'application/ld+json',
-      json: {
+      innerHTML: JSON.stringify(
+        {
         "@context": "https://schema.org",
         "@type": "Organization",
         "name": "Vinteque Software Developers",
@@ -39,6 +40,7 @@ useHead({
         ],
         "description": "Vinteque Software Developers is a Kenyan software development agency specialized in creating customized websites, apps, and brands for businesses and startups."
       }
+      )
     },
   ]
 })
