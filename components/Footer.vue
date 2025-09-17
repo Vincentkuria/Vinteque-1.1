@@ -9,7 +9,7 @@ const year =new Date().getFullYear()
   <div class="grid grid-cols-1 lg:grid-cols-3 items-center gap-10 align-bottom text-white">
     <div class="flex flex-col items-center lg:items-start order-3 lg:order-1">
       <h1 class="font-Berlin-sans-fb text-xl">Contacts</h1>
-      <span class="hover:text-primary"><a href="tel:+254712051540">+2547 12 051 540</a></span>
+      <span class="hover:text-primary"><a href="tel:+254704466984">+2547-0446-6984</a></span>
       <span class="hover:text-primary"><a href="mailto:info@vinteque.com">info@vinteque.com</a></span>
     </div>
 

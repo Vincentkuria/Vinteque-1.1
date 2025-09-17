@@ -15,6 +15,7 @@ import SheetDescription from './ui/sheet/SheetDescription.vue'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { motion } from "motion-v"
 import * as yup from 'yup';
+import { toast } from 'vue-sonner'
 
 
 const services=[
@@ -192,7 +193,7 @@ class="z-10 bg-white w-full "
             as-child
             >
             <div>
-                 <a href="tel:+254712051540" class="me-3 font-bold hover:text-primary text-nowrap hidden lg:block">+2547-1205-1540</a>
+                 <a href="tel:+254704466984" class="me-3 font-bold hover:text-primary text-nowrap hidden lg:block">+2547-0446-6984</a>
             </div>
             
             </Motion>

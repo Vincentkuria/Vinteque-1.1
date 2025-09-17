@@ -21,6 +21,7 @@ useHead({
         "@context": "https://schema.org",
         "@type": "Organization",
         "name": "Vinteque Software Developers",
+        "alternateName": ["Vintech", "Vin-Tech"],
         "url": "https://vinteque.com",
         "logo": "https://vinteque.com/vinteque.png",
         "contactPoint": {
