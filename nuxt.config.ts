@@ -11,7 +11,7 @@ export default defineNuxtConfig({
   },
 
   robots:{
-    disallow:['/directus', '/phpmyadmin'],
+    disallow:['/directus', '/phpmyadmin', '/ingest'],
   },
 
   vite: {
@@ -46,7 +46,7 @@ export default defineNuxtConfig({
   runtimeConfig:{
     public:{
       posthogPublicKey: 'phc_5XLrt4fe8m5Z2TfWcCkFiAAekPCJu9tapC5BSoHSV4O',
-      posthogHost: 'https://eu.i.posthog.com',
+      posthogHost: 'https://vinteque.com/ingest',
       posthogDefaults: '2025-05-24',
       directus:{
         url: 'https://vinteque.com/directus'
