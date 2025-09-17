@@ -5,6 +5,15 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   css: ['~/assets/css/main.css'],
 
+  site:{
+    url:'https://vinteque.com/',
+    name:'Vinteque Software Developers'
+  },
+
+  robots:{
+    disallow:['/directus', '/phpmyadmin'],
+  },
+
   vite: {
     plugins: [
       tailwindcss(),
@@ -18,7 +27,9 @@ export default defineNuxtConfig({
     '@nuxt/image',
     '@nuxt/icon',
     'nuxt-marquee',
-    '@vee-validate/nuxt'
+    '@vee-validate/nuxt',
+    '@nuxtjs/robots',
+    '@nuxtjs/sitemap'
   ],
 
   veeValidate:{
@@ -35,7 +46,7 @@ export default defineNuxtConfig({
   runtimeConfig:{
     public:{
       directus:{
-        url: 'http://new.vinteque.com/directus'
+        url: 'https://vinteque.com/directus'
       }
     }
   }
