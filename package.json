@@ -28,6 +28,7 @@
     "motion-v": "^1.5.0",
     "nuxt": "^3.17.6",
     "nuxt-marquee": "^1.0.4",
+    "posthog-js": "^1.266.0",
     "reka-ui": "^2.5.0",
     "shadcn-nuxt": "^2.2.0",
     "tailwind-merge": "^3.3.1",
