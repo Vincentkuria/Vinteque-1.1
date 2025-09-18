@@ -7,9 +7,14 @@ import 'vue-sonner/style.css'
 
 useHead({
   titleTemplate:'Vinteque | %s',
-  link:{
+  link:[
+  {
     rel:'icon', type:'image/png',href:'/vinteque.png'
   },
+  {
+    rel:'canonical',href:'https://vinteque.com'
+  }
+  ],
   htmlAttrs:{
     lang:'en'
   },

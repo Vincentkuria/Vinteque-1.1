@@ -67,7 +67,7 @@ const { data:brandData,status:brandStatus } = await useFetch(useRuntimeConfig().
 <div>
   <div>
     <div class="flex justify-between mb-5">
-      <h1 class="border-s-4 border-primary px-2 ms-5 md:px-5 md:mx-10 lg:px-10 lg:mx-20 font-Berlin-sans-fb text-2xl">Our Software Success Stories</h1>
+      <h2 class="border-s-4 border-primary px-2 ms-5 md:px-5 md:mx-10 lg:px-10 lg:mx-20 font-Berlin-sans-fb text-2xl">Our Software Success Stories</h2>
       <div class="flex flex-row">
         <button @click="scrollLeft('software')" class="px-3 md:px-5 md:py-1 rounded-xs mx-3 bg-primary hover:bg-secondary-2 hover:cursor-pointer text-white text-xl"><Icon class="text-center" name="material-symbols:arrow-left-alt"/></button>
         <button @click="scrollRight('software')" class="px-3 md:px-5 md:py-1 rounded-xs mx-3 bg-primary hover:bg-secondary-2 hover:cursor-pointer text-white text-xl"><Icon class="text-center" name="material-symbols:arrow-right-alt"/></button>
@@ -118,7 +118,7 @@ const { data:brandData,status:brandStatus } = await useFetch(useRuntimeConfig().
   <!-- Branding Stories -->
   <div>
     <div class="flex justify-between mb-5">
-      <h1 class="border-s-4 border-primary px-2 ms-5 md:px-5 md:mx-10 lg:px-10 lg:mx-20 font-Berlin-sans-fb text-2xl">Our Branding Success Stories</h1>
+      <h2 class="border-s-4 border-primary px-2 ms-5 md:px-5 md:mx-10 lg:px-10 lg:mx-20 font-Berlin-sans-fb text-2xl">Our Branding Success Stories</h2>
       <div class="flex flex-row">
         <button @click="scrollLeft('branding')" class="px-3 md:px-5 md:py-1 rounded-xs mx-3 bg-primary hover:bg-secondary-2 hover:cursor-pointer text-white text-xl"><Icon class="text-center" name="material-symbols:arrow-left-alt"/></button>
         <button @click="scrollRight('branding')" class="px-3 md:px-5 md:py-1 rounded-xs mx-3 bg-primary hover:bg-secondary-2 hover:cursor-pointer text-white text-xl"><Icon class="text-center" name="material-symbols:arrow-right-alt"/></button>

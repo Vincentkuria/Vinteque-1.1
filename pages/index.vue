@@ -204,7 +204,7 @@ const { data:testimonialData,status:testimonialStatus } = await useFetch(useRunt
   </div>
 
   <div class="border-s-4 border-primary px-2 m-5 md:px-5 md:m-10 lg:px-10 lg:m-20">
-    <h1 class="font-Berlin-sans-fb text-2xl pb-2">Vinteque Software Developers</h1>
+    <h2 class="font-Berlin-sans-fb text-2xl pb-2">Vinteque Software Developers</h2>
     <p>
       We’re a Nairobi-based software development company helping businesses, startups, and brands reach their next level. We design and build powerful websites, mobile apps, and brand identities that reflect professionalism, inspire trust, and give your business that billion-dollar edge.<br><br>
       From modern website design to custom software and mobile app development, we deliver solutions tailored to your unique needs, whether you’re a local startup or a global enterprise. Our goal is simple: elevate your digital presence, drive real growth, and position your brand for long-term success.<br><br>
@@ -219,19 +219,19 @@ const { data:testimonialData,status:testimonialStatus } = await useFetch(useRunt
   </div>
 
   <div class="my-10">
-    <h1 class="border-s-4 border-primary px-2 m-5 md:px-5 md:mx-10 lg:px-10 lg:mx-20 font-Berlin-sans-fb text-2xl">What We Can Do For You</h1>
+    <h2 class="border-s-4 border-primary px-2 m-5 md:px-5 md:mx-10 lg:px-10 lg:mx-20 font-Berlin-sans-fb text-2xl">What We Can Do For You</h2>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mx-5 md:mx-20">
       <div v-for="service in servicesOffered" class="bg-accent p-5">
         <div class="bg-white p-2 w-12 h-12 flex items-center rounded-sm shadow-black shadow-2xl"><Icon name="material-symbols-light:desktop-windows-outline-rounded" class="text-primary text-4xl"/></div>
-        <h1 class="font-Berlin-sans-fb pt-2 text-2xl">{{ service.title }}</h1>
-        <h2 class="font-mono py-1">{{ service.details }}</h2>
+        <h2 class="font-Berlin-sans-fb pt-2 text-2xl">{{ service.title }}</h2>
+        <h3 class="font-mono py-1">{{ service.details }}</h3>
         <p>{{ service.description }}</p>
       </div>
     </div>
   </div>
 
   <div>
-    <h1 class="text-center font-Berlin-sans-fb text-2xl">Our Tech Stack</h1>
+    <h2 class="text-center font-Berlin-sans-fb text-2xl">Our Tech Stack</h2>
   </div>
 
   <div class="mt-5 flex justify-center">
@@ -319,7 +319,7 @@ More time. More focus.  More results.</p>
   </div>
 
   <div class="md:flex">
-    <h1 class="border-s-4 max-w-96 h-fit border-primary px-2 m-5 md:px-5 md:mx-10 lg:px-10 lg:ms-20 font-Berlin-sans-fb text-2xl md:text-4xl">Frequently asked questions</h1>
+    <h2 class="border-s-4 max-w-96 h-fit border-primary px-2 m-5 md:px-5 md:mx-10 lg:px-10 lg:ms-20 font-Berlin-sans-fb text-2xl md:text-4xl">Frequently asked questions</h2>
     <div class="px-2 m-5 md:px-5 md:mx-10flex">
       <Accordion class="w-fit min-w-[70dvw] lg:min-w-[40dvw] lg:max-w-[80dvw]" type="single" :default-value="'0'">
         <AccordionItem v-for="item,index in faqs" :value="index.toString()">
