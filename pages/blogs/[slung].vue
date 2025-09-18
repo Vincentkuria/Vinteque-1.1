@@ -42,7 +42,7 @@ useHead({
     <h1 class="font-Berlin-sans-fb text-3xl md:text-5xl">{{ title }}</h1>
     <span class="font-mono text-sm">{{ simplifyDate(dateCreated) }}</span>
     <div class="my-5 w-full h-[40vh] md:h-[60vh] bg-gray-400">
-      <NuxtImg format="webp" :src="useRuntimeConfig().public.directus.url+`/assets/${heroImg}`" class="w-full h-full object-cover"/>
+      <NuxtImg format="webp" alt="blog top display image" :src="useRuntimeConfig().public.directus.url+`/assets/${heroImg}`" class="w-full h-full object-cover"/>
     </div>
 
     <!-- blogs body -->

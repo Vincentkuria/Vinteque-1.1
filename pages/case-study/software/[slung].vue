@@ -78,7 +78,7 @@ const showcaseBgColor=ref()
     <div
     :style="{'background-color':barColor}"
     class="h-20 md:h-24 px-10 md:px-20 lg:px-30 border-y-1 border-blue-100">
-      <NuxtImg format="webp" :src="logoUrl" class="object-contain  h-full" />
+      <NuxtImg format="webp" alt="case study company logo" :src="logoUrl" class="object-contain  h-full" />
     </div>
     
 
@@ -101,7 +101,7 @@ const showcaseBgColor=ref()
     </div>
 
     <div class="w-full h-[60vh] md:h-[70vh] lg:h-[90vh] mt-5">
-      <NuxtImg format="webp" :src="aboutImgUrl" class="object-contain bg-white w-full h-full" />
+      <NuxtImg format="webp" alt="case study software showcase" :src="aboutImgUrl" class="object-contain bg-white w-full h-full" />
     </div>
 
     <div>
@@ -126,7 +126,7 @@ const showcaseBgColor=ref()
     class="p-10 my-10">
       <masonry-wall :items="showcaseImgUrls" :ssr-columns=2 :max-columns=3 :min-columns=1 :gap=5>
           <template #default="{ item, index }">
-            <NuxtImg format="webp" :src="item" class="w-full h-full bg-white rounded-sm" />
+            <NuxtImg format="webp" alt="software showcase" :src="item" class="w-full h-full bg-white rounded-sm" />
           </template>
       </masonry-wall>
     </div>

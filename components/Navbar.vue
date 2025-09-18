@@ -128,7 +128,7 @@ class="z-10 bg-white w-full "
     <div class="flex justify-between md:justify-around p-2 items-center">
         <NuxtLink to="/">  
             <div class="w-fit flex flex-col">
-                <NuxtImg format="webp" src="/vinteque.png" :class="isFixed ? 'w-12 h-12 ease-in-out':'w-20 h-20'" class="object-contain self-center"/>
+                <NuxtImg format="webp" alt="vinteque logo" src="/vinteque.png" :class="isFixed ? 'w-12 h-12 ease-in-out':'w-20 h-20'" class="object-contain self-center"/>
                 <div class="flex justify-center"><h1 :class="isFixed ? 'text-base':'text-2xl'" class="font-Berlin-sans-fb self-center">Vinteque</h1></div>
             </div>
         </NuxtLink>

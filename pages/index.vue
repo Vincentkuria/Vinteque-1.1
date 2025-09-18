@@ -193,11 +193,11 @@ const { data:testimonialData,status:testimonialStatus } = await useFetch(useRunt
     </ul>
     <div class="flex justify-center">
       <NuxtMarquee class="h-20 max-w-[1500px]" :gradient="true" dir="ltr">
-        <NuxtImg format="webp" src="/images/brand1.png" class="object-contain h-12 md:h-16 md:w-70 px-5" />
-        <NuxtImg format="webp" src="/images/brand2.png" class="object-contain h-12 md:h-16 md:w-70 px-5" />
-        <NuxtImg format="webp" src="/images/brand3.png" class="object-contain h-12 md:h-16 md:w-70 px-5" />
-        <NuxtImg format="webp" src="/images/brand4.png" class="object-contain h-12 md:h-16 md:w-70 px-5" />
-        <NuxtImg format="webp" src="/images/brand5.png" class="object-contain h-12 md:h-16 md:w-70 px-5" />
+        <NuxtImg format="webp" src="/images/brand1.png" alt="logo" class="object-contain h-12 md:h-16 md:w-70 px-5" />
+        <NuxtImg format="webp" src="/images/brand2.png" alt="logo" class="object-contain h-12 md:h-16 md:w-70 px-5" />
+        <NuxtImg format="webp" src="/images/brand3.png" alt="logo" class="object-contain h-12 md:h-16 md:w-70 px-5" />
+        <NuxtImg format="webp" src="/images/brand4.png" alt="logo" class="object-contain h-12 md:h-16 md:w-70 px-5" />
+        <NuxtImg format="webp" src="/images/brand5.png" alt="logo" class="object-contain h-12 md:h-16 md:w-70 px-5" />
       </NuxtMarquee>
     </div>
     
@@ -268,13 +268,13 @@ const { data:testimonialData,status:testimonialStatus } = await useFetch(useRunt
         <Requestcallback/>
       </div>
       <div class="order-1 md:order-2">
-        <NuxtImg format="webp" src="/images/pic1.jpg" class="h-64 md:h-94 md:w-96 object-cover object-top" />
+        <NuxtImg format="webp" alt="hand pointing at a screen" src="/images/pic1.jpg" class="h-64 md:h-94 md:w-96 object-cover object-top" />
       </div>
     </div>
 
     <div class="flex flex-wrap text-black items-center justify-around px-10 md:px-20">
       <div>
-        <NuxtImg format="webp" src="/images/pic2.jpg" class="h-64 md:h-94 md:w-96 object-cover object-center" />
+        <NuxtImg format="webp" src="/images/pic2.jpg" alt="hand pointing at a screen" class="h-64 md:h-94 md:w-96 object-cover object-center" />
       </div>
       <div class="md:max-w-[40dvw] flex flex-col gap-3 py-10">
         <h2 class="font-Berlin-sans-fb text-4xl">Tired of Switching Between 5 Different Tools?</h2>
@@ -291,7 +291,7 @@ More time. More focus.  More results.</p>
         <Requestcallback/>
       </div>
       <div class="order-1 md:order-2">
-        <NuxtImg format="webp" src="/images/pic3.jpg" class="h-64 md:h-94 md:w-96 object-cover object-top" />
+        <NuxtImg format="webp" src="/images/pic3.jpg" alt="hand pointing at a tablet screen" class="h-64 md:h-94 md:w-96 object-cover object-top" />
       </div>
     </div>
   </div>
@@ -306,7 +306,7 @@ More time. More focus.  More results.</p>
           <CarouselItem v-for="item,index in (testimonialData as any)['data']" :key="index" class="md:basis-1/2 lg:basis-1/1">
               <div class="w-full p-2 flex flex-col items-center gap-2">
                   <p class="text-center lg:w-[50dvw]"><Icon name="icon-park:quote" class="text-2xl"/>{{ item['testimony'] }}<Icon name="icon-park:quote" class="text-2xl scale-y-[-1] scale-x-[-1]"/></p>
-                  <NuxtImg format="webp" :src="useRuntimeConfig().public.directus.url+`/assets/${item['profile_pic']}`" class="rounded-full w-18 h-18" />
+                  <NuxtImg format="webp" alt="profile picture" :src="useRuntimeConfig().public.directus.url+`/assets/${item['profile_pic']}`" class="rounded-full w-18 h-18" />
                   <span class="italic text-center">{{ item['name'] }}</span>
               </div>
           </CarouselItem>
