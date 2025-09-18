@@ -27,3 +27,6 @@ logs
 database/
 extensions/
 uploads/
+
+#nginx config
+.vinteque.conf
