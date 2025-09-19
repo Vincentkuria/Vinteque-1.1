@@ -76,7 +76,7 @@ useSeoMeta({
   padding-left: 2rem;
 }
 
-.v-html h1, h2, h3, h4, h5, h6{
+.v-html h1, .v-html h2, .v-html h3, .v-html h4, .v-html h5, .v-html h6{
   font-weight: bold;
 }
 
