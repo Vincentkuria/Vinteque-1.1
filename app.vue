@@ -11,6 +11,9 @@ useHead({
   {
     rel:'icon', type:'image/png',href:'/vinteque.png'
   },
+  {
+    rel:'canonical',href:'https://vinteque.com'
+  }
   ],
   htmlAttrs:{
     lang:'en'
