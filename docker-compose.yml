@@ -63,10 +63,16 @@ services:
 
       PUBLIC_URL: "https://vinteque.com/directus/"
 
-      CORS_ENABLED: 'true'
-      CORS_ORIGIN: '*'
-      CORS_METHODS: '*'
-      CORS_ALLOWED_HEADERS: '*'
+      CORS_ENABLED: "true"
+      CORS_ORIGIN: "https://eu2.make.com https://hook.eu2.make.com https://vinteque.com"
+      CORS_METHODS: "GET POST PATCH DELETE OPTIONS"
+      CORS_ALLOWED_HEADERS: "*"
+      CORS_CREDENTIALS: "true"
+
+      # CORS_ENABLED: 'true'
+      # CORS_ORIGIN: '*'
+      # CORS_METHODS: '*'
+      # CORS_ALLOWED_HEADERS: '*'
 
   vinteque:
     build: .
