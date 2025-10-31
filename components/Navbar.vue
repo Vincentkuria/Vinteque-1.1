@@ -97,7 +97,7 @@ const close = () => {
 
 const submit=async(values:object)=>{ 
     //@ts-ignore
-fbq('track','lead');
+ window.fbq('track','Lead');
  const response= await $fetch(useRuntimeConfig().public.directus.url +`/items/message`,{
     method: 'POST',
     headers:{
@@ -105,7 +105,17 @@ fbq('track','lead');
     },
     body: values,
     onResponse({response}){
+        
         if (response.status>=200 && response.status<300) {
+            //@ts-ignore
+            if (typeof window.fbq === 'function') {
+                //@ts-ignore
+              window.fbq('track', 'Lead')
+              console.log('FB Pixel Lead event fired ✅')
+            } else {
+              console.warn('⚠️ fbq not loaded yet.')
+            }
+
             toast('Message submitted successfully')
             isOpen.value=false
         }

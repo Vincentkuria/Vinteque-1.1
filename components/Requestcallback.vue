@@ -12,8 +12,6 @@ import { toast } from 'vue-sonner'
 const isOpen=ref()
 
 const submit=async(values:object)=>{ 
-    //@ts-ignore
-fbq('track','Lead');
  const response= await $fetch(useRuntimeConfig().public.directus.url +`/items/callback`,{
     method: 'POST',
     headers:{
@@ -21,6 +19,17 @@ fbq('track','Lead');
     },
     body: values,
     onResponse({response}){
+
+        //@ts-ignore
+            if (typeof window.fbq === 'function') {
+                //@ts-ignore
+              window.fbq('track', 'Lead')
+              console.log('FB Pixel Lead event fired ✅')
+            } else {
+              console.warn('⚠️ fbq not loaded yet.')
+            }
+
+        
         if (response.status>=200 && response.status<300) {
             toast('Request submitted successfully')
             isOpen.value=false
