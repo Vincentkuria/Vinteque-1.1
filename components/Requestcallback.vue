@@ -13,7 +13,7 @@ const isOpen=ref()
 
 const submit=async(values:object)=>{ 
     //@ts-ignore
-fbq('track','lead');
+fbq('track','Lead');
  const response= await $fetch(useRuntimeConfig().public.directus.url +`/items/callback`,{
     method: 'POST',
     headers:{
