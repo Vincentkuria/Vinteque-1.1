@@ -12,6 +12,8 @@ import { toast } from 'vue-sonner'
 const isOpen=ref()
 
 const submit=async(values:object)=>{ 
+    //@ts-ignore
+fbq('track','lead');
  const response= await $fetch(useRuntimeConfig().public.directus.url +`/items/callback`,{
     method: 'POST',
     headers:{

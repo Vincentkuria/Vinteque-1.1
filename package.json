@@ -40,6 +40,7 @@
     "vue-sonner": "^2.0.8"
   },
   "devDependencies": {
-    "tailwind-scrollbar": "^4.0.2"
+    "tailwind-scrollbar": "^4.0.2",
+    "typescript": "^5.9.3"
   }
 }

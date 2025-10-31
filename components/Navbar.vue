@@ -96,6 +96,8 @@ const close = () => {
 }
 
 const submit=async(values:object)=>{ 
+    //@ts-ignore
+fbq('track','lead');
  const response= await $fetch(useRuntimeConfig().public.directus.url +`/items/message`,{
     method: 'POST',
     headers:{
