@@ -88,6 +88,7 @@ useSeoMeta({
       <NuxtPage/>
     </div>
     <Footer />
+    <Whatsappbar/>
     <Toaster />
   </div>
 </template>

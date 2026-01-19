@@ -5,7 +5,7 @@ const year =new Date().getFullYear()
 </script>
 
 <template>
-<div class="bg-[#00163D] py-10 flex justify-center">
+<div class="bg-[#00163D] py-14 flex justify-center">
   <div class="grid grid-cols-1 lg:grid-cols-3 items-center gap-10 align-bottom text-white">
     <div class="flex flex-col items-center lg:items-start order-3 lg:order-1">
       <h2 class="font-Berlin-sans-fb text-xl">Contacts</h2>
