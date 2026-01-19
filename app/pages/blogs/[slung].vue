@@ -46,7 +46,8 @@ useHead({
     </div>
 
     <!-- blogs body -->
-    <div v-html="body" class="v-html my-10"/>
+     <!--TODO add quill editor and use its class-->
+    <div v-html="body" class="reset-tw my-10"/>
   </div>
   <div class="my-10">
     <BlogsSection />
@@ -54,3 +55,10 @@ useHead({
 </div>
   
 </template>
+
+<style scoped>
+.reset-tw,
+.reset-tw * {
+    all: revert !important;
+}
+</style>

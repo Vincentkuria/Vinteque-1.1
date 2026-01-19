@@ -77,7 +77,7 @@ const { data:brandData,status:brandStatus } = await useFetch(useRuntimeConfig().
     <div 
     ref="softwarescrollcontainer"
     class="flex flex-row overflow-x-scroll scrollbar scrollbar-thumb-secondary-2 scrollbar-track-blue-100 ms-10 md:ms-20">
-      <ClientOnly v-for="item in ((softwareData as any)['data'])" class="m-2">
+      <ClientOnly v-for="item in ((softwareData as any)?.data)" class="m-2">
         <NuxtLink :to="`/case-study/software/${item['id']}`">
         <CardContainer  class="shadow-lg drop-shadow-zinc-100/50  shadow-zinc-800/50">
           <CardBody class="flex flex-col justify-between p-5 lg:p-10 w-[90dvw] md:w-[60dvw] md:h-[50vh] lg:w-[40dvw] lg:h-[90vh] hover:cursor-pointer" :style="customStyling(item['mockup_back_img'])">
@@ -128,7 +128,7 @@ const { data:brandData,status:brandStatus } = await useFetch(useRuntimeConfig().
     <div 
     ref="brandingscrollcontainer"
     class="flex flex-row overflow-x-scroll scroll-smooth scrollbar scrollbar-thumb-secondary-2 scrollbar-track-blue-100 ms-10 md:ms-20">
-      <div v-for="item in (brandData as any)['data']">
+      <div v-for="item in (brandData as any)?.data">
       <NuxtLink :to="`/case-study/branding/${item.id}`">
         <div class="m-2 w-[500px] h-[340px] shadow-lg drop-shadow-zinc-100/50  shadow-zinc-800/50 hover:cursor-pointer">
           <NuxtImg format="webp" alt="logo branding display" :src="useRuntimeConfig().public.directus.url+`/assets/${item['display_img']}`" class="object-contain w-full h-full"/>

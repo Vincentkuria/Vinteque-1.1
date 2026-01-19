@@ -49,7 +49,7 @@ export default defineNuxtConfig({
       posthogHost: 'https://vinteque.com/abz',
       posthogDefaults: '2025-05-24',
       directus:{
-        url: 'https://vinteque.com/directus'
+        url: 'http://localhost/api'
       }
     }
   }

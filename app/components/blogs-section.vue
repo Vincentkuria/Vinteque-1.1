@@ -47,7 +47,7 @@ const {data,status}=await useFetch(useRuntimeConfig().public.directus.url+`/item
     <div
     ref="blogsscrollcontainer"
     class="ms-10 md:ms-20 my-10 flex flex-row gap-10 overflow-x-scroll scrollbar scrollbar-thumb-secondary-2 scrollbar-track-blue-100">
-        <div v-for="item in (data as any)['data']">
+        <div v-for="item in (data as any)?.data">
           <NuxtLink :to="`/blogs/${item['id']}`">
             <div class="w-96 m-5 h-96 bg-white rounded-2xl  shadow-lg shadow-blue-300/50 hover:cursor-pointer">
                 <div class="h-[60%] w-full bg-green-400">

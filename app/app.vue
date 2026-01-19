@@ -31,9 +31,9 @@ useHead({
         "logo": "https://vinteque.com/vinteque.png",
         "contactPoint": {
           "@type": "ContactPoint",
-          "telephone": "+254712051540",
+          "telephone": "+254704466984",
           "contactType": "Customer Service",
-          "email": "vinvincent254@gmail.com"
+          "email": "info@vinteque.com"
         },
         "address": {
         "@type": "PostalAddress",
@@ -91,16 +91,3 @@ useSeoMeta({
     <Toaster />
   </div>
 </template>
-
-<style>
-.v-html ul{
-  list-style: square;
-  list-style-position: inside;
-  padding-left: 2rem;
-}
-
-.v-html h1, .v-html h2, .v-html h3, .v-html h4, .v-html h5, .v-html h6{
-  font-weight: bold;
-}
-
-</style>

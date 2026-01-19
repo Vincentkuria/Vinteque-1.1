@@ -303,7 +303,7 @@ More time. More focus.  More results.</p>
   dir="ltr"
   >
       <CarouselContent>
-          <CarouselItem v-for="item,index in (testimonialData as any)['data']" :key="index" class="md:basis-1/2 lg:basis-1/1">
+          <CarouselItem v-for="item,index in (testimonialData as any)?.data" :key="index" class="md:basis-1/2 lg:basis-1/1">
               <div class="w-full p-2 flex flex-col items-center gap-2">
                   <p class="text-center lg:w-[50dvw]"><Icon name="icon-park:quote" class="text-2xl"/>{{ item['testimony'] }}<Icon name="icon-park:quote" class="text-2xl scale-y-[-1] scale-x-[-1]"/></p>
                   <NuxtImg format="webp" alt="profile picture" :src="useRuntimeConfig().public.directus.url+`/assets/${item['profile_pic']}`" class="rounded-full w-18 h-18" />
