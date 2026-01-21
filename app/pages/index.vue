@@ -146,7 +146,7 @@ const faqs=[
   }
 ]
 
-const { data:testimonialData,status:testimonialStatus } = await useFetch(useRuntimeConfig().public.directus.url + '/items/testimonial', {
+const { data:testimonialData,status:testimonialStatus } = await useFetch(useRuntimeConfig().public.baseUrl + '/items/testimonial', {
   method: 'get',
   headers: {
     'Content-Type': 'application/json',
@@ -306,7 +306,7 @@ More time. More focus.  More results.</p>
           <CarouselItem v-for="item,index in (testimonialData as any)?.data" :key="index" class="md:basis-1/2 lg:basis-1/1">
               <div class="w-full p-2 flex flex-col items-center gap-2">
                   <p class="text-center lg:w-[50dvw]"><Icon name="icon-park:quote" class="text-2xl"/>{{ item['testimony'] }}<Icon name="icon-park:quote" class="text-2xl scale-y-[-1] scale-x-[-1]"/></p>
-                  <NuxtImg format="webp" alt="profile picture" :src="useRuntimeConfig().public.directus.url+`/assets/${item['profile_pic']}`" class="rounded-full w-18 h-18" />
+                  <NuxtImg format="webp" alt="profile picture" :src="useRuntimeConfig().public.baseUrl+`/assets/${item['profile_pic']}`" class="rounded-full w-18 h-18" />
                   <span class="italic text-center">{{ item['name'] }}</span>
               </div>
           </CarouselItem>

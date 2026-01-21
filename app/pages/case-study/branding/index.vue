@@ -7,7 +7,7 @@ useHead({
     ]
 })
 
-const { data,status } = await useFetch(useRuntimeConfig().public.directus.url + '/items/brand', {
+const { data,status } = await useFetch(useRuntimeConfig().public.baseUrl + '/items/brand', {
   method: 'get',
   headers: {
     'Content-Type': 'application/json',
@@ -37,7 +37,7 @@ const { data,status } = await useFetch(useRuntimeConfig().public.directus.url + 
           <h1 class="px-2 mx-5 font-bold">{{ item['title'] }}</h1>
         </div>
         <div class="w-full md:w-[500px] h-[340px]">
-          <NuxtImg format="webp" alt="a branded logo display" :src="useRuntimeConfig().public.directus.url+`/assets/${item['display_img']}`" class="object-contain w-full h-full"/>
+          <NuxtImg format="webp" alt="a branded logo display" :src="useRuntimeConfig().public.baseUrl+`/assets/${item['display_img']}`" class="object-contain w-full h-full"/>
         </div>
         </NuxtLink>
       </div>

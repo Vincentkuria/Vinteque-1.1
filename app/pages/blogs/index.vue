@@ -14,61 +14,44 @@ useHead({
 })
 
 
-const currentPage=ref<number>(1)
+const currentPage=ref<number>(0)
 const mainArticle=ref()
+const pageLimit=ref(15)
 
-if (currentPage.value==1) {
-  const {data:latestData,status:latestDataStatus}=await useFetch(useRuntimeConfig().public.directus.url+`/items/blog`,{
+if (currentPage.value==0) {
+  const {data:latestData,status:latestDataStatus}=await useFetch(useRuntimeConfig().public.baseUrl+`/blogs/published`,{
     method:'get',
     headers:{
       'Content-Type':'application/json',
     },
     query:{
-      fields:'id,title,hero_img,date_created,body',
-      limit:1,
-      sort:'sort,-date_created'
+      size:1,
+      page:0
     }
   })
 
   if (latestDataStatus.value=='success') {
-    mainArticle.value=(latestData.value as any)['data'][0]
+    mainArticle.value=(latestData.value as any).content[0]
   }
 }
 
 
-
-
-const {data:countData,status:countStatus}=await useFetch(useRuntimeConfig().public.directus.url+`/items/blog`,{
+const {data,status}=await useFetch(useRuntimeConfig().public.baseUrl+`/blogs/published`,{
   method:'get',
   headers:{
     'Content-Type':'application/json',
   },
   query:{
-    'aggregate[count]':'*'
-  }
-})
-const totalBlogs=ref<number>()
-countStatus.value=='success'? totalBlogs.value=(countData.value as any)['data'][0]['count'] as number:''
-const pageLimit=ref(15)
-
-const {data,status}=await useFetch(useRuntimeConfig().public.directus.url+`/items/blog`,{
-  method:'get',
-  headers:{
-    'Content-Type':'application/json',
-  },
-  query:{
-    fields:'id,title,hero_img,date_created',
-    limit:pageLimit.value,
+    size:pageLimit.value,
     page:currentPage.value,
-    sort:'sort,-date_created'
   }
 })
 
 const subMainArticle=ref<any[]>()
 const fakeMainArticle=ref()
-if (status.value=='success' && currentPage.value==1) {
+if (status.value=='success' && currentPage.value==0) {
 
-  subMainArticle.value=((data.value as any)['data'] as Array<any>).splice(0,4)
+  subMainArticle.value=((data.value as any).content as Array<any>).splice(0,4)
   // the fake is just to get rid of the first element which is not usable in this case 
   fakeMainArticle.value=subMainArticle.value.splice(0,1)[0]
 }
@@ -88,18 +71,18 @@ if (status.value=='success' && currentPage.value==1) {
         </h1>
       </div>
 
-      <div v-if="currentPage==1" class="flex flex-col md:flex-row gap-10">
+      <div v-if="currentPage==0" class="flex flex-col md:flex-row gap-10">
         <div>
-          <NuxtLink :to="`/blogs/${mainArticle['id']}`">
+          <NuxtLink :to="`/blogs/${mainArticle.id}`">
           <div class="w-full md:w-[40vw] my-5 h-fit  hover:cursor-pointer">
               <div class="h-[60%] w-full bg-gray-400">
-                  <NuxtImg format="webp" alt="blog image" :src="useRuntimeConfig().public.directus.url+`/assets/${mainArticle['hero_img']}`" class="h-full max-h-[80vh] w-full object-cover object-center" />
+                  <NuxtImg format="webp" alt="blog image" :src="useRuntimeConfig().public.baseUrl+`/${mainArticle.heroImg}`" class="h-full max-h-[80vh] w-full object-cover object-center" />
               </div>
               <div class="py-3">
-                  <span class="font-mono">{{ simplifyDate(mainArticle['date_created']) }}</span>
-                  <h2 class="w-full font-Berlin-sans-fb text-2xl line-clamp-2">{{ mainArticle['title'] }}</h2>
+                  <span class="font-mono">{{ simplifyDate(mainArticle.createdAt) }}</span>
+                  <h2 class="w-full font-Berlin-sans-fb text-2xl line-clamp-2">{{ mainArticle.title }}</h2>
                   <p class="text-gray-500 line-clamp-4">
-                    {{ htmlToText(mainArticle['body']) }}
+                    {{ htmlToText(mainArticle.body) }}
                   </p>
               </div>
           </div>
@@ -108,13 +91,13 @@ if (status.value=='success' && currentPage.value==1) {
 
         <div>
           <div v-for="item in subMainArticle">
-            <NuxtLink :to="`/blogs/${item['id']}`" class="py-10 flex flex-row justify-around hover:cursor-pointer border-b-1 border-blue-950">
+            <NuxtLink :to="`/blogs/${item.id}`" class="py-10 flex flex-row justify-around hover:cursor-pointer border-b-1 border-blue-950">
               <div class="h-30 w-92 bg-gray-400">
-                  <NuxtImg format="webp" alt="blog image" :src="useRuntimeConfig().public.directus.url+`/assets/${item['hero_img']}`" class="h-full w-full object-cover object-center" />
+                  <NuxtImg format="webp" alt="blog image" :src="useRuntimeConfig().public.baseUrl+`/${item.heroImg}`" class="h-full w-full object-cover object-center" />
               </div>
               <div class="px-3">
-                  <span class="font-mono text-sm">{{ simplifyDate(item['date_created']) }}</span>
-                  <h2 class="w-full font-Berlin-sans-fb text-lg line-clamp-2">{{ item['title'] }}</h2>
+                  <span class="font-mono text-sm">{{ simplifyDate(item.createdAt) }}</span>
+                  <h2 class="w-full font-Berlin-sans-fb text-lg line-clamp-2">{{ item.title }}</h2>
               </div>
             </NuxtLink>
           </div>
@@ -124,15 +107,15 @@ if (status.value=='success' && currentPage.value==1) {
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-5 my-10 mx-5 md:mx-20">
-      <div v-for="item in (data as any)['data']">
-        <NuxtLink :to="`/blogs/${item['id']}`">
+      <div v-for="item in (data as any).content">
+        <NuxtLink :to="`/blogs/${item.id}`">
             <div class="w-full h-96 bg-white rounded-2xl  shadow-lg shadow-gray-300 hover:cursor-pointer hover:shadow-xl transition-all duration-300 hover:-translate-1">
                 <div class="h-[60%] w-full bg-green-400">
-                    <NuxtImg format="webp" alt="blog image" :src="useRuntimeConfig().public.directus.url+`/assets/${item['hero_img']}`" class="h-full w-full object-cover object-center" />
+                    <NuxtImg format="webp" alt="blog image" :src="useRuntimeConfig().public.baseUrl+`/assets/${item.heroImg}`" class="h-full w-full object-cover object-center" />
                 </div>
                 <div class="p-3">
-                  <span class="font-mono text-sm">{{ simplifyDate(item['date_created']) }}</span>
-                  <h2 class="w-full font-Berlin-sans-fb text-lg line-clamp-2">{{ item['title'] }}</h2>
+                  <span class="font-mono text-sm">{{ simplifyDate(item.createdAt) }}</span>
+                  <h2 class="w-full font-Berlin-sans-fb text-lg line-clamp-2">{{ item.title }}</h2>
                 </div>
 
             </div>
@@ -141,7 +124,7 @@ if (status.value=='success' && currentPage.value==1) {
     </div>
 
 
-    <pagination class="my-10" v-slot="{page}" :items-per-page="pageLimit" :total="totalBlogs" :default-page="1">
+    <pagination class="my-10" v-slot="{page}" :items-per-page="pageLimit" :total="(data as any).pageable.totalPages" :default-page="1">
       <pagination-content v-slot="{items}">
         <pagination-previous />
         <template v-for="(item, index) in items" :key="index">
@@ -149,7 +132,7 @@ if (status.value=='success' && currentPage.value==1) {
           v-if="item.type === 'page'"
           :value="item.value"
           :is-active="item.value === page"
-          @click="currentPage=item.value"
+          @click="currentPage=item.value-1"
         >
           {{ item.value }}
         </PaginationItem>

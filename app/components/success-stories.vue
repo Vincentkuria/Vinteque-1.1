@@ -35,28 +35,22 @@ const scrollRight = (scroller:string) => {
   }
 };
 
-const { data:softwareData, error, pending, status:softwareStatus } = await useFetch(useRuntimeConfig().public.directus.url + `/items/software`, {
+const { data:softwareData, error, pending, status:softwareStatus } = await useFetch(useRuntimeConfig().public.baseUrl + `/items/software`, {
     method: 'get',
     headers: {
       'Content-Type': 'application/json',
     },
-    query:{
-      fields:'id,logo,title,mockup_img,mockup_back_img,software_desc'
-    }
   })
 
-const { data:brandData,status:brandStatus } = await useFetch(useRuntimeConfig().public.directus.url + '/items/brand', {
+const { data:brandData,status:brandStatus } = await useFetch(useRuntimeConfig().public.baseUrl + '/items/brand', {
   method: 'get',
   headers: {
     'Content-Type': 'application/json',
   },
-  query:{
-    fields:'id,title,display_img'
-  }
 })
 
   const customStyling=(logoId:string)=>{
-    const img=useRuntimeConfig().public.directus.url+`/assets/${logoId}`
+    const img=useRuntimeConfig().public.baseUrl+`/assets/${logoId}`
     return `background-image: url(${img}); background-position: center; background-size: cover`
     
   }
@@ -84,7 +78,7 @@ const { data:brandData,status:brandStatus } = await useFetch(useRuntimeConfig().
             <CardItem 
             class="h-3/12 flex flex-row gap-3 items-center"
             :translate-z="50">
-              <NuxtImg format="webp" alt="a company's logo" :src="useRuntimeConfig().public.directus.url+`/assets/${item['logo']}`" class="object-contain h-full"/>
+              <NuxtImg format="webp" alt="a company's logo" :src="useRuntimeConfig().public.baseUrl+`/assets/${item['logo']}`" class="object-contain h-full"/>
               <h3 class="font-bold text-lg">{{ item['title'] }}</h3>
               
             </CardItem>
@@ -92,7 +86,7 @@ const { data:brandData,status:brandStatus } = await useFetch(useRuntimeConfig().
             class="h-6/12 w-full"
             :translate-z="150"
             >
-              <NuxtImg format="webp" alt="web display on different gadgets" :src="useRuntimeConfig().public.directus.url+`/assets/${item['mockup_img']}`" class="object-contain w-full h-full"/>
+              <NuxtImg format="webp" alt="web display on different gadgets" :src="useRuntimeConfig().public.baseUrl+`/assets/${item['mockup_img']}`" class="object-contain w-full h-full"/>
             </CardItem>
             <CardItem
             :translate-z="50"
@@ -131,7 +125,7 @@ const { data:brandData,status:brandStatus } = await useFetch(useRuntimeConfig().
       <div v-for="item in (brandData as any)?.data">
       <NuxtLink :to="`/case-study/branding/${item.id}`">
         <div class="m-2 w-[500px] h-[340px] shadow-lg drop-shadow-zinc-100/50  shadow-zinc-800/50 hover:cursor-pointer">
-          <NuxtImg format="webp" alt="logo branding display" :src="useRuntimeConfig().public.directus.url+`/assets/${item['display_img']}`" class="object-contain w-full h-full"/>
+          <NuxtImg format="webp" alt="logo branding display" :src="useRuntimeConfig().public.baseUrl+`/assets/${item['display_img']}`" class="object-contain w-full h-full"/>
         </div>
       </NuxtLink>
       </div>

@@ -20,7 +20,7 @@ const showcaseBgColor=ref()
   const slung =ref(useRoute().params.slung)
 
   // fetch the data from the api
-  const { data, error, pending, status } = await useFetch(useRuntimeConfig().public.directus.url + `/items/software/${slung.value}`, {
+  const { data, error, pending, status } = await useFetch(useRuntimeConfig().public.baseUrl + `/items/software/${slung.value}`, {
     method: 'get',
     headers: {
       'Content-Type': 'application/json',
@@ -33,13 +33,13 @@ const showcaseBgColor=ref()
   if(status.value == 'success'){
     const caseStudy=ref((data.value as any)['data'])
     // variables
-    logoUrl.value =useRuntimeConfig().public.directus.url+`/assets/${caseStudy.value['logo']}`
+    logoUrl.value =useRuntimeConfig().public.baseUrl+`/assets/${caseStudy.value['logo']}`
     barColor.value = caseStudy.value['bar_color']
     title.value=caseStudy.value['title']
     deliverables.value=caseStudy.value['deliverables']
     location.value=caseStudy.value['location']
     aboutClient.value=caseStudy.value['about_client']
-    aboutImgUrl.value=useRuntimeConfig().public.directus.url+`/assets/${caseStudy.value['about_img']}`
+    aboutImgUrl.value=useRuntimeConfig().public.baseUrl+`/assets/${caseStudy.value['about_img']}`
     challenge.value=caseStudy.value['challenge']
     solution.value=caseStudy.value['solution']
     stack.value=caseStudy.value['stack']
@@ -47,7 +47,7 @@ const showcaseBgColor=ref()
 
 
     caseStudy.value['showcase_imgs'].forEach((element:any) => {
-      showcaseImgUrls.value.push(useRuntimeConfig().public.directus.url+`/assets/${element['directus_files_id']}` )
+      showcaseImgUrls.value.push(useRuntimeConfig().public.baseUrl+`/assets/${element['directus_files_id']}` )
     });
 
     caseStudy.value['achievement'].forEach((element:any) => {

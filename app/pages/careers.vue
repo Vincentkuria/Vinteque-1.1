@@ -30,7 +30,7 @@ useHead({
 const currentPage=ref<number>(1)
 const isOpen=ref()
 
-const {data:countData,status:countStatus}=await useFetch(useRuntimeConfig().public.directus.url+`/items/job`,{
+const {data:countData,status:countStatus}=await useFetch(useRuntimeConfig().public.baseUrl+`/items/job`,{
   method:'get',
   headers:{
     'Content-Type':'application/json',
@@ -43,7 +43,7 @@ const totalJobs=ref<number>(0)
 countStatus.value=='success'? totalJobs.value=(countData.value as any)['data'][0]['count'] as number:''
 const pageLimit=ref(6)
 
-const {data,status}=await useFetch(useRuntimeConfig().public.directus.url+`/items/job`,{
+const {data,status}=await useFetch(useRuntimeConfig().public.baseUrl+`/items/job`,{
   method:'get',
   headers:{
     'Content-Type':'application/json',
@@ -74,7 +74,7 @@ const submit=async(values:any)=>{
   const formData=new FormData()
   formData.append('file',values.resume)
 
-  const fileUploadResponse=await $fetch(useRuntimeConfig().public.directus.url+'/files',{
+  const fileUploadResponse=await $fetch(useRuntimeConfig().public.baseUrl+'/files',{
     method:'post',
     body: formData,
     onResponse({response}){
@@ -88,7 +88,7 @@ const submit=async(values:any)=>{
 
   if (uploadSuccess.value) {
     const resumeId=(fileUploadResponse as any).data.id
-    const applicationRes = await $fetch(useRuntimeConfig().public.directus.url+'/items/applicants', {
+    const applicationRes = await $fetch(useRuntimeConfig().public.baseUrl+'/items/applicants', {
     method:'post',
     headers:{
       'Content-Type':'application/json'

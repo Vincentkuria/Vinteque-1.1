@@ -12,7 +12,7 @@ import { toast } from 'vue-sonner'
 const isOpen=ref()
 
 const submit=async(values:object)=>{ 
- const response= await $fetch(useRuntimeConfig().public.directus.url +`/items/callback`,{
+ const response= await $fetch(useRuntimeConfig().public.baseUrl +`/items/callback`,{
     method: 'POST',
     headers:{
         'Content-Type': 'application/json'

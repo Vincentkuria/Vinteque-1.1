@@ -10,7 +10,7 @@ const goal=ref()
 const showcaseImgUrls=ref<string[]>([])
 const showcaseBgColor=ref()
 
-const {data,status}=await useFetch(useRuntimeConfig().public.directus.url+`/items/brand/${slung.value}`,{
+const {data,status}=await useFetch(useRuntimeConfig().public.baseUrl+`/items/brand/${slung.value}`,{
   method:'get',
   headers:{
     'Content-Type':'application/json'
@@ -27,11 +27,11 @@ if (status.value=='success') {
   title.value=caseStudy.value['title']
   bgColor.value=caseStudy.value['bg_color']
   location.value=caseStudy.value['location']
-  heroImgUrl.value=useRuntimeConfig().public.directus.url+`/assets/${caseStudy.value['hero_img']}`
+  heroImgUrl.value=useRuntimeConfig().public.baseUrl+`/assets/${caseStudy.value['hero_img']}`
   aboutClient.value=caseStudy.value['about_client']
   goal.value=caseStudy.value['goal']
   caseStudy.value['showcase_imgs'].forEach((element:any) => {
-    showcaseImgUrls.value.push(useRuntimeConfig().public.directus.url+`/assets/${element['directus_files_id']}`)
+    showcaseImgUrls.value.push(useRuntimeConfig().public.baseUrl+`/assets/${element['directus_files_id']}`)
   });
   showcaseBgColor.value=caseStudy.value['showcase_bg_color']
   
