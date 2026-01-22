@@ -7,13 +7,10 @@ useHead({
     ]
 })
 
-const { data,status } = await useFetch(useRuntimeConfig().public.baseUrl + '/items/brand', {
+const { data,status } = await useFetch(useRuntimeConfig().public.baseUrl + '/brands/published', {
   method: 'get',
   headers: {
     'Content-Type': 'application/json',
-  },
-  query:{
-    fields:'id,title,display_img'
   }
 })
 
@@ -31,13 +28,13 @@ const { data,status } = await useFetch(useRuntimeConfig().public.baseUrl + '/ite
 
   <div class="flex justify-center">
     <div class="grid md:grid-cols-2 gap-5 my-10 md:m-10">
-      <div v-for="item in (data as any)['data']">
+      <div v-for="item in (data as any).content">
         <NuxtLink :to="`/case-study/branding/${item.id}`" class="md:p-5 flex flex-col w-fit h-fit shadow-lg drop-shadow-zinc-100/50  shadow-zinc-800/50">
         <div>
-          <h1 class="px-2 mx-5 font-bold">{{ item['title'] }}</h1>
+          <h1 class="px-2 mx-5 font-bold">{{ item.title }}</h1>
         </div>
         <div class="w-full md:w-[500px] h-[340px]">
-          <NuxtImg format="webp" alt="a branded logo display" :src="useRuntimeConfig().public.baseUrl+`/assets/${item['display_img']}`" class="object-contain w-full h-full"/>
+          <NuxtImg format="webp" alt="a branded logo display" :src="useRuntimeConfig().public.baseUrl+`/${item.displayImg}`" class="object-contain w-full h-full"/>
         </div>
         </NuxtLink>
       </div>
@@ -46,3 +43,5 @@ const { data,status } = await useFetch(useRuntimeConfig().public.baseUrl + '/ite
   
 </div>
 </template>
+
+<!-- TODO add pagenation to this thing -->

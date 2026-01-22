@@ -12,7 +12,7 @@ import { toast } from 'vue-sonner'
 const isOpen=ref()
 
 const submit=async(values:object)=>{ 
- const response= await $fetch(useRuntimeConfig().public.baseUrl +`/items/callback`,{
+ const response= await $fetch(useRuntimeConfig().public.baseUrl +`/messages`,{
     method: 'POST',
     headers:{
         'Content-Type': 'application/json'
@@ -42,7 +42,7 @@ const schema = yup.object({
     name: yup.string().required('First name is required'),
     email: yup.string().required('Email is required').email('Must be a valid email'),
     phone: yup.string().required('Phone number is required').min(7),
-    description: yup.string().required('Project description required')
+    message: yup.string().required('Project description required')
     
 })
 
@@ -82,8 +82,8 @@ const schema = yup.object({
                   <VeeField name="phone" type="text" placeholder="Phone number" class="bg-gray-300 rounded-full p-2 w-full" required/>
                   <VeeErrorMessage class="text-red-400" name="phone"/>
 
-                  <VeeField name="description" as="textarea" type="text" placeholder="Describe your project or needs" class="bg-gray-300 rounded-sm p-2 w-full" required/>
-                  <VeeErrorMessage class="text-red-400" name="description"/>
+                  <VeeField name="message" as="textarea" type="text" placeholder="Describe your project or needs" class="bg-gray-300 rounded-sm p-2 w-full" required/>
+                  <VeeErrorMessage class="text-red-400" name="message"/>
 
                   <button type="submit" class="text-white bg-primary rounded-full p-2 w-full cursor-pointer">Submit</button>
                 </VeeForm>

@@ -27,32 +27,17 @@ useHead({
 })
 
 
-const currentPage=ref<number>(1)
+const currentPage=ref<number>(0)
 const isOpen=ref()
+const pageLimit=ref(10)
 
-const {data:countData,status:countStatus}=await useFetch(useRuntimeConfig().public.baseUrl+`/items/job`,{
+const {data,status}=await useFetch(useRuntimeConfig().public.baseUrl+`/jobs/open`,{
   method:'get',
   headers:{
     'Content-Type':'application/json',
   },
   query:{
-    'aggregate[count]':'*'
-  }
-})
-const totalJobs=ref<number>(0)
-countStatus.value=='success'? totalJobs.value=(countData.value as any)['data'][0]['count'] as number:''
-const pageLimit=ref(6)
 
-const {data,status}=await useFetch(useRuntimeConfig().public.baseUrl+`/items/job`,{
-  method:'get',
-  headers:{
-    'Content-Type':'application/json',
-  },
-  query:{
-    fields:'*',
-    limit:pageLimit.value,
-    page:currentPage.value,
-    sort:'sort,-date_created'
   }
 })
 
@@ -70,51 +55,22 @@ const schema=yup.object({
 })
 
 const submit=async(values:any)=>{
-  const uploadSuccess=ref()
   const formData=new FormData()
-  formData.append('file',values.resume)
+  formData.append('name',values.name)
+  formData.append('email',values.email)
+  formData.append('phone',values.phone)
+  formData.append('resume',values.resume)
 
-  const fileUploadResponse=await $fetch(useRuntimeConfig().public.baseUrl+'/files',{
-    method:'post',
-    body: formData,
-    onResponse({response}){
-      if (response.status>=200 && response.status<300) {
-        uploadSuccess.value=true
-      }else{
-        uploadSuccess.value=false
-      }
-    }
-  })
-
-  if (uploadSuccess.value) {
-    const resumeId=(fileUploadResponse as any).data.id
-    const applicationRes = await $fetch(useRuntimeConfig().public.baseUrl+'/items/applicants', {
-    method:'post',
-    headers:{
-      'Content-Type':'application/json'
-    },
-    body:{
-      job_id:values.job_id,
-      name: values.name,
-      phone: values.phone,
-      email: values.email,
-      resume:resumeId,
-    },
+  const applicationRes = await $fetch(useRuntimeConfig().public.baseUrl+`/applicants/job/${values.jobId}`, {
+    method:'POST',
+    body:formData,
     onResponse({response}){
       if(response.status>=200 && response.status<300){
         isOpen.value=false
         toast('Application submited successfuly')
       }
     }
-    })
-
-  }
-
-  
-
-  
-
-
+  })
 }
 
 </script>
@@ -128,36 +84,36 @@ const submit=async(values:any)=>{
     <p class="my-5 max-w-3xl text-center">We're building the future of software development with innovative solutions and cutting-edge technology. Join our passionate team of developers, designers, and innovators who are committed to excellence and growth.</p>
   </div>
 
-  <div v-if="totalJobs<1" class="h-[50vh] flex justify-center items-center bg-zinc-300 shadow drop-shadow-black m-5">
+  <div v-if="(data as any).totalElements==0" class="h-[50vh] flex justify-center items-center bg-zinc-300 shadow drop-shadow-black m-5">
     <p class="text-2xl font-Berlin-sans-fb text-gray-400">No openings at the moment</p>
   </div>
 
-  <div v-else class="mx-2 lg:mx-10 grid grid-cols-1 lg:grid-cols-2 gap-5 place-self-center">
-    <div v-for="item in (data as any)['data']">
+  <div v-else class="mx-2 lg:mx-10 grid grid-cols-1 lg:grid-cols-2 gap-5 place-self-cente w-full">
+    <div v-for="item in (data as any).content" class="m-2 flex justify-center">
       <Card class="hover:shadow-lg transition-shadow w-full lg:w-lg">
         <CardHeader>
           <div>
             <div>
-              <CardTitle class="mb-2">{{ item['title'] }}</CardTitle>
+              <CardTitle class="mb-2">{{ item.title }}</CardTitle>
               <CardDescription class="flex items-center gap-4 mb-3">
                 <span class="flex items-center gap-1">
                   <Icon name="mdi:account-supervisor-outline" />
-                  {{ item['department'] }}
+                  {{ item.department }}
                 </span>
                 <span class="flex items-center gap-1">
                   <Icon name="mdi:map-marker-outline" />
-                  {{ item['location'] }}
+                  {{ item.location }}
                 </span>
                 <span class="flex items-center gap-1">
                   <Icon name="mdi:clock-time-eight-outline" />
-                  {{ item['type'] }}
+                  {{ item.type }}
                 </span>
               </CardDescription>
             </div>
           </div>
         </CardHeader>
         <CardContent>
-          <div v-html="item['body']" class="v-html mb-4"/>
+          <div v-html="item.body" class="v-html mb-4"/>
           
           <Drawer v-model:open="isOpen">
             <DrawerTrigger class="w-full">
@@ -167,12 +123,12 @@ const submit=async(values:any)=>{
             <DrawerContent>
               <DrawerHeader>
                 <DrawerTitle class="text-2xl">
-                  Applying for: {{ item['title'] }}
+                  Applying for: {{ item.title}}
                 </DrawerTitle>
               </DrawerHeader>
 
               <div>
-                <VeeForm @submit="submit" :initial-values="{job_id:item.id}" :validation-schema="schema" class="mx-5 md:mx-10 mb-5 md:w-lg">
+                <VeeForm @submit="submit" :initial-values="{jobId:item.id}" :validation-schema="schema" class="mx-5 md:mx-10 mb-5 md:w-lg">
 
                   <VeeField name="job_id" class="hidden"/>
 
@@ -211,7 +167,7 @@ const submit=async(values:any)=>{
   </div>
   
 
-  <pagination class="my-10" v-slot="{page}" :items-per-page="pageLimit" :total="totalJobs" :default-page="1">
+  <pagination class="my-10" v-slot="{page}" :items-per-page="pageLimit" :total="(data as any).totalPages" :default-page="1">
     <pagination-content v-slot="{items}">
       <pagination-previous />
       <template v-for="(item, index) in items" :key="index">
@@ -219,7 +175,7 @@ const submit=async(values:any)=>{
         v-if="item.type === 'page'"
         :value="item.value"
         :is-active="item.value === page"
-        @click="currentPage=item.value"
+        @click="currentPage=item.value-1"
       >
         {{ item.value }}
       </PaginationItem>

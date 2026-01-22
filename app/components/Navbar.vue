@@ -95,10 +95,8 @@ const close = () => {
     trigger.value?.click()
 }
 
-const submit=async(values:object)=>{ 
-    //@ts-ignore
- window.fbq('track','Lead');
- const response= await $fetch(useRuntimeConfig().public.baseUrl +`/items/message`,{
+const submit=async(values:object)=>{
+ const response= await $fetch(useRuntimeConfig().public.baseUrl +`/messages`,{
     method: 'POST',
     headers:{
         'Content-Type': 'application/json'

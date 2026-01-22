@@ -10,18 +10,15 @@ useHead({
     ]
 })
 
-const { data, error, pending, status } = await useFetch(useRuntimeConfig().public.baseUrl + `/items/software`, {
+const { data, error, pending, status } = await useFetch(useRuntimeConfig().public.baseUrl + `/software/published`, {
     method: 'get',
     headers: {
       'Content-Type': 'application/json',
     },
-    query:{
-      fields:'id,logo,title,mockup_img,mockup_back_img,software_desc'
-    }
   })
 
-  const customStyling=(logoId:string)=>{
-    const img=useRuntimeConfig().public.baseUrl+`/assets/${logoId}`
+  const customStyling=(logoUrl:string)=>{
+    const img=useRuntimeConfig().public.baseUrl+`/${logoUrl}`
     return `background-image: url(${img}); background-position: center; background-size: cover`
     
   }
@@ -39,29 +36,29 @@ const { data, error, pending, status } = await useFetch(useRuntimeConfig().publi
   </div>
   <div class="grid md:grid-cols-2">
     
-    <ClientOnly v-for="item in ((data as any)['data'])" class="m-2">
-      <NuxtLink :to="`/case-study/software/${item['id']}`">
+    <ClientOnly v-for="item in ((data as any).content)" class="m-2">
+      <NuxtLink :to="`/case-study/software/${item.id}`">
         <CardContainer  class="shadow-lg drop-shadow-zinc-100/50  shadow-zinc-800/50 hover:cursor-pointer">
-          <CardBody class="flex flex-col w-full md:w-[45dvw] justify-between p-5" :style="customStyling(item['mockup_back_img'])">
+          <CardBody class="flex flex-col w-full md:w-[45dvw] justify-between p-5" :style="customStyling(item.mockupBgImg)">
             <CardItem 
             class="h-3/12 flex flex-row gap-3 items-center"
             :translate-z="50">
-              <NuxtImg format="webp" alt="case study company's logo" :src="useRuntimeConfig().public.baseUrl+`/assets/${item['logo']}`" class="object-contain h-full"/>
-              <h3 class="font-bold text-lg">{{ item['title'] }}</h3>
+              <NuxtImg format="webp" alt="case study company's logo" :src="useRuntimeConfig().public.baseUrl+`/${item.logo}`" class="object-contain h-full"/>
+              <h3 class="font-bold text-lg">{{ item.title }}</h3>
               
             </CardItem>
             <CardItem
             class="h-6/12 w-full"
             :translate-z="100"
             >
-              <NuxtImg format="webp" alt="software display on a gadget for case study" :src="useRuntimeConfig().public.baseUrl+`/assets/${item['mockup_img']}`" class="object-contain w-full h-full"/>
+              <NuxtImg format="webp" alt="software display on a gadget for case study" :src="useRuntimeConfig().public.baseUrl+`/${item.mockupImg}`" class="object-contain w-full h-full"/>
             </CardItem>
             <CardItem
             :translate-z="50"
             class="h-fit w-full"
             >
               <p class="line-clamp-3">
-                {{ item['software_desc'] }}
+                {{ item.softwareDescription }}
               </p>
             </CardItem>
           </CardBody>
@@ -76,3 +73,5 @@ const { data, error, pending, status } = await useFetch(useRuntimeConfig().publi
 <style>
 
 </style>
+
+<!-- TODO add pagnation to this page -->
