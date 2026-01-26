@@ -11,7 +11,8 @@ const { data,status } = await useFetch(useRuntimeConfig().public.baseUrl + '/bra
   method: 'get',
   headers: {
     'Content-Type': 'application/json',
-  }
+  },
+  timeout:3000
 })
 
 </script>
@@ -28,7 +29,7 @@ const { data,status } = await useFetch(useRuntimeConfig().public.baseUrl + '/bra
 
   <div class="flex justify-center">
     <div class="grid md:grid-cols-2 gap-5 my-10 md:m-10">
-      <div v-for="item in (data as any).content">
+      <div v-for="item in (data as any)?.content">
         <NuxtLink :to="`/case-study/branding/${item.id}`" class="md:p-5 flex flex-col w-fit h-fit shadow-lg drop-shadow-zinc-100/50  shadow-zinc-800/50">
         <div>
           <h1 class="px-2 mx-5 font-bold">{{ item.title }}</h1>

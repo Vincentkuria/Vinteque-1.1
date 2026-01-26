@@ -151,6 +151,7 @@ const { data:testimonialData,status:testimonialStatus } = await useFetch(useRunt
   headers: {
     'Content-Type': 'application/json',
   },
+  timeout:3000
 })
 
 </script>

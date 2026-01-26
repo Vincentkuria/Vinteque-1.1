@@ -11,7 +11,7 @@ export default defineNuxtConfig({
   },
 
   robots:{
-    disallow:['/directus', '/phpmyadmin', '/ingest'],
+    disallow:['/api','/abz'],
   },
 
   vite: {
@@ -48,7 +48,7 @@ export default defineNuxtConfig({
       posthogPublicKey: 'phc_5XLrt4fe8m5Z2TfWcCkFiAAekPCJu9tapC5BSoHSV4O',
       posthogHost: 'https://vinteque.com/abz',
       posthogDefaults: '2025-05-24',
-      baseUrl: 'http://localhost/api'
+      baseUrl: 'https://vinteque.com/api'
     }
   }
 })

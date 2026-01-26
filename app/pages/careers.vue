@@ -38,7 +38,8 @@ const {data,status}=await useFetch(useRuntimeConfig().public.baseUrl+`/jobs/open
   },
   query:{
 
-  }
+  },
+  timeout:3000
 })
 
 const schema=yup.object({
@@ -84,12 +85,12 @@ const submit=async(values:any)=>{
     <p class="my-5 max-w-3xl text-center">We're building the future of software development with innovative solutions and cutting-edge technology. Join our passionate team of developers, designers, and innovators who are committed to excellence and growth.</p>
   </div>
 
-  <div v-if="(data as any).totalElements==0" class="h-[50vh] flex justify-center items-center bg-zinc-300 shadow drop-shadow-black m-5">
+  <div v-if="(data as any)?.totalElements==0" class="h-[50vh] flex justify-center items-center bg-zinc-300 shadow drop-shadow-black m-5">
     <p class="text-2xl font-Berlin-sans-fb text-gray-400">No openings at the moment</p>
   </div>
 
   <div v-else class="mx-2 lg:mx-10 grid grid-cols-1 lg:grid-cols-2 gap-5 place-self-cente w-full">
-    <div v-for="item in (data as any).content" class="m-2 flex justify-center">
+    <div v-for="item in (data as any)?.content" class="m-2 flex justify-center">
       <Card class="hover:shadow-lg transition-shadow w-full lg:w-lg">
         <CardHeader>
           <div>
@@ -167,7 +168,7 @@ const submit=async(values:any)=>{
   </div>
   
 
-  <pagination class="my-10" v-slot="{page}" :items-per-page="pageLimit" :total="(data as any).totalPages" :default-page="1">
+  <pagination class="my-10" v-slot="{page}" :items-per-page="pageLimit" :total="(data as any)?.totalPages" :default-page="1">
     <pagination-content v-slot="{items}">
       <pagination-previous />
       <template v-for="(item, index) in items" :key="index">

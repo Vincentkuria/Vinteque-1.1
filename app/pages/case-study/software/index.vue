@@ -15,6 +15,7 @@ const { data, error, pending, status } = await useFetch(useRuntimeConfig().publi
     headers: {
       'Content-Type': 'application/json',
     },
+    timeout:3000
   })
 
   const customStyling=(logoUrl:string)=>{
@@ -36,7 +37,7 @@ const { data, error, pending, status } = await useFetch(useRuntimeConfig().publi
   </div>
   <div class="grid md:grid-cols-2">
     
-    <ClientOnly v-for="item in ((data as any).content)" class="m-2">
+    <ClientOnly v-for="item in ((data as any)?.content)" class="m-2">
       <NuxtLink :to="`/case-study/software/${item.id}`">
         <CardContainer  class="shadow-lg drop-shadow-zinc-100/50  shadow-zinc-800/50 hover:cursor-pointer">
           <CardBody class="flex flex-col w-full md:w-[45dvw] justify-between p-5" :style="customStyling(item.mockupBgImg)">
