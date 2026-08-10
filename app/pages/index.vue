@@ -70,16 +70,6 @@ const servicesOffered=[
     "details": "Research, Wireframes, Interface",
     "description": "Our UI/UX design services focus on creating beautiful, intuitive, and user-friendly interfaces. We design experiences that keep users engaged and satisfied."
   },
-  {
-    "title": "Branding",
-    "details": "Logo, Identity, Guidelines",
-    "description": "We help businesses define and express their brand identity through strategic design. From logos to full visual systems, we ensure your brand stands out."
-  },
-  {
-    "title": "Bulk SMS",
-    "details": "Marketing, API, Tracking",
-    "description": "Our bulk SMS solutions allow you to reach your audience instantly with promotional or transactional messages. Fast delivery and detailed analytics included."
-  }
 ]
 
 
@@ -164,15 +154,15 @@ const { data:testimonialData,status:testimonialStatus } = await useFetch(useRunt
     :duration="0.75"
     >
     <h1 class="font-Berlin-sans-fb text-black text-6xl text-center md:text-8xl mb-10">
-      We Create 
+      We Build  
       <span>
         <SparklesText
-        text="Custom"
+        text="Custom Software"
         :colors="{ first: '#9E7AFF', second: '#FE8BBB' }"
         :sparkles-count="10"
         class="text-primary"
         />
-      </span> Websites, Apps & Brands
+      </span> That Grows Your Business
     </h1>
     <div class="flex justify-center w-full">
       <Requestcallback/>
@@ -204,9 +194,9 @@ const { data:testimonialData,status:testimonialStatus } = await useFetch(useRunt
   <div class="border-s-4 border-primary px-2 m-5 md:px-5 md:m-10 lg:px-10 lg:m-20">
     <h2 class="font-Berlin-sans-fb text-2xl pb-2">Vinteque Software Developers</h2>
     <p>
-      We’re a Nairobi-based software development company helping businesses, startups, and brands reach their next level. We design and build powerful websites, mobile apps, and brand identities that reflect professionalism, inspire trust, and give your business that billion-dollar edge.<br><br>
-      From modern website design to custom software and mobile app development, we deliver solutions tailored to your unique needs, whether you’re a local startup or a global enterprise. Our goal is simple: elevate your digital presence, drive real growth, and position your brand for long-term success.<br><br>
-      Think of us as your full-stack partner for websites, apps, and branding. we're reliable, scalable, and results-driven.
+      We're a Nairobi-based software development company helping businesses and startups build powerful digital solutions that solve real business problems. We specialize in developing custom websites, web applications, mobile applications, and enterprise software that are fast, secure, scalable, and built to grow with your business.<br><br>
+      Whether you need a professional business website, a customer portal, an e-commerce platform, an internal management system, or a fully custom software solution, we design and develop technology tailored to your unique requirements. Every project is built with performance, usability, and long-term scalability in mind.<br><br>
+      At Vinteque, we work closely with businesses to simplify how they operate, improve how they serve their customers, and build software that actually solves real problems. We stay involved from the early idea and planning stage all the way through development, launch, and ongoing support, making sure everything we build is practical, reliable, and built to last.
     </p>
   </div>
 
@@ -248,13 +238,13 @@ const { data:testimonialData,status:testimonialStatus } = await useFetch(useRunt
       <Icon class="mx-5" name="logos:tailwindcss-icon" size="2rem"/>
       <Icon class="mx-5" name="logos:graphql" size="2rem"/>
       <Icon class="mx-5" name="devicon:typescript" size="2rem"/>
-      <Icon class="mx-5" name="catppuccin:typescript-react" size="2rem"/>
+      <Icon class="mx-5" name="logos:react" size="2rem"/>
       <Icon class="mx-5" name="devicon:vitejs" size="2rem"/>
       <Icon class="mx-5" name="devicon:cplusplus" size="2rem"/>
-      <Icon class="mx-5" name="vscode-icons:file-type-python" size="2rem"/>
-      <Icon class="mx-5" name="vscode-icons:file-type-swift" size="2rem"/>
+      <Icon class="mx-5" name="logos:python" size="2rem"/>
+      <Icon class="mx-5" name="logos:swift" size="2rem"/>
       <Icon class="mx-5" name="devicon:nextjs" size="2rem"/>
-      <Icon class="mx-5" name="skill-icons:django" size="2rem"/>
+      <Icon class="mx-5" name="logos:django-icon" size="2rem"/>
     </NuxtMarquee>
   </div>
   

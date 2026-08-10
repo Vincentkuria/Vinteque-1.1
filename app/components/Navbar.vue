@@ -50,14 +50,6 @@ const services=[
     {
         title:"UI/UX Design",
         href:"/ui-ux",
-    },
-    {
-        title:"Branding",
-        href:"/branding"
-    },
-    {
-        title:"Bulk SMS",
-        href:"/bulk-sms"
     }
 ]
 
@@ -168,21 +160,7 @@ class="z-10 bg-white w-full "
                 </NavigationMenuItem>
 
                 <NavigationMenuItem>
-                    <NavigationMenuTrigger>Case Study</NavigationMenuTrigger>
-                    <NavigationMenuContent>
-                        <ul class="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-                          <li v-for="cas in cases" :key="cas.title">
-                            <NavigationMenuLink as-child>
-                              <a
-                                :href="cas.href"
-                                class="block border-b-1 select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
-                              >
-                                <div class="text-sm font-medium leading-none">{{ cas.title }}</div>
-                              </a>
-                            </NavigationMenuLink>
-                          </li>
-                        </ul>
-                    </NavigationMenuContent>
+                    <NavigationMenuLink href="/case-study" :class="navigationMenuTriggerStyle()">Case Study</NavigationMenuLink>
                 </NavigationMenuItem>
 
                 <NavigationMenuItem>
@@ -273,12 +251,7 @@ class="z-10 bg-white w-full "
                           </AccordionItem>
 
                           <AccordionItem :value="'Case'">
-                            <AccordionTrigger>Case Study</AccordionTrigger>
-                            <AccordionContent>
-                              <ul>
-                                <li v-for="cas in cases" class="p-2"><NuxtLink @click="close" :to="cas.href">{{ cas.title }}<Icon name="nrk:arrow-right-long" class="text-primary align-middle ps-1"/></NuxtLink></li>
-                              </ul>
-                            </AccordionContent>
+                            <NuxtLink @click="close" to="/case-study"><div class="my-4">Case Study <Icon name="nrk:arrow-right-long" class="text-primary align-middle ps-1"/></div></NuxtLink>
                           </AccordionItem>
 
                           <AccordionItem :value="'Careers'">

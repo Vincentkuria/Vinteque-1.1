@@ -16,6 +16,7 @@ const year =new Date().getFullYear()
     <div class="flex flex-col items-center order-1 lg:order-2">
       <NuxtImg format="webp" alt="vinteque logo" src="/vinteque.png" class="w-20 h-20"/>
       <span class="font-Berlin-sans-fb text-2xl">Vinteque Software Developers</span>
+      <span>(Vinteque Limited)</span>
       <span>Full package for your company's success.</span>
       <span>@{{ year }} Vinteque. All Rights Reserved</span>
     </div>

@@ -1,4 +1,4 @@
-# TODO return to the right golder i.e .github/workflows
+# TODO return to the right folder i.e .github/workflows
 name: Build and Deploy Nuxt Frontend
 
 on:

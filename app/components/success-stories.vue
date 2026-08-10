@@ -8,26 +8,17 @@ const softwarescrollcontainer = ref<HTMLElement | null>(null);
 const brandingscrollcontainer = ref<HTMLElement | null>(null);
 const scrollAmount =200;
 
-const scrollLeft = (scroller:string) => {
-  if (brandingscrollcontainer.value && scroller === 'branding') {
-    brandingscrollcontainer.value.scrollBy({
-      left: -scrollAmount,
-      behavior: 'smooth'
-    })
-  } else if (softwarescrollcontainer.value && scroller === 'software') {
+
+const scrollLeft = () => {
+ if (softwarescrollcontainer.value) {
     softwarescrollcontainer.value.scrollBy({
       left: -scrollAmount,
       behavior: 'smooth'
     })
   }
 };
-const scrollRight = (scroller:string) => {
-  if (brandingscrollcontainer.value && scroller === 'branding') {
-    brandingscrollcontainer.value.scrollBy({
-      left: scrollAmount,
-      behavior: 'smooth'
-    })
-  } else if (softwarescrollcontainer.value && scroller === 'software') {
+const scrollRight = () => {
+ if (softwarescrollcontainer.value) {
     softwarescrollcontainer.value.scrollBy({
       left: scrollAmount,
       behavior: 'smooth'
@@ -35,21 +26,13 @@ const scrollRight = (scroller:string) => {
   }
 };
 
-const { data:softwareData, error, pending, status:softwareStatus } = await useFetch(useRuntimeConfig().public.baseUrl + `/software/published`, {
+const { data:softwareData, error, pending, status:softwareStatus, refresh:softwareRefresh } = await useFetch(useRuntimeConfig().public.baseUrl + `/software/published`, {
     method: 'get',
     headers: {
       'Content-Type': 'application/json',
     },
     timeout:3000
   })
-
-const { data:brandData,status:brandStatus } = await useFetch(useRuntimeConfig().public.baseUrl + '/brands/published', {
-  method: 'get',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  timeout:3000
-})
 
   const customStyling=(logoUrl:string)=>{
     const img=useRuntimeConfig().public.baseUrl+`/${logoUrl}`
@@ -65,8 +48,8 @@ const { data:brandData,status:brandStatus } = await useFetch(useRuntimeConfig().
     <div class="flex justify-between mb-5">
       <h2 class="border-s-4 border-primary px-2 ms-5 md:px-5 md:mx-10 lg:px-10 lg:mx-20 font-Berlin-sans-fb text-2xl">Our Software Success Stories</h2>
       <div class="flex flex-row">
-        <button @click="scrollLeft('software')" class="px-3 md:px-5 md:py-1 rounded-xs mx-3 bg-primary hover:bg-secondary-2 hover:cursor-pointer text-white text-xl"><Icon class="text-center" name="material-symbols:arrow-left-alt"/></button>
-        <button @click="scrollRight('software')" class="px-3 md:px-5 md:py-1 rounded-xs mx-3 bg-primary hover:bg-secondary-2 hover:cursor-pointer text-white text-xl"><Icon class="text-center" name="material-symbols:arrow-right-alt"/></button>
+        <button @click="scrollLeft()" class="px-3 md:px-5 md:py-1 rounded-xs mx-3 bg-primary hover:bg-secondary-2 hover:cursor-pointer text-white text-xl"><Icon class="text-center" name="material-symbols:arrow-left-alt"/></button>
+        <button @click="scrollRight()" class="px-3 md:px-5 md:py-1 rounded-xs mx-3 bg-primary hover:bg-secondary-2 hover:cursor-pointer text-white text-xl"><Icon class="text-center" name="material-symbols:arrow-right-alt"/></button>
       </div>
     </div>
 
@@ -104,42 +87,14 @@ const { data:brandData,status:brandStatus } = await useFetch(useRuntimeConfig().
       </ClientOnly>
     </div>
     <div>
-      <NuxtLink to="/case-study/software">
+      <NuxtLink to="/case-study">
         <p class="text-end font-semibold hover:text-primary me-5 py-5 md:me-20">View More <Icon name="nrk:arrow-right-long"  class="text-primary align-middle ps-1"/></p>
       </NuxtLink>
       
     </div>
   </div>
 
-  <!-- Branding Stories -->
-  <div>
-    <div class="flex justify-between mb-5">
-      <h2 class="border-s-4 border-primary px-2 ms-5 md:px-5 md:mx-10 lg:px-10 lg:mx-20 font-Berlin-sans-fb text-2xl">Our Branding Success Stories</h2>
-      <div class="flex flex-row">
-        <button @click="scrollLeft('branding')" class="px-3 md:px-5 md:py-1 rounded-xs mx-3 bg-primary hover:bg-secondary-2 hover:cursor-pointer text-white text-xl"><Icon class="text-center" name="material-symbols:arrow-left-alt"/></button>
-        <button @click="scrollRight('branding')" class="px-3 md:px-5 md:py-1 rounded-xs mx-3 bg-primary hover:bg-secondary-2 hover:cursor-pointer text-white text-xl"><Icon class="text-center" name="material-symbols:arrow-right-alt"/></button>
-      </div>
-    </div>
-
-    <div 
-    ref="brandingscrollcontainer"
-    class="flex flex-row overflow-x-scroll scroll-smooth scrollbar scrollbar-thumb-secondary-2 scrollbar-track-blue-100 ms-10 md:ms-20">
-      <div v-for="item in (brandData as any)?.content">
-      <NuxtLink :to="`/case-study/branding/${item.id}`">
-        <div class="m-2 w-[500px] h-[340px] shadow-lg drop-shadow-zinc-100/50  shadow-zinc-800/50 hover:cursor-pointer">
-          <NuxtImg format="webp" alt="logo branding display" :src="useRuntimeConfig().public.baseUrl+`/${item.displayImg}`" class="object-contain w-full h-full"/>
-        </div>
-      </NuxtLink>
-      </div>
-      
-    </div>
-    <div>
-      <NuxtLink to="/case-study/branding">
-        <p class="text-end font-semibold hover:text-primary me-5 py-5 md:me-20">View More <Icon name="nrk:arrow-right-long"  class="text-primary align-middle ps-1"/></p>
-      </NuxtLink>
-      
-    </div>
-  </div>
+ 
   
 </div>
 </template>

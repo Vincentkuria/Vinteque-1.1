@@ -4,6 +4,10 @@ import { NuxtImg } from '#components';
 const blogsscrollcontainer = ref<HTMLElement | null>(null);
 const scrollAmount =200;
 
+onMounted(()=>{
+  refresh()
+})
+
 const scrollLeft = () => {
   if (blogsscrollcontainer.value) {
     blogsscrollcontainer.value.scrollBy({
@@ -22,7 +26,7 @@ const scrollRight = () => {
 }
 
 
-const {data,status}=await useFetch(useRuntimeConfig().public.baseUrl+`/blogs/published`,{
+const {data,status,refresh}=await useFetch(useRuntimeConfig().public.baseUrl+`/blogs/published`,{
   method:'get',
   headers:{
     'Content-Type':'application/json',

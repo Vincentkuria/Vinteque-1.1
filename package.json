@@ -28,7 +28,7 @@
     "motion-v": "^1.5.0",
     "nuxt": "^4.2.2",
     "nuxt-marquee": "^1.0.4",
-    "posthog-js": "^1.266.0",
+    "posthog-js": "^1.352.0",
     "reka-ui": "^2.5.0",
     "shadcn-nuxt": "^2.2.0",
     "tailwind-merge": "^3.3.1",
@@ -40,6 +40,8 @@
     "vue-sonner": "2.0.7"
   },
   "devDependencies": {
+    "@iconify-json/devicon": "^1.2.59",
+    "@iconify-json/logos": "^1.2.10",
     "tailwind-scrollbar": "^4.0.2",
     "typescript": "^5.9.3"
   }
