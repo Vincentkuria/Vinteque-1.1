@@ -67,7 +67,7 @@ if (status.value=='success' && currentPage.value==0) {
     <!-- Blogs hero section -->
     <div class="bg-secondary-2 px-5 md:px-20 py-10 text-gray-300 ">
       <div
-      class="my-10 border-y-1 border-blue-950">
+      class="my-10 border-y border-blue-950">
         <h1 class="font-Berlin-sans-fb text-6xl md:text-9xl max-w-lg">
           The Blog
         </h1>

@@ -103,10 +103,6 @@ const faqs=[
     "answer": "Absolutely. We specialize in integrating new software with existing CRM, ERP, accounting, and other systems to improve efficiency and reduce manual work."
   },
   {
-    "question": "Will my custom software be scalable as my business grows?",
-    "answer": "Yes. We build scalable architectures that can handle more users, data, and transactions without sacrificing performance, ideal for growing businesses in Kenya and beyond."
-  },
-  {
     "question": "Do you offer ongoing support and maintenance?",
     "answer": "Yes. We provide ongoing support including bug fixes, updates, security patches, and feature enhancements to keep your software reliable."
   },
@@ -117,10 +113,6 @@ const faqs=[
   {
     "question": "Can you migrate my existing software or data to a new custom system?",
     "answer": "Yes. We handle secure data migration with minimal downtime, ensuring accuracy and smooth transition to your new software."
-  },
-  {
-    "question": "Do you work with startups as well as large enterprises?",
-    "answer": "Yes. We work with startups, SMEs, and large enterprises across Africa, adapting our approach to fit each client’s budget and growth stage."
   },
   {
     "question": "How do you handle communication during the development process?",
