@@ -36,7 +36,7 @@ const {data,status,refresh}=await useFetch(useRuntimeConfig().public.baseUrl+`/b
 </script>
 
 <template>
-<div class="">
+<div v-if="(data as any)?.totalElements!=0" class="">
     <div class="flex justify-between mb-5">
       <h2 class="border-s-4 border-primary px-2 ms-5 md:px-5 md:mx-10 lg:px-10 lg:mx-20 font-Berlin-sans-fb text-2xl">Blogs</h2>
       <div class="flex flex-row">

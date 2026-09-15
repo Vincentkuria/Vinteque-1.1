@@ -42,10 +42,10 @@ const {data,status}=await useFetch(useRuntimeConfig().public.baseUrl+`/blogs/pub
   headers:{
     'Content-Type':'application/json',
   },
-  query:{
+  query:()=>({
     size:pageLimit.value,
-    page:currentPage.value,
-  },
+    page:currentPage.value-1,
+  }),
   timeout:3000
 })
 
@@ -113,7 +113,7 @@ if (status.value=='success' && currentPage.value==0) {
         <NuxtLink :to="`/blogs/${item.id}`">
             <div class="w-full h-96 bg-white rounded-2xl  shadow-lg shadow-gray-300 hover:cursor-pointer hover:shadow-xl transition-all duration-300 hover:-translate-1">
                 <div class="h-[60%] w-full bg-green-400">
-                    <NuxtImg format="webp" alt="blog image" :src="useRuntimeConfig().public.baseUrl+`/assets/${item.heroImg}`" class="h-full w-full object-cover object-center" />
+                    <NuxtImg format="webp" alt="blog image" :src="useRuntimeConfig().public.baseUrl+`/${item.heroImg}`" class="h-full w-full object-cover object-center" />
                 </div>
                 <div class="p-3">
                   <span class="font-mono text-sm">{{ simplifyDate(item.createdAt) }}</span>
@@ -126,7 +126,7 @@ if (status.value=='success' && currentPage.value==0) {
     </div>
 
 
-    <pagination class="my-10" v-slot="{page}" :items-per-page="pageLimit" :total="(data as any)?.pageable.totalPages" :default-page="1">
+    <pagination class="my-10" v-slot="{page}" v-model:page="currentPage" :items-per-page="pageLimit" :total="(data as any)?.totalElements" :default-page="1">
       <pagination-content v-slot="{items}">
         <pagination-previous />
         <template v-for="(item, index) in items" :key="index">
@@ -134,7 +134,6 @@ if (status.value=='success' && currentPage.value==0) {
           v-if="item.type === 'page'"
           :value="item.value"
           :is-active="item.value === page"
-          @click="currentPage=item.value-1"
         >
           {{ item.value }}
         </PaginationItem>

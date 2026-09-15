@@ -9,9 +9,21 @@ import ShimmerButton from './ui/shimmer-button/ShimmerButton.vue'
 import * as yup from 'yup';
 import { toast } from 'vue-sonner'
 
-const isOpen=ref()
+import VueTelNumInput from "vue-tel-num-input";
+import "vue-tel-num-input/style.css";
+import "vue-tel-num-input/flags.css";
 
-const submit=async(values:object)=>{ 
+const isOpen=ref()
+const phone=ref<any>(null)
+const phoneError=ref<string|null>()
+
+const submit=async(values:any)=>{ 
+    if(!phone.value.valid){
+        phoneError.value="please give a valid phone number"
+        return
+    }
+
+    values.phone=phone.value.value
  const response= await $fetch(useRuntimeConfig().public.baseUrl +`/messages`,{
     method: 'POST',
     headers:{
@@ -19,6 +31,10 @@ const submit=async(values:object)=>{
     },
     body: values,
     onResponse({response}){
+        if (response.status==201) {
+            toast.success('Callback Request submitted successfully')
+            isOpen.value=false
+        }
 
         //@ts-ignore
             if (typeof window.fbq === 'function') {
@@ -30,10 +46,7 @@ const submit=async(values:object)=>{
             }
 
         
-        if (response.status>=200 && response.status<300) {
-            toast('Request submitted successfully')
-            isOpen.value=false
-        }
+        
     }
  })
 }
@@ -41,10 +54,10 @@ const submit=async(values:object)=>{
 const schema = yup.object({
     name: yup.string().required('First name is required'),
     email: yup.string().required('Email is required').email('Must be a valid email'),
-    phone: yup.string().required('Phone number is required').min(7),
     message: yup.string().required('Project description required')
     
 })
+
 
 
 </script>
@@ -79,8 +92,9 @@ const schema = yup.object({
                   <VeeErrorMessage class="text-red-400" name="name"/>
                   <VeeField name="email" type="email" placeholder="Email" class="bg-gray-300 rounded-full p-2 w-full" required/>
                   <VeeErrorMessage class="text-red-400" name="email"/>
-                  <VeeField name="phone" type="text" placeholder="Phone number" class="bg-gray-300 rounded-full p-2 w-full" required/>
-                  <VeeErrorMessage class="text-red-400" name="phone"/>
+
+                  <VueTelNumInput v-on:blur="()=>{phoneError= phone.valid==true ? null: 'Invalid phone number' }" :silent="true" name="phone" v-model="phone" :input="{lockCountryCode:true,formatterEnabled:true}" default-country-code="KE" :prefix="{hideCountryName:true, hideCode:true }" />
+                  <span v-if="phoneError" class="text-red-400">{{ phoneError }}</span>
 
                   <VeeField name="message" as="textarea" type="text" placeholder="Describe your project or needs" class="bg-gray-300 rounded-sm p-2 w-full" required/>
                   <VeeErrorMessage class="text-red-400" name="message"/>

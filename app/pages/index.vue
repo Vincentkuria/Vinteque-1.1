@@ -277,6 +277,7 @@ More time. More focus.  More results.</p>
   </div>
 
   <Carousel
+  v-if="(testimonialData as Array<any>)?.length!=0"
   class="relative mx-14 lg:mx-20 mt-20" 
   :opts="{align:'center',loop:true}"
   :plugins="[plugin]"
@@ -294,7 +295,7 @@ More time. More focus.  More results.</p>
       <CarouselPrevious  class="text-slate-300 bg-zinc-400"/>
       <CarouselNext class="text-slate-300 bg-zinc-400"/>
   </Carousel>
-  <div class="flex justify-center mt-5 mb-20">
+  <div v-if="(testimonialData as Array<any>)?.length!=0" class="flex justify-center mt-5 mb-20">
     <Requestcallback/>
   </div>
 

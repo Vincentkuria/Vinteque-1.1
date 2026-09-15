@@ -16,6 +16,10 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { motion } from "motion-v"
 import * as yup from 'yup';
 import { toast } from 'vue-sonner'
+import VueTelNumInput from "vue-tel-num-input";
+import "vue-tel-num-input/style.css";
+import "vue-tel-num-input/flags.css";
+import { useField } from 'vee-validate'
 
 
 const services=[
@@ -86,8 +90,17 @@ onBeforeUnmount(()=>{
 const close = () => {
     trigger.value?.click()
 }
+const phone=ref<any>(null)
+const phoneError=ref<string|null>()
 
-const submit=async(values:object)=>{
+const submit=async(values:any)=>{
+    if(!phone.value.valid){
+        phoneError.value="please give a valid phone number"
+        return
+    }
+
+    values.phone=phone.value.value
+    console.log(values)
  const response= await $fetch(useRuntimeConfig().public.baseUrl +`/messages`,{
     method: 'POST',
     headers:{
@@ -106,19 +119,22 @@ const submit=async(values:object)=>{
               console.warn('⚠️ fbq not loaded yet.')
             }
 
-            toast('Message submitted successfully')
+            toast.success('Message submitted successfully')
             isOpen.value=false
         }
     }
  })
 }
 
+
+
 const schema = yup.object({
     name: yup.string().required('Name is required'),
     email: yup.string().required('Email is required').email(),
-    phone: yup.string().required('Phone number is required').min(7),
     message: yup.string().required('Messsage is required'),
 })
+
+
 
 </script>
 
@@ -213,8 +229,8 @@ class="z-10 bg-white w-full "
                       <VeeErrorMessage class="text-red-400" name="name"/>
                       <VeeField name="email" type="email" placeholder="Email" class="bg-gray-300 rounded-full p-2 w-full" required/>
                       <VeeErrorMessage class="text-red-400" name="email"/>
-                      <VeeField name="phone" type="text" placeholder="Phone" class="bg-gray-300 rounded-full p-2 w-full" required/>
-                      <VeeErrorMessage class="text-red-400" name="phone"/>
+                      <VueTelNumInput v-on:blur="()=>{phoneError= phone.valid==true ? null: 'Invalid phone number' }" name="phone" v-model="phone" :input="{lockCountryCode:true,formatterEnabled:true}" default-country-code="KE" :prefix="{hideCountryName:true, hideCode:true }" />
+                        <span v-if="phoneError" class="text-red-400">{{ phoneError }}</span>
                       <VeeField name="message" as="textarea" placeholder="Message" class="bg-gray-300 rounded-sm p-2 w-full" required/>
                       <VeeErrorMessage class="text-red-400" name="message"/>
                       <button type="submit" class="text-white bg-primary rounded-full p-2 w-full cursor-pointer">Submit</button>

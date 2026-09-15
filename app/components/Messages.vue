@@ -91,14 +91,21 @@ function addMessage(message:any) {
     }
 }
 
-
-const replyToMessage=(message:any)=>{
-  //TODO: reply to message through email mailto or directly through info
-}
-
-const updateToDone=()=>{
-  //TODO: softdelete the message
-  // also delete from the local array
+const deleteMessage=async(id:number)=>{
+ await $fetch(useRuntimeConfig().public.baseUrl + "/messages/" +id,{
+    method: 'DELETE',
+    onResponse({response}){
+      if(response.status==204){
+        messages.value.forEach((m,index)=>{
+          if(m.id==id){
+            messages.value.splice(index,1)
+          }
+        })
+        clickedMessageId.value=null
+        currentMessage.value=null
+      }
+    }
+  })
 }
 
 
@@ -116,7 +123,7 @@ const updateToDone=()=>{
         </UiItemContent>
       </UiItem>
 
-      <div v-else-if="messages.length==0" class="text-muted-foreground text-sm text-center pt-4 transition-all duration-200 ease-in-out">You have 0 unread messages</div>
+      <div v-else-if="(data as any)?.totalElements==0" class="text-muted-foreground text-sm text-center pt-4 transition-all duration-200 ease-in-out">You have 0 unread messages</div>
 
       <UiItem v-else variant="outline" v-for="(message,index) in messages" @click="messageItemClicked(message)" :class="{'bg-card-foreground text-muted':clickedMessageId==message.id}" class="transition-all duration-200 ease-in-out">
         <UiItemContent class="hover:cursor-default">
@@ -147,6 +154,13 @@ const updateToDone=()=>{
           </UiCardFooter>
         </UiCard>
       </div>
+
+      <div v-else-if="status=='error'" class="w-full h-full flex items-center transition-all duration-200 ease-in-out">
+      <div class="text-center w-full text-red-400 text-lg">
+        <span class="font-bold text-2xl">Error Loading</span><br/>
+        reload this page or check your network
+      </div> 
+    </div>
 
 
       <div v-else-if="currentMessage==null" class="w-full h-full flex items-center transition-all duration-200 ease-in-out">
@@ -187,20 +201,20 @@ const updateToDone=()=>{
               <UiAlertDialog>
                 <UiAlertDialogTrigger>
                   <UiButton size="sm" class="hover:cursor-pointer">
-                    Done
+                    Delete
                   </UiButton>
                 </UiAlertDialogTrigger>
                 <UiAlertDialogContent>
                   <UiAlertDialogHeader>
                     <UiAlertDialogTitle>Are you absolutely sure?</UiAlertDialogTitle>
                     <UiAlertDialogDescription>
-                      Make sure that you have Contacted the client before clicking done. Either through email or a call
+                      Make sure that you have Contacted the client before clicking delete. Either through email or a call
                     </UiAlertDialogDescription>
                   </UiAlertDialogHeader>
                   
                   <UiAlertDialogFooter>
                     <UiAlertDialogCancel>No</UiAlertDialogCancel>
-                    <UiAlertDialogAction @click="updateToDone()">Yes</UiAlertDialogAction>
+                    <UiAlertDialogAction @click="deleteMessage(currentMessage.id)">Yes</UiAlertDialogAction>
                   </UiAlertDialogFooter>
                 </UiAlertDialogContent>
               </UiAlertDialog>

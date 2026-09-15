@@ -44,7 +44,7 @@ const { data:softwareData, error, pending, status:softwareStatus, refresh:softwa
 
 <template>
 <div>
-  <div>
+  <div v-if="(softwareData as any)?.totalElements!=0">
     <div class="flex justify-between mb-5">
       <h2 class="border-s-4 border-primary px-2 ms-5 md:px-5 md:mx-10 lg:px-10 lg:mx-20 font-Berlin-sans-fb text-2xl">Our Software Success Stories</h2>
       <div class="flex flex-row">
