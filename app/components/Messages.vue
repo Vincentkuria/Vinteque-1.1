@@ -19,7 +19,7 @@ const {refresh, data, status}= await useFetch(useRuntimeConfig().public.baseUrl 
 watch(data,(newData)=>{
   clickedMessageId.value=null
   currentMessage.value=null
-  messages.value=(newData as any).content
+  messages.value=(newData as any)?.content
 },{ immediate:true })
 
 onMounted(()=>{
@@ -62,7 +62,7 @@ const messageItemClicked=async(message:any)=>{
         'Content-Type':'application/json',
       },
       onResponse({response}){
-        if(response.status==200){
+        if(response?.status==200){
           messages.value.forEach((m,index) => {
             if (m.id==message.id) {
               messages.value[index].status='read'
@@ -95,7 +95,7 @@ const deleteMessage=async(id:number)=>{
  await $fetch(useRuntimeConfig().public.baseUrl + "/messages/" +id,{
     method: 'DELETE',
     onResponse({response}){
-      if(response.status==204){
+      if(response?.status==204){
         messages.value.forEach((m,index)=>{
           if(m.id==id){
             messages.value.splice(index,1)

@@ -40,60 +40,66 @@ const deleteBlog=(id:string)=>{
           <PlusCircle/> <span>New Blog</span>
         </UiButton>
       </UiDrawerTrigger>
-      <UiDrawerContent>
+      <UiDrawerContent class="block">
+        <UiDrawerHeader>
+          <UiDrawerTitle>New Blog</UiDrawerTitle>
+          <UiDrawerDescription>Writing a new blog</UiDrawerDescription>
+        </UiDrawerHeader>
+        <div>
+            <form>
+            <VeeField v-slot="{componentField,errors}" name="title">
+              <Field :data-invalid="!!errors.length">
+                <FieldLabel >
+                  Title
+                </FieldLabel>
+                <Input 
+                type="text"
+                v-bind="componentField"
+                :aria-invalid="!!errors.length"
+                />
+                <FieldError v-if="!!errors.length"/>
+              </Field>
+            </VeeField>
 
-        <form>
-          <VeeField v-slot="{componentField,errors}" name="title">
-            <Field :data-invalid="!!errors.length">
-              <FieldLabel >
-                Title
-              </FieldLabel>
-              <Input 
-              type="text"
+            <VeeField v-slot="{handleChange,errors}" name="heroImg">
+              <Field :data-invalid="!!errors.length" >
+                <FieldLabel>
+                  Hero Section Image
+                </FieldLabel>
+                <Input
+                type="file"
+                @change="handleChange"
+                :aria-invalid="!!errors.length"
+                />
+              </Field>
+            </VeeField>
+
+            <VeeField v-slot="{componentField,errors}" name="status">
+              <Field :data-invalid="!!errors.length">
+                <FieldLable>
+                  Status
+                </FieldLable>
+              </Field>
+              <Select
               v-bind="componentField"
               :aria-invalid="!!errors.length"
-              />
-              <FieldError v-if="!!errors.length"/>
-            </Field>
-          </VeeField>
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Select status"/>
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectLabel>Select status</SelectLabel>
+                  <SelectItem value="draft">Draft</SelectItem>
+                  <SelectItem value="published">Published</SelectItem>
+                </SelectContent>
+              </Select>
+            </VeeField>
 
-          <VeeField v-slot="{handleChange,errors}" name="heroImg">
-            <Field :data-invalid="!!errors.length" >
-              <FieldLabel>
-                Hero Section Image
-              </FieldLabel>
-              <Input
-              type="file"
-              @change="handleChange"
-              :aria-invalid="!!errors.length"
-              />
-            </Field>
-          </VeeField>
-
-          <VeeField v-slot="{componentField,errors}" name="status">
-            <Field :data-invalid="!!errors.length">
-              <FieldLable>
-                Status
-              </FieldLable>
-            </Field>
-            <Select
-            v-bind="componentField"
-            :aria-invalid="!!errors.length"
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="Select status"/>
-              </SelectTrigger>
-              <SelectContent>
-                <SelectLabel>Select status</SelectLabel>
-                <SelectItem value="draft">Draft</SelectItem>
-                <SelectItem value="published">Published</SelectItem>
-              </SelectContent>
-            </Select>
-          </VeeField>
-
-          <VeeField v-slot="{componentField,errors}" name="body">
-          </VeeField>
-        </form>
+            <VeeField v-slot="{componentField,errors}" name="body">
+            </VeeField>
+          </form>
+        </div>
+        
 
       </UiDrawerContent>
     </UiDrawer>

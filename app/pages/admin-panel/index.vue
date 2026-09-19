@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { MessageSquare } from '@lucide/vue';
-import { MessageCircleHeartIcon, NewspaperIcon, Settings2, Workflow } from 'lucide-vue-next';
+import { Funnel, MessageCircleHeartIcon, NewspaperIcon, Settings2, Workflow } from 'lucide-vue-next';
 import Blogs from '~/components/Blogs.vue';
 import Casestudies from '~/components/Casestudies.vue';
 import Jobs from '~/components/Jobs.vue';
 import Messages from '~/components/Messages.vue';
+import SalesFunnel from '~/components/sales-funnel.vue';
 
 
 definePageMeta({
@@ -12,6 +13,7 @@ definePageMeta({
 })
 
 enum Sidebar {
+  funnel,
   messages,
   jobs,
   casestudies,
@@ -26,7 +28,7 @@ const {data}=await useFetch(useRuntimeConfig().public.baseUrl + '/messages/unrea
     },
 })
 
-const currentTab= ref<Sidebar>(Sidebar.messages)
+const currentTab= ref<Sidebar>(Sidebar.funnel)
 </script>
 
 <template>
@@ -48,6 +50,25 @@ const currentTab= ref<Sidebar>(Sidebar.messages)
         </UiSidebarMenu>
       </UiSidebarHeader>
       <UiSidebarContent>
+
+        <UiSidebarGroup>
+          <UiSidebarGroupLabel>Sales</UiSidebarGroupLabel>
+          <UiSidebarGroupContent>
+
+            <UiSidebarMenu>
+              <UiSidebarMenuItem>
+                <UiSidebarMenuButton @click="currentTab=Sidebar.funnel" as-child>
+                  <a href="#">
+                    <Funnel/>
+                    <span>Sales Funnel</span>
+                  </a>
+                </UiSidebarMenuButton>
+              </UiSidebarMenuItem>
+            </UiSidebarMenu>
+
+          </UiSidebarGroupContent>
+        </UiSidebarGroup>
+
         <UiSidebarGroup>
           <UiSidebarGroupLabel>General</UiSidebarGroupLabel>
           <UiSidebarGroupContent>
@@ -136,6 +157,7 @@ const currentTab= ref<Sidebar>(Sidebar.messages)
       </header>
 
       <div class="flex-1 flex-col overflow-y-scroll">
+        <SalesFunnel v-if="currentTab==Sidebar.funnel"/>
         <Messages v-if="currentTab==Sidebar.messages"/>
         <Jobs v-else-if="currentTab==Sidebar.jobs"/>
         <Casestudies v-else-if="currentTab==Sidebar.casestudies"/>
