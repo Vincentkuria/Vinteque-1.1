@@ -14,21 +14,57 @@ import {
 import Sheet from './ui/sheet/Sheet.vue'
 import SheetContent from './ui/sheet/SheetContent.vue'
 
+const funnel=ref<funnelType|null>(null)
+const stageName=ref<string|null>(null)
+
+// const {data, status, refresh}= useFetch(useRuntimeConfig().public.baseUrl+'/stages',{
+//   method:'GET',
+//   params:()=>({
+//     stage:stageName.value
+//   })
+// }) everystage should load its own data, for easy update on scroll and using sse updates
+
 type Stage = {
   id: string
   name: string
+  funnel: funnelType
+}
+
+enum funnelType{
+  INBOUND,
+  OUTBOUND,
+  INOUTBOUND
+}
+
+type Comment = {
+  id: string
+  text: string
+  dateTime: string
+}
+
+type StageComments = {
+  stageId: string
+  stageName: string
+  comments: Comment[]
 }
 
 type Lead = {
   id: string
   name: string
+  email: string
+  phone: string
   company: string
+  role: string
+  source: string
+  funnel: funnelType
+  comments:StageComments[]
+  currentStage: string
   dateAdded: string
   lastContacted: string
-  stageId: string
+  updated_at: string
 }
 
-const funnel = ref<{
+const funnely = ref<{
   stages: Stage[]
   leads: Lead[]
 }>({

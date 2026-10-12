@@ -17,17 +17,9 @@ import { Input } from '@/components/ui/input'
 import { Separator } from '@/components/ui/separator'
 import { Textarea } from '@/components/ui/textarea'
 
-type Lead = {
-  id: string
-  name: string
-  email: string
-  phone: string
-  company: string
-  source: string
-  funnel: string
-  currentStage: string
-  dateAdded: string
-  lastContacted: string
+enum funnelType{
+  INBOUND,
+  OUTBOUND,
 }
 
 type Comment = {
@@ -42,24 +34,34 @@ type StageComments = {
   comments: Comment[]
 }
 
-const data = ref<{
-  lead: Lead
-  stageComments: StageComments[]
-}>({
-  lead: {
+type Lead = {
+  id: string
+  name: string
+  email: string
+  phone: string
+  company: string
+  role: string
+  source: string
+  funnel: funnelType
+  comments:StageComments[]
+  currentStage: string
+  dateAdded: string
+  lastContacted: string
+  updated_at: string
+}
+
+
+
+const data = ref<Lead>({
     id: 'lead-1',
     name: 'John Doe',
     email: 'john@example.com',
     phone: '+254 712 345 678',
     company: 'Acme Ltd',
+    role:'unknown',
     source: 'Google Maps',
     funnel: 'Website Funnel',
-    currentStage: 'first-message',
-    dateAdded: '2026-09-10',
-    lastContacted: '2026-09-14',
-  },
-
-  stageComments: [
+    comments:[
     {
       stageId: 'new-lead',
       stageName: 'New Lead',
@@ -104,7 +106,11 @@ const data = ref<{
       ],
     },
   ],
-})
+    currentStage: 'first-message',
+    dateAdded: '2026-09-10',
+    lastContacted: '2026-09-14',
+  },
+)
 
 const newComment = ref('')
 
