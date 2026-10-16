@@ -13,13 +13,13 @@ import {
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
 import { Separator } from '@/components/ui/separator'
 import { Textarea } from '@/components/ui/textarea'
 
 enum funnelType{
   INBOUND,
   OUTBOUND,
+  INOUTBOUND
 }
 
 type Comment = {
@@ -50,77 +50,19 @@ type Lead = {
   updated_at: string
 }
 
-
-
-const data = ref<Lead>({
-    id: 'lead-1',
-    name: 'John Doe',
-    email: 'john@example.com',
-    phone: '+254 712 345 678',
-    company: 'Acme Ltd',
-    role:'unknown',
-    source: 'Google Maps',
-    funnel: 'Website Funnel',
-    comments:[
-    {
-      stageId: 'new-lead',
-      stageName: 'New Lead',
-      comments: [
-        {
-          id: 'comment-1',
-          text: 'Lead added from Google Maps.',
-          dateTime: '2026-09-10T10:30:00',
-        },
-        {
-          id: 'comment-2',
-          text: 'Company appears to be a good fit for our services.',
-          dateTime: '2026-09-10T11:45:00',
-        },
-      ],
-    },
-    {
-      stageId: 'first-message',
-      stageName: 'First Message Sent',
-      comments: [
-        {
-          id: 'comment-3',
-          text: 'Failed to respond.',
-          dateTime: '2026-09-12T14:15:00',
-        },
-        {
-          id: 'comment-4',
-          text: 'Sent a follow-up message.',
-          dateTime: '2026-09-14T09:45:00',
-        },
-      ],
-    },
-    {
-      stageId: 'discovery-call',
-      stageName: 'Discovery Call',
-      comments: [
-        {
-          id: 'comment-5',
-          text: 'Discovery call scheduled.',
-          dateTime: '2026-09-16T11:00:00',
-        },
-      ],
-    },
-  ],
-    currentStage: 'first-message',
-    dateAdded: '2026-09-10',
-    lastContacted: '2026-09-14',
+const props=defineProps({
+  lead:{
+    type:Object as PropType<Lead>,
+    required:true
   },
-)
+})
 
 const newComment = ref('')
 
-const currentStage = computed(() => {
-  return data.value.stageComments.find(
-    stage => stage.stageId === data.value.lead.currentStage,
-  )
-})
-
-function formatDateTime(dateTime: string) {
+function formatDateTime(dateTime: string | null | undefined) {
+  if (!dateTime) {
+    return
+  }
   return new Intl.DateTimeFormat('en-KE', {
     day: '2-digit',
     month: 'short',
@@ -133,15 +75,12 @@ function formatDateTime(dateTime: string) {
 function addComment() {
   const text = newComment.value.trim()
 
-  if (!text || !currentStage.value) {
+  if (!text) {
     return
   }
 
-  currentStage.value.comments.push({
-    id: `comment-${Date.now()}`,
-    text,
-    dateTime: new Date().toISOString(),
-  })
+  //TODO: Send the new comment to the backend API for persistence
+  //also update the lead's comments in the frontend state
 
   newComment.value = ''
 }
@@ -164,11 +103,11 @@ function addComment() {
 
             <div class="min-w-0">
               <h2 class="truncate font-semibold">
-                {{ data.lead.name }}
+                {{ props.lead.name }}
               </h2>
 
               <p class="truncate text-sm text-muted-foreground">
-                CEO, {{ data.lead.company }}
+                CEO, {{ props.lead.company }}
               </p>
             </div>
           </div>
@@ -193,9 +132,9 @@ function addComment() {
                       Email
                     </p>
 
-                    <a :href="`mailto:${data.lead.email}`">
+                    <a :href="`mailto:${props.lead.email}`">
                     <p class="truncate text-sm">
-                      {{ data.lead.email }}
+                      {{ props.lead.email }}
                     </p>
                     </a>
                   </div>
@@ -209,9 +148,9 @@ function addComment() {
                       Phone
                     </p>
 
-                    <a :href="`tel:${data.lead.phone}`">
+                    <a :href="`tel:${props.lead.phone}`">
                     <p class="text-sm">
-                      {{ data.lead.phone }}
+                      {{ props.lead.phone }}
                     </p>
                     </a>
                   </div>
@@ -226,7 +165,7 @@ function addComment() {
                     </p>
 
                     <p class="truncate text-sm">
-                      {{ data.lead.company }}
+                      {{ props.lead.company }}
                     </p>
                   </div>
                 </div>
@@ -252,7 +191,7 @@ function addComment() {
 
                 <div class="mt-1">
                   <Badge variant="outline">
-                    {{ data.lead.source }}
+                    {{ props.lead.source }}
                   </Badge>
                 </div>
               </div>
@@ -263,7 +202,7 @@ function addComment() {
                 </p>
 
                 <p class="mt-1 text-sm font-medium">
-                  {{ data.lead.funnel }}
+                  {{ props.lead.funnel }}
                 </p>
               </div>
 
@@ -273,7 +212,7 @@ function addComment() {
                 </p>
 
                 <p class="mt-1 text-sm font-medium">
-                  {{ currentStage?.stageName }}
+                  {{ props.lead.currentStage }}
                 </p>
               </div>
             </div>
@@ -299,7 +238,7 @@ function addComment() {
                   </p>
 
                   <p class="text-sm">
-                    {{ formatDateTime(data.lead.dateAdded) }}
+                    {{ formatDateTime(props.lead.dateAdded)??'Unknown' }}
                   </p>
                 </div>
               </div>
@@ -313,7 +252,7 @@ function addComment() {
                   </p>
 
                   <p class="text-sm">
-                    {{ formatDateTime(data.lead.lastContacted) }}
+                    {{ formatDateTime(props.lead.lastContacted)??'Not Contacted' }}
                   </p>
                 </div>
               </div>
@@ -351,7 +290,7 @@ function addComment() {
         <div class="mx-auto w-full max-w-3xl p-6">
           <div class="space-y-6">
             <template
-              v-for="(stage, stageIndex) in data.stageComments"
+              v-for="(stage, stageIndex) in props.lead.comments"
               :key="stage.stageId"
             >
               <!-- Stage -->
@@ -381,7 +320,7 @@ function addComment() {
                   </div>
 
                   <Badge
-                    v-if="stage.stageId === data.lead.currentStage"
+                    v-if="stage.stageId === props.lead.currentStage"
                     variant="secondary"
                   >
                     Current Stage
@@ -409,7 +348,7 @@ function addComment() {
                           <Clock3 class="size-3.5" />
 
                           <span>
-                            {{ formatDateTime(comment.dateTime) }}
+                            {{ formatDateTime(comment.dateTime)??'Unknown' }}
                           </span>
                         </div>
                       </CardContent>
@@ -430,7 +369,7 @@ function addComment() {
 
               <!-- Stage Separator -->
               <Separator
-                v-if="stageIndex < data.stageComments.length - 1"
+                v-if="stageIndex < props.lead.comments.length - 1"
               />
             </template>
           </div>
@@ -448,12 +387,12 @@ function addComment() {
 
               <p class="text-xs text-muted-foreground">
                 Adding a comment to
-                {{ currentStage?.stageName }}
+                {{ props.lead.currentStage??'Unknown Stage' }} stage
               </p>
             </div>
 
             <Badge variant="outline">
-              {{ currentStage?.stageName }}
+              {{ props.lead.currentStage??'Unknown Stage' }}
             </Badge>
           </div>
 
