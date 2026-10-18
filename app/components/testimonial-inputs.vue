@@ -1,86 +1,72 @@
 <script lang="ts" setup>
-import { Field as VeeField } from 'vee-validate';
-import Field from './ui/field/Field.vue';
-import FieldLabel from './ui/field/FieldLabel.vue';
-import { Input } from './ui/input';
-import FieldError from './ui/field/FieldError.vue';
-import Textarea from './ui/textarea/Textarea.vue';
+import { Field as VeeField } from "vee-validate";
+import Field from "./ui/field/Field.vue";
+import FieldLabel from "./ui/field/FieldLabel.vue";
+import { Input } from "./ui/input";
+import FieldError from "./ui/field/FieldError.vue";
+import Textarea from "./ui/textarea/Textarea.vue";
 </script>
 
 <template>
   <div>
-
-    <VeeField v-slot="{handleChange,errors}" name="profilePic">
+    <VeeField v-slot="{ handleChange, errors }" name="profilePic">
       <Field :data-invalid="!!errors.length">
-        <FieldLabel>
-          Profile Picture
-        </FieldLabel>
+        <FieldLabel> Profile Picture </FieldLabel>
         <Input
-        type="file"
-        @change="handleChange"
-        :aria-invalid="!!errors.length"
+          type="file"
+          @change="handleChange"
+          :aria-invalid="!!errors.length"
         />
-        <FieldError v-if="!!errors.length" :errors="errors"/>
+        <FieldError v-if="!!errors.length" :errors="errors" />
       </Field>
     </VeeField>
 
-    <VeeField v-slot="{componentField,errors}" name="name">
+    <VeeField v-slot="{ componentField, errors }" name="name">
       <Field :data-invalid="!!errors.length">
-        <FieldLabel>
-          Name
-        </FieldLabel>
+        <FieldLabel> Name </FieldLabel>
         <Input
-        type="text"
-        v-bind="componentField"
-        :aria-invalid="!!errors.length"
+          type="text"
+          v-bind="componentField"
+          :aria-invalid="!!errors.length"
         />
-        <FieldError v-if="!!errors.length" :errors="errors"/>
+        <FieldError v-if="!!errors.length" :errors="errors" />
       </Field>
     </VeeField>
 
-     <VeeField v-slot="{componentField,errors}" name="role">
+    <VeeField v-slot="{ componentField, errors }" name="role">
       <Field :data-invalid="!!errors.length">
-        <FieldLabel>
-          Role
-        </FieldLabel>
+        <FieldLabel> Role </FieldLabel>
         <Input
-        type="text"
-        v-bind="componentField"
-        :aria-invalid="!!errors.length"
+          type="text"
+          v-bind="componentField"
+          :aria-invalid="!!errors.length"
         />
-        <FieldError v-if="!!errors.length" :errors="errors"/>
+        <FieldError v-if="!!errors.length" :errors="errors" />
       </Field>
     </VeeField>
 
-    <VeeField v-slot="{componentField,errors}" name="company">
+    <VeeField v-slot="{ componentField, errors }" name="company">
       <Field :data-invalid="!!errors.length">
-        <FieldLabel>
-          Company
-        </FieldLabel>
+        <FieldLabel> Company </FieldLabel>
         <Input
-        type="text"
-        v-bind="componentField"
-        :aria-invalid="!!errors.length"
+          type="text"
+          v-bind="componentField"
+          :aria-invalid="!!errors.length"
         />
-        <FieldError v-if="!!errors.length" :errors="errors"/>
+        <FieldError v-if="!!errors.length" :errors="errors" />
       </Field>
     </VeeField>
 
-     <VeeField v-slot="{componentField,errors}" name="testimony">
+    <VeeField v-slot="{ componentField, errors }" name="testimony">
       <Field :data-invalid="!!errors.length">
-        <FieldLabel>
-          Testimony
-        </FieldLabel>
+        <FieldLabel> Testimony </FieldLabel>
         <Textarea
-        placeholder="write a testimonial here ..."
-        v-bind="componentField"
-        :aria-invalid="!!errors.length"
+          placeholder="write a testimonial here ..."
+          v-bind="componentField"
+          :aria-invalid="!!errors.length"
         />
-        <FieldError v-if="!!errors.length" :errors="errors"/>
+        <FieldError v-if="!!errors.length" :errors="errors" />
       </Field>
     </VeeField>
-
-
-   
   </div>
 </template>

@@ -10,7 +10,11 @@ services:
     volumes:
       - ./database/mysql:/var/lib/mysql
     healthcheck:
-      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -p$MYSQL_ROOT_PASSWORD || exit 1"]
+      test:
+        [
+          "CMD-SHELL",
+          "mysqladmin ping -h 127.0.0.1 -uroot -p$MYSQL_ROOT_PASSWORD || exit 1",
+        ]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -27,7 +31,7 @@ services:
       - 8081:80
     depends_on:
       - mysql
-  
+
   redis:
     image: redis:8
     restart: unless-stopped

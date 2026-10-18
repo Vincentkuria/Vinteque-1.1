@@ -2,9 +2,9 @@
   <div>
     <Navbar />
     <div>
-      <slot/>
+      <slot />
     </div>
     <Footer />
-    <Whatsappbar/>
+    <Whatsappbar />
   </div>
 </template>

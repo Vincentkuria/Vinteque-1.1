@@ -26,7 +26,9 @@ const props = defineProps({
 
 const refElement = ref<HTMLElement | null>(null);
 
-const mouseState = inject("use3DCardMouseState") as ReturnType<typeof useMouseState>;
+const mouseState = inject("use3DCardMouseState") as ReturnType<
+  typeof useMouseState
+>;
 
 function handleAnimation(isMouseEntered: Readonly<Ref<boolean, boolean>>) {
   if (!refElement.value) return;

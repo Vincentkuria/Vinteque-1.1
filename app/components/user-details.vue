@@ -1,89 +1,99 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from "vue";
 import {
   Building2,
   CalendarDays,
   Clock3,
+  Copy,
+  CopyCheck,
   Mail,
   MessageSquare,
   Phone,
   User,
-} from 'lucide-vue-next'
+} from "lucide-vue-next";
 
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
-import { Separator } from '@/components/ui/separator'
-import { Textarea } from '@/components/ui/textarea'
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
+import { Textarea } from "@/components/ui/textarea";
 
-enum funnelType{
+import { useClipboard } from "@vueuse/core";
+
+const { copy, copied } = useClipboard({ legacy: true });
+
+enum funnelType {
   INBOUND,
   OUTBOUND,
-  INOUTBOUND
+  INOUTBOUND,
 }
 
 type Comment = {
-  id: string
-  text: string
-  dateTime: string
-}
+  id: string;
+  text: string;
+  dateTime: string;
+};
 
 type StageComments = {
-  stageId: string
-  stageName: string
-  comments: Comment[]
-}
+  stageId: string;
+  stageName: string;
+  comments: Comment[];
+};
 
 type Lead = {
-  id: string
-  name: string
-  email: string
-  phone: string
-  company: string
-  role: string
-  source: string
-  funnel: funnelType
-  comments:StageComments[]
-  currentStage: string
-  dateAdded: string
-  lastContacted: string
-  updated_at: string
-}
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  company: string;
+  role: string;
+  source: string;
+  funnel: funnelType;
+  comments: StageComments[];
+  currentStage: string;
+  dateAdded: string;
+  lastContacted: string;
+  updated_at: string;
+};
 
-const props=defineProps({
-  lead:{
-    type:Object as PropType<Lead>,
-    required:true
+const props = defineProps({
+  lead: {
+    type: Object as PropType<Lead>,
+    required: true,
   },
-})
+});
 
-const newComment = ref('')
+const newComment = ref("");
 
 function formatDateTime(dateTime: string | null | undefined) {
   if (!dateTime) {
-    return
+    return;
   }
-  return new Intl.DateTimeFormat('en-KE', {
-    day: '2-digit',
-    month: 'short',
-    year: 'numeric',
-    hour: 'numeric',
-    minute: '2-digit',
-  }).format(new Date(dateTime))
+  return new Intl.DateTimeFormat("en-KE", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+  }).format(new Date(dateTime));
 }
 
 function addComment() {
-  const text = newComment.value.trim()
+  const text = newComment.value.trim();
 
   if (!text) {
-    return
+    return;
   }
 
   //TODO: Send the new comment to the backend API for persistence
   //also update the lead's comments in the frontend state
 
-  newComment.value = ''
+  newComment.value = "";
 }
+
+const test = () => {
+  console.log("hello world");
+};
 </script>
 
 <template>
@@ -127,32 +137,36 @@ function addComment() {
                 <div class="flex items-center gap-3">
                   <Mail class="size-4 text-muted-foreground" />
 
-                  <div class="min-w-0">
-                    <p class="text-xs text-muted-foreground">
-                      Email
-                    </p>
+                  <div v-if="props.lead.email" class="min-w-0">
+                    <p class="text-xs text-muted-foreground">Email</p>
 
-                    <a :href="`mailto:${props.lead.email}`">
                     <p class="truncate text-sm">
-                      {{ props.lead.email }}
+                      <a :href="`mailto:${props.lead.email}`">{{
+                        props.lead.email
+                      }}</a>
+                      <Copy
+                        class="ml-2 inline-block size-3.5 cursor-pointer text-muted-foreground"
+                        @click="copy(props.lead.email)"
+                      />
                     </p>
-                    </a>
                   </div>
                 </div>
 
-                <div class="flex items-center gap-3">
+                <div v-if="props.lead.phone" class="flex items-center gap-3">
                   <Phone class="size-4 text-muted-foreground" />
 
                   <div class="min-w-0">
-                    <p class="text-xs text-muted-foreground">
-                      Phone
-                    </p>
+                    <p class="text-xs text-muted-foreground">Phone</p>
 
-                    <a :href="`tel:${props.lead.phone}`">
                     <p class="text-sm">
-                      {{ props.lead.phone }}
+                      <a :href="`tel:${props.lead.phone}`">
+                        {{ props.lead.phone }}
+                      </a>
+                      <Copy
+                        class="ml-2 inline-block size-3.5 cursor-pointer text-muted-foreground"
+                        @click="copy(props.lead.phone)"
+                      />
                     </p>
-                    </a>
                   </div>
                 </div>
 
@@ -160,12 +174,10 @@ function addComment() {
                   <Building2 class="size-4 text-muted-foreground" />
 
                   <div class="min-w-0">
-                    <p class="text-xs text-muted-foreground">
-                      Company
-                    </p>
+                    <p class="text-xs text-muted-foreground">Company</p>
 
                     <p class="truncate text-sm">
-                      {{ props.lead.company }}
+                      {{ props.lead.company ?? "Unknown" }}
                     </p>
                   </div>
                 </div>
@@ -185,31 +197,25 @@ function addComment() {
 
             <div class="grid gap-4">
               <div>
-                <p class="text-xs text-muted-foreground">
-                  Lead Source
-                </p>
+                <p class="text-xs text-muted-foreground">Lead Source</p>
 
                 <div class="mt-1">
                   <Badge variant="outline">
-                    {{ props.lead.source }}
+                    {{ props.lead.source ?? "Unknown" }}
                   </Badge>
                 </div>
               </div>
 
               <div>
-                <p class="text-xs text-muted-foreground">
-                  Funnel
-                </p>
+                <p class="text-xs text-muted-foreground">Funnel</p>
 
                 <p class="mt-1 text-sm font-medium">
-                  {{ props.lead.funnel }}
+                  {{ props.lead.funnel ?? "Unknown" }}
                 </p>
               </div>
 
               <div>
-                <p class="text-xs text-muted-foreground">
-                  Current Stage
-                </p>
+                <p class="text-xs text-muted-foreground">Current Stage</p>
 
                 <p class="mt-1 text-sm font-medium">
                   {{ props.lead.currentStage }}
@@ -233,12 +239,10 @@ function addComment() {
                 <CalendarDays class="size-4 text-muted-foreground" />
 
                 <div>
-                  <p class="text-xs text-muted-foreground">
-                    Date Added
-                  </p>
+                  <p class="text-xs text-muted-foreground">Date Added</p>
 
                   <p class="text-sm">
-                    {{ formatDateTime(props.lead.dateAdded)??'Unknown' }}
+                    {{ formatDateTime(props.lead.dateAdded) ?? "Unknown" }}
                   </p>
                 </div>
               </div>
@@ -247,12 +251,13 @@ function addComment() {
                 <Clock3 class="size-4 text-muted-foreground" />
 
                 <div>
-                  <p class="text-xs text-muted-foreground">
-                    Last Contacted
-                  </p>
+                  <p class="text-xs text-muted-foreground">Last Contacted</p>
 
                   <p class="text-sm">
-                    {{ formatDateTime(props.lead.lastContacted)??'Not Contacted' }}
+                    {{
+                      formatDateTime(props.lead.lastContacted) ??
+                      "Not Contacted"
+                    }}
                   </p>
                 </div>
               </div>
@@ -274,9 +279,7 @@ function addComment() {
           </div>
 
           <div>
-            <h2 class="font-semibold">
-              Stage Activity
-            </h2>
+            <h2 class="font-semibold">Stage Activity</h2>
 
             <p class="text-sm text-muted-foreground">
               Notes and comments from the sales process
@@ -311,9 +314,7 @@ function addComment() {
                       <p class="text-xs text-muted-foreground">
                         {{ stage.comments.length }}
                         {{
-                          stage.comments.length === 1
-                            ? 'comment'
-                            : 'comments'
+                          stage.comments.length === 1 ? "comment" : "comments"
                         }}
                       </p>
                     </div>
@@ -328,15 +329,9 @@ function addComment() {
                 </div>
 
                 <!-- Comments -->
-                <div
-                  v-if="stage.comments.length"
-                  class="ml-4 border-l pl-7"
-                >
+                <div v-if="stage.comments.length" class="ml-4 border-l pl-7">
                   <div class="space-y-1">
-                    <Card
-                      v-for="comment in stage.comments"
-                      :key="comment.id"
-                    >
+                    <Card v-for="comment in stage.comments" :key="comment.id">
                       <CardContent>
                         <p class="text-sm leading-6">
                           {{ comment.text }}
@@ -348,7 +343,7 @@ function addComment() {
                           <Clock3 class="size-3.5" />
 
                           <span>
-                            {{ formatDateTime(comment.dateTime)??'Unknown' }}
+                            {{ formatDateTime(comment.dateTime) ?? "Unknown" }}
                           </span>
                         </div>
                       </CardContent>
@@ -357,10 +352,7 @@ function addComment() {
                 </div>
 
                 <!-- Empty Stage -->
-                <div
-                  v-else
-                  class="ml-4 border-l pl-7"
-                >
+                <div v-else class="ml-4 border-l pl-7">
                   <p class="text-sm italic text-muted-foreground">
                     No comments for this stage.
                   </p>
@@ -368,9 +360,7 @@ function addComment() {
               </section>
 
               <!-- Stage Separator -->
-              <Separator
-                v-if="stageIndex < props.lead.comments.length - 1"
-              />
+              <Separator v-if="stageIndex < props.lead.comments.length - 1" />
             </template>
           </div>
         </div>
@@ -381,18 +371,16 @@ function addComment() {
         <div class="mx-auto w-full max-w-3xl">
           <div class="mb-2 flex items-center justify-between">
             <div>
-              <p class="text-sm font-medium">
-                Add Comment
-              </p>
+              <p class="text-sm font-medium">Add Comment</p>
 
               <p class="text-xs text-muted-foreground">
                 Adding a comment to
-                {{ props.lead.currentStage??'Unknown Stage' }} stage
+                {{ props.lead.currentStage ?? "Unknown Stage" }} stage
               </p>
             </div>
 
             <Badge variant="outline">
-              {{ props.lead.currentStage??'Unknown Stage' }}
+              {{ props.lead.currentStage ?? "Unknown Stage" }}
             </Badge>
           </div>
 

@@ -16,7 +16,14 @@
       '--bg': background,
     }"
   >
-    <div :class="cn('-z-30 blur-[2px]', 'absolute inset-0 overflow-visible [container-type:size]')">
+    <div
+      :class="
+        cn(
+          '-z-30 blur-[2px]',
+          'absolute inset-0 overflow-visible [container-type:size]',
+        )
+      "
+    >
       <div
         class="animate-shimmer-btn-shimmer-slide absolute inset-0 h-[100cqh] [aspect-ratio:1] [border-radius:0] [mask:none]"
       >
@@ -98,7 +105,8 @@ withDefaults(defineProps<ShimmerButtonProps>(), {
 }
 
 .animate-shimmer-btn-shimmer-slide {
-  animation: shimmer-btn-shimmer-slide var(--speed) ease-in-out infinite alternate;
+  animation: shimmer-btn-shimmer-slide var(--speed) ease-in-out infinite
+    alternate;
 }
 
 .animate-shimmer-btn-spin-around {

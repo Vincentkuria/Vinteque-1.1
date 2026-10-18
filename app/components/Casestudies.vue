@@ -1,5 +1,3 @@
 <template>
-  <div>
-    Casestudies
-  </div>
+  <div>Casestudies</div>
 </template>
