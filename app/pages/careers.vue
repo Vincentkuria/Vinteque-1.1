@@ -196,7 +196,7 @@ const submit = async (values: any) => {
                       <label class="font-semibold">Resume</label>
                       <VeeField
                         name="resume"
-                        class="bg-gray-300 text-xs w-fit text-gray-500 rounded-2xl p-2 mb-3 border-1 transition-all duration-200 cursor-pointer file:bg-blue-950 file:text-white file:border-0 file:rounded-lg file:px-4 file:py-1 file:mr-4 file:cursor-pointer file:transition-colors"
+                        class="bg-gray-300 text-xs w-fit text-gray-500 rounded-2xl p-2 mb-3 border transition-all duration-200 cursor-pointer file:bg-blue-950 file:text-white file:border-0 file:rounded-lg file:px-4 file:py-1 file:mr-4 file:cursor-pointer file:transition-colors"
                         accept=".pdf,.doc,.docx"
                         type="file"
                       />

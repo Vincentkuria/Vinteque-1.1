@@ -28,6 +28,7 @@ export default defineNuxtConfig({
     "@vee-validate/nuxt",
     "@nuxtjs/robots",
     "@nuxtjs/sitemap",
+    "@pinia/nuxt",
   ],
 
   veeValidate: {

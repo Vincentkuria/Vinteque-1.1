@@ -15,6 +15,7 @@
     "@nuxt/image": "^1.10.0",
     "@nuxtjs/robots": "^5.5.5",
     "@nuxtjs/sitemap": "^7.4.7",
+    "@pinia/nuxt": "^1.0.3",
     "@tailwindcss/vite": "^4.1.11",
     "@vee-validate/nuxt": "^4.15.1",
     "@vee-validate/yup": "^4.15.1",
@@ -31,6 +32,7 @@
     "motion-v": "^1.5.0",
     "nuxt": "^4.2.2",
     "nuxt-marquee": "^1.0.4",
+    "pinia": "^4.1.0",
     "posthog-js": "^1.352.0",
     "reka-ui": "^2.10.4",
     "shadcn-nuxt": "^2.2.0",
@@ -51,5 +53,11 @@
     "prettier": "3.9.10",
     "tailwind-scrollbar": "^4.0.2",
     "typescript": "^5.9.3"
+  },
+  "allowScripts": {
+    "vue-demi@0.14.10": true,
+    "core-js@3.50.0": true,
+    "esbuild@0.28.2": true,
+    "sharp@0.32.6": true
   }
 }

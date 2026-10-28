@@ -166,7 +166,7 @@ const currentTab = ref<Sidebar>(Sidebar.funnel);
     </UiSidebar>
     <UiSidebarInset class="max-h-dvh">
       <header
-        class="flex bg-primary-foreground top-0 h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12"
+        class="flex w-full bg-primary-foreground top-0 h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12"
       >
         <div class="flex items-center gap-2 px-4">
           <UiSidebarTrigger class="-ml-1" />
@@ -178,8 +178,8 @@ const currentTab = ref<Sidebar>(Sidebar.funnel);
               Sidebar[currentTab].slice(1)
             }}
           </div>
-          <div class="mx-10 lg:mx-20">
-            <!-- place action icons here, such as delete -->
+          <div id="top-bar-actions" class="mx-10 lg:mx-20">
+            <!-- place action components and icons here, such as delete -->
           </div>
         </div>
       </header>

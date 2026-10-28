@@ -1,21 +1,8 @@
 <script lang="ts" setup>
 import { Building2, CalendarDays, Clock3, GripVertical } from "lucide-vue-next";
-import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 
 import { Drawer, DrawerContent } from "@/components/ui/drawer";
-
-enum funnelType {
-  INBOUND,
-  OUTBOUND,
-  INOUTBOUND,
-}
-
-type Stage = {
-  id: string;
-  name: string;
-  funnel: funnelType;
-};
 
 const props = defineProps({
   stage: {
@@ -23,34 +10,6 @@ const props = defineProps({
     required: true,
   },
 });
-
-type Comment = {
-  id: string;
-  text: string;
-  dateTime: string;
-};
-
-type StageComments = {
-  stageId: string;
-  stageName: string;
-  comments: Comment[];
-};
-
-type Lead = {
-  id: string;
-  name: string;
-  email: string;
-  phone: string;
-  company: string;
-  role: string;
-  source: string;
-  funnel: funnelType;
-  comments: StageComments[];
-  currentStage: string;
-  dateAdded: string;
-  lastContacted: string;
-  updated_at: string;
-};
 
 function formatDate(date: string | null | undefined) {
   if (!date) {
@@ -74,17 +33,53 @@ const selectedLead = ref<Lead | null>(null);
 
 const { data, status, refresh } = useFetch("/myapi/leads", {
   method: "GET",
-  params: {
+  params:()=> ({
     stageName: props.stage.name,
     pageNumber: currentPage.value - 1,
-  },
+  }),
 });
+
+const store = useMoveLeadStore()
+const { moveTo, moveFrom, movingLead } = storeToRefs(store)
+
+watch(
+  moveTo,
+  async(newMoveTo) => {
+    
+    if(newMoveTo){
+      
+      if(moveFrom.value==props.stage.id){
+        console.log(newMoveTo)
+        const leadIndex = leads.value.findIndex(lead => lead.id === movingLead.value?.id)
+        if (leadIndex !== -1) {
+          console.log(leadIndex)
+          leads.value.splice(leadIndex, 1)
+        }else{
+          // console.log(leadIndex + " not found")
+        }
+      }else{
+        
+        // console.log("moveFrom is not this stage id: ", moveFrom.value)
+      }
+
+      if(newMoveTo==props.stage.id){
+        leads.value.push(movingLead.value!)
+        await $fetch("/myapi/leads/move",{
+          method:"POST",
+          body:{
+            leadId: movingLead.value?.id,
+            toStage: newMoveTo
+          }
+        })
+      }
+      
+    }
+  }
+);    
 
 watch(
   data,
   (newData, oldData) => {
-    console.log("newData", newData?.content as Array<Lead>);
-
     const content = newData?.content;
     if (Array.isArray(content)) {
       leads.value.push(...content);
@@ -98,7 +93,8 @@ const startDrag = (lead: Lead, event: DragEvent) => {
 
   if (event.dataTransfer) {
     event.dataTransfer.effectAllowed = "move";
-    event.dataTransfer.setData("text/plain", lead.id);
+    event.dataTransfer.setData("lead", JSON.stringify(lead));
+    event.dataTransfer.setData("moveFrom", props.stage.id);
   }
 };
 
@@ -126,16 +122,19 @@ const dragLeave = (stageId: string) => {
 const dropLead = (stageId: string, event: DragEvent) => {
   event.preventDefault();
 
-  const leadId =
-    event.dataTransfer?.getData("text/plain") || draggedLeadId.value;
+  const leadJson = event.dataTransfer?.getData("lead");
+  const lead: Lead | null = leadJson ? JSON.parse(leadJson) : null;
+  const leadId = lead?.id;
 
   if (!leadId) {
     endDrag();
     return;
   }
 
+  moveFrom.value = event.dataTransfer?.getData("moveFrom")||null;
+  movingLead.value = lead
+  moveTo.value = props.stage.id
   //TODO: change the lead's stage in the backend using an API call
-  // also delete the lead from the current stage's leads array and add it to the new stage's leads array
 
   endDrag();
 };
@@ -152,9 +151,9 @@ const openLead = (lead: Lead) => {
     :class="{
       'ring-2 ring-primary/40 bg-primary/5': dragOverStageId === props.stage.id,
     }"
-    @dragover="dragOver(stage.id, $event)"
-    @dragleave="dragLeave(stage.id)"
-    @drop="dropLead(stage.id, $event)"
+    @dragover="dragOver(props.stage.id, $event)"
+    @dragleave="dragLeave(props.stage.id)"
+    @drop="dropLead(props.stage.id, $event)"
   >
     <div class="shrink-0 border-b bg-background/95 p-4">
       <div class="flex items-center justify-between gap-3">
@@ -173,6 +172,14 @@ const openLead = (lead: Lead) => {
 
     <div class="min-h-0 flex-1 overflow-y-auto p-3">
       <div class="flex flex-col gap-3">
+
+        <div
+          v-if="leads.length === 0"
+          class="flex min-h-32 items-center justify-center rounded-lg border border-dashed bg-background/50"
+        >
+          <p class="text-xs text-muted-foreground">Drop leads here</p>
+        </div>
+
         <Card
           v-for="lead in leads"
           :key="lead.id"
@@ -241,13 +248,6 @@ const openLead = (lead: Lead) => {
             </div>
           </CardContent>
         </Card>
-
-        <div
-          v-if="leads.length === 0"
-          class="flex min-h-32 items-center justify-center rounded-lg border border-dashed bg-background/50"
-        >
-          <p class="text-xs text-muted-foreground">Drop leads here</p>
-        </div>
       </div>
     </div>
   </div>
